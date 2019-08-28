@@ -1,0 +1,182 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{fontawesome,calc,enumitem,parskip}
+
+\lingset{
+    aboveglftskip=0pt,
+    belowglpreambleskip=0pt,
+    belowpreambleskip=0pt,
+    extraglskip=0pt,
+    Everyex={\parskip=0pt},
+}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Presupposition P-Set}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{\today}
+
+\author{Patrick~D. Elliott}
+
+ \begin{document}
+
+\maketitle
+
+\section{Propositional logic}
+
+\subsection{Exercise i}
+
+Prove the following:
+
+\[⊢ A ∨ B ⇔ ¬ (¬ A ∧ ¬ B)\]
+
+\section{A compositionalisation of multi-dimensional semantics}
+
+Let's get a little more precise about the compositional assumptions underlying a multi-dimensional semantics.
+
+We can write \textit{pair types}, i.e., the type of a pair of \(a\)s and \(b\)s, where \(a\) is type \(\type{a}\) and \(b\) is type \(\type{b}\), as \(\type{a} ∗ \type{b}\). The type of a pair of propositions is therefore: \(\type{st ∗ st}\).
+
+Presuppositional expressions are of type \(\type{a} ∗ \type{st}\) (where \(\type{a}\) is a variable over types).
+
+In the lecture we defined \enquote{quit smoking} as a function from an individual to a presuppositional proposition, i.e.,
+
+\pex
+\a \(\eval{quit smoking} = λ x . \displaystyle\frac{x\ml{ used to smoke}}{x\ml{ doesn't smoke now}}\)
+\a \(\eval{quit smoking} ∷ \type{⟨e,st ∗ st⟩}\)
+\xe
+
+\subsection{Exercise i}
+
+Define a type-shifter that takes any \textit{uni-}dimensional meaning, and returns a \textit{trivially} presuppositional meaning (i.e., a multi-dimensional meaning which will not give rise to a contentful pragmatic presupposition). Give both (a) the entry for the type-shifter, and (b) its type.
+
+\subsection{Exercise ii}
+
+We can assign a definite description the following multi-dimensional meaning:
+
+\ex
+\label{theDog}\(\eval{the dog} = \displaystyle\frac{λ w . ∃!x[\ml{dog}_{w} x]}{λ P . λ w . ∃x[\ml{dog}_{w} x ∧ P x w]}\)
+\xe
+
+What is the type of (\ref{theDog})?
+
+\subsection{Exercise iii}
+
+Recall the rule for composing multi-dimensional meanings:
+
+\ex
+\(\eval{\begin{array}{c}\begin{forest}
+      [{...}
+        [{X}]
+        [{Y}]
+      ]
+    \end{forest}\end{array}} = \displaystyle\frac{ℙ \eval{X} ∧ ℙ \eval{Y}}{\ml{FA} (𝔸 \eval{X}) (𝔸 \eval{Y})}\)
+\xe
+
+Point out what goes wrong when attempting to compute the meaning of the following:
+
+\ex
+\begin{forest}
+  [{...}
+    [{...} [{the dog},roof]]
+    [{...} [{quit smoking},roof]]
+  ]
+\end{forest}
+\xe
+
+Suggest a fix.
+
+\subsection{Exercise iv}
+
+Instead of formalising multi-dimensional semantics using \textit{pairs}, we could also have gone a different route. We'll explore that route in this exercise.
+
+Just for this exercise, let's assume that \(\eval{.}\) always returns an ordinary, \textit{uni-}dimensional at-issue meaning.
+
+Let's supply an additional interpretation function \(⦅.⦆\) that returns the \textit{presupposition} of an expression.\footnote{If you're familiar with Roothian focus semantics, this should be familiar.}
+
+\ex
+\(\eval{Paul quit smoking} = \ml{Paul doesn't smoke now}\)
+\xe
+
+\ex~
+\(⦅\text{Paul quit smoking}⦆ = \ml{Paul used to smoke}\)
+\xe
+
+Fill in the definitions of the following composition rules:
+
+\begin{multicols}{2}
+
+\ex~
+\(\eval{\begin{array}{c}\begin{forest}
+    [{...}
+      [{X}]
+      [{Y}]
+    ]
+  \end{forest}\end{array}} = ???\)
+\xe
+
+\columnbreak
+
+\ex~
+\(\left⦅\begin{array}{c}
+          \begin{forest}
+            [{...}
+              [{X}]
+              [{Y}]
+            ]
+          \end{forest}
+          \end{array}\right⦆ = ???\)
+\xe
+
+\end{multicols}
+
+\subsection{Exercise v}
+
+Recall that a multi-dimensional theory of presupposition faces the \textit{binding problem}.
+
+Suppose that we assign the presuppositional predicate \enquote{quit smoking} the following entry:
+
+\ex
+\(\eval{quit smoking} = λ x . \displaystyle\frac{x \ml{used to smoke}}{x \ml{used to smoke} ∧ x \ml{doesn't smoke now}}\)
+\xe
+
+Does the binding problem still arise? Assume that \textit{someone} has the following meaning, in order to bootstrap compositionality:
+
+\ex
+\(\eval{someone} ≔ λ P . \displaystyle\frac{∃ x[ℙ (P x)]}{∃ x[𝔸 (P x)]}\)
+\xe
+
+\printbibliography
+
+\begin{appendix}
+
+  \section{Solutions}
+
+  \subsection{Compositionalisation}
+
+  \subsubsection{Exercise iii}
+
+  The most obvious fix is to redefine \enquote{the dog} as a function from an individual to a presuppositional proposition, to a presuppositional proposition.
+
+  \ex
+  \(\displaystyle \eval{the dog} ≔ λ P . \frac{\ml{there is a unique dog} ∧ ∃x[\ml{dog} x ∧ ℙ (P x)]}{∃ x[\ml{dog} x ∧ 𝔸 (P x)]}\)
+  \xe
+
+  \ex~
+  type: \(\type{⟨⟨e,st ∗ st⟩, st ∗ st⟩}\)
+  \xe
+
+\end{appendix}
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: default
+%%% TeX-master: t
+%%% End:

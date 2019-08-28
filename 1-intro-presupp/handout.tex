@@ -1,0 +1,265 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{fontawesome,calc,enumitem,parskip}
+
+\lingset{
+    aboveglftskip=0pt,
+    belowglpreambleskip=0pt,
+    belowpreambleskip=0pt,
+    extraglskip=0pt,
+    Everyex={\parskip=0pt},
+}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Presupposition}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{\today}
+
+\author{Patrick~D. Elliott}
+
+ \begin{document}
+
+\maketitle
+
+Readings for this week:
+
+\begin{itemize}
+
+  \item Beaver \& Guerts (2011) Presupposition. In \textit{Stanford Encyclopaedia of Philosophy}.\\
+    \url{https://plato.stanford.edu/entries/presupposition/}
+
+  \item Chapter 5 of Kadmon (1990) \textit{Formal Pragmatics}.
+
+\end{itemize}
+
+Let's start by being maximally non-commital: a \enquote{presupposition}\footnote{When we say \textit{presupposition}, we typically mean \textit{semantic presupposition}, unless otherwise noted.} is a kind of \textit{inference} that sentences in natural languages \textit{may} convey.
+
+\pex
+\a Paul quit vaping.\\
+presupp: \textit{Paul used to vape}
+\a The mayor of Oakland waterskis.\\
+presupp: \textit{Oakland has a mayor}
+\a I re-read \textit{The Lord of the Rings}.\\
+presupp: \textit{I've read the Lord of the Rings}
+\a Uli forgot to submit the paperwork.\\
+presupp: \textit{there was paperwork that Uli was supposed to submit}
+\a None of my students failed her midterm.\\
+presupp: \textit{Each of my students prefer \enquote{she/her} pronouns}
+\a Sam walks her dog every morning.\\
+presupp: \textit{Sam has a dog}
+\a It was at the pub that Rob had a revelation.\\
+presupp: \textit{Rob had a revelation}
+\xe
+
+Issues to flag up immediately:
+
+\begin{itemize}
+
+  \item Of all the inferences that a sentence conveys, how do we know which ones are \textit{presupposed}?
+
+  \item Of all the inferences that a sentence conveys, \textit{why} are just the ones that are presupposed, presupposed?
+
+\end{itemize}
+
+\section{Eubulides' \textit{Horns paradox}}
+
+Eubulides of Miletus' ($±$405-330 BC) noted that, if the following argument is sound, then we should conclude that \textit{everyone is a cuckold}. Why doesn't it go through?\footnote{We can thank Seuren (2005: p.\,89) for pointing out the relevance of Eubulides' paradoxes to contemporary semantic thinking.}
+
+\pex
+\a Major: What you haven't lost you still have.
+\a\label{horns-minor}Minor: You have not lost your horns.
+\a Ergo: You still have your horns.
+\xe
+
+Crucially, (\ref{horns-minor}) \textit{presupposes} that you have horns.
+
+A non-trivial fact about natural language semantics: sentences don't obey the \textit{law of the excluded middle}, i.e., sentences in natural language can be neither true nor false.
+
+Another non-trivial, and closely related fact about natural language semantics: sentence meanings are \textit{multi-dimensional}. In other words, sentences may convey qualitatively different kinds of meaning at the same time.
+
+We can think of \textit{presupposition} as a dimension of meaning characterised by the following two properties:
+
+\begin{itemize}
+
+  \item backgroundedness
+
+  \item projection
+
+\end{itemize}
+
+\section{Backgroundedness}
+
+\section{Projection}
+
+\section{Failed projection}
+
+\section{Other dimensions of meaning}
+
+\section{A multi-dimensional theory of presupposition}
+
+Each natural language expression conveys two kinds of meanings: (a) an \textit{at-issue} meaning, and (b) a \textit{presupposition}.
+
+We'll write this using Sauerland's fraction notation; the presupposition goes on the top, and the at-issue meaning goes on the bottom. We'll assume that presuppositions are propositions.
+
+\[\displaystyle\frac{\text{\it presupposition}}{\text{\it assertion}}\]
+
+\[\eval{Paul quit vaping}= \displaystyle\frac{\ml{Paul used to vape}}{\ml{Paul doesn't vape now}}\]
+
+Let's also define helper functions to retrieve the presupposition and assertion:
+
+\begin{multicols}{2}
+\ex
+\(𝔸 \displaystyle\frac{p}{a} = a\)
+\xe
+\columnbreak
+\ex
+\(ℙ \displaystyle\frac{p}{a} = p\)
+\xe
+\end{multicols}
+
+\subsection{Bridging between semantics and pragmatics}
+
+Formal definition of a pragmatic presupposition:
+
+\pex
+Agents \(a_{1} … a_{n}\) pragmatically presuppose \(p\) iff the following hold:
+\a Each \(a_{i}\) believes \(p\).
+\a Each \(a_{i}\) believes that each \(a_{j}\) believes that \(p\).
+\a Each \(a_{i}\) believes that each \(a_{j}\) believes that each \(a_{k}\) believes that \(p\)\\
+\ldots
+\xe
+
+Semantic presuppositions as felicity conditions on utterances:
+
+\ex
+An utterance of sentence \(S\) by agents \(a_{1}…a_{n}\) is infelicitous unless \(a_{1}…a_{n}\) pragmatically presuppose \(\ml{presupp} \eval{S}\) (i.e., the semantic presupposition of \(S\))
+\xe
+
+\subsection{Compositionality}
+
+We'll take NL expressions that don't carry a presupposition to presuppose a tautology (\(⊤\)).
+
+\[\eval{Paul doesn't vape} = \displaystyle\frac{⊤}{\ml{Paul doesn't vape}}\]
+
+Composition proceeds by (a) doing \textit{function application} (FA) in the assertive dimension, and (b) \textit{conjunction} in the presuppositional dimension. We can define an operation of \textit{multi-dimensional function application} (MA) in order to formalise this.
+
+\[\ml{MA} \displaystyle\frac{p}{x} \frac{q}{y} ≔ \frac{p ∧ q}{\ml{FA} x y}\]
+
+      We can treat \textit{presupposition triggers} as functions from uni-dimensional individuals to multi-dimensional meanings:
+
+      \ex
+      \(\eval{quit vaping} = λ x . \displaystyle\frac{x \ml{used to vape}}{x \ml{doesn't vape now}}\)
+      \xe
+
+\subsection{Projection}
+
+\subsubsection{Negation}
+
+NL negation negates the assertive component of a sentence meaning, yet leaves the presupposition unaffected (to use \citeauthor{karttunenPeters1979}'s terminology, it is a \enquote{hole}).
+
+We can capture this behaviour simply by assigning it a trivially multi-dimensional meaning:
+
+\ex
+\(\eval{not} = \displaystyle\frac{⊤}{\ml{not}}\)
+\xe
+
+\ex~
+\begin{forest}
+  [{\(\displaystyle\frac{\ml{paul used to vape}}{\ml{paul vapes now}}\)\\\(\ml{MA}\)}
+    [{\(\displaystyle\frac{⊤}{\ml{not}}\)}]
+    [{$\displaystyle\frac{\ml{paul used to vape}}{\ml{paul doesn't vape now}}$} [{Paul quit vaping},roof]]
+  ]
+\end{forest}
+\xe
+
+\subsubsection{Conjunction}
+
+We'll adopt the following entry for sentential conjunction (assuming a left-branching structure for conjunctive sentences).
+
+\ex
+\(\displaystyle\eval{and} = λ \frac{q'}{q} . λ \frac{p'}{p} . \frac{p' ∧ (p ⇒ q')}{p ∧ q}\)
+\xe
+
+\ex~
+\(\displaystyle\eval{\begin{array}{c}\begin{forest}
+    [{...}
+      [{...} [{Paul used to smoke},roof]]
+      [{...}
+        [{and}]
+        [{...} [{Paul quit smoking},roof]]
+      ]
+    ]
+  \end{forest}\end{array}}\)\\
+\(= \displaystyle\frac{\ml{if Paul used to vape then Paul used to vape}}{\ml{Paul used to vape and Paul doesn't vape now}}\)\\
+\(= \displaystyle\frac{⊤}{\ml{Paul used to vape and Paul doesn't vape now}}\)
+\xe
+
+\textbf{A preview of the proviso problem}
+
+\ex
+\label{proviso}Mary is pregnant and her brother is happy.
+\xe
+
+\ex~
+\(ℙ (\eval{her brother is happy}) = \ml{Mary has a brother}\)
+\xe
+
+Our entry for \enquote{and} predicts the following:
+
+\ex
+\(\displaystyle\frac{\ml{if Mary is pregnant then Mary has a brother}}{\ml{Mary is pregnant and Mary's brother is happy}}\)
+\xe
+
+This seems too weak! (\ref{proviso}) is only felicitous in a context where the common ground entails that Mary has a brother.
+
+Other theories of presupposition projection inherit the problem of assigning certain sentences weak, conditional presuppositions; this is known as the \textit{proviso problem}. We'll come back to this in week three, after introducing the satisfaction theory of presupposition projection (i.e., dynamic semantics).
+
+\subsection{The binding problem}
+
+As noted by \citet{karttunenPeters1979}, the multi-dimensional theory has a (potentially fatal) flaw.
+
+We can illustrate the problem simply by trying to give a multi-dimensional semantics for (\ref{binding-prob}).
+
+\ex\label{binding-prob}Someone quit vaping.
+\xe
+
+\ex~
+\(\displaystyle\frac{∃ x[x \ml{used to vape}]}{∃ x[x \ml{doesn't vape now}]}\)
+\xe
+
+Does this satisfactorily capture the meaning of the utterance in (\ref{binding-prob})? If not, why not?
+
+\subsection{Explanatory adequacy}
+
+We built a linear asymmetry directly into the entry for sentential conjunction. Different predictions for presupposition projection are simply a matter of reversing the lambdas:
+
+\ex
+\(\displaystyle\eval{and} = λ \frac{p'}{p} . λ \frac{q'}{q} . \frac{p' ∧ (p ⇒ q')}{p ∧ q}\)
+\xe
+
+Now we (erroneously?) predict the following sentence to be presuppositionless:
+
+\ex
+Paul quit vaping and Paul used to vape.
+\xe
+
+\section{Next time}
+
+The next two sessions will be devoted to an exposition one of the major accounts of projection: the \textit{satisfaction} theory. In order to understand the satisfaction theory, we'll learn about dynamic semantics.
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: default
+%%% TeX-master: t
+%%% End:
