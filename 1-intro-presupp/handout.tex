@@ -5,11 +5,13 @@
 \usepackage{fontawesome,calc,enumitem,parskip}
 
 \lingset{
-    aboveglftskip=0pt,
-    belowglpreambleskip=0pt,
-    belowpreambleskip=0pt,
-    extraglskip=0pt,
-    Everyex={\parskip=0pt},
+  belowexskip=0pt,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt},
 }
 
 \addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
@@ -29,7 +31,7 @@
 
 \maketitle
 
-Readings for this week:
+Optional (but strongly recommended) readings for this week:
 
 \begin{itemize}
 
@@ -79,7 +81,16 @@ Eubulides of Miletus' ($±$405-330 BC) noted that, if the following argument is 
 \a Ergo: You still have your horns.
 \xe
 
-Crucially, (\ref{horns-minor}) \textit{presupposes} that you have horns.
+To see what's going on more clearly, we can render the argument into predicate logic:
+
+\pex
+\a \(∀x[¬ \ml{youLost} x → \ml{youStillHave} x]\)\hfill Major
+\a \(¬ \ml{youLost} \ml{YourHorns}\)\hfill Minor
+\a \(¬ \ml{youLost} \ml{yourHorns} → \ml{youStillHave} \ml{yourHorns}\)\hfill \textit{Universal Instantiation}
+\a \(\ml{youStillHave} \ml{yourHorns}\)\hfill\textit{Modus Ponens}
+\xe
+
+What went wrong here?
 
 A non-trivial fact about natural language semantics: sentences don't obey the \textit{law of the excluded middle}, i.e., sentences in natural language can be neither true nor false.
 
@@ -97,17 +108,211 @@ We can think of \textit{presupposition} as a dimension of meaning characterised 
 
 \section{Backgroundedness}
 
+\todo[inline]{Mention Schlenker's description of presuppositions a ``epistemic preconditions''}
+
+From an utterance of (\ref{paulvape}), we can infer (at least) two things: (\ref{paulvapea}) and (\ref{paulvapeb}).
+
+\pex\label{paulvape}
+Peter is talking about \textit{Eubulides} again
+\a\label{paulvapea}\(⇝\) \textsf{Peter is talking about Eubulides now} \hfill at-issue
+\a\label{paulvapeb}\(⇝\) \textsf{Peter has talked about Eubulides before} \hfill presupposition
+\xe
+
+There is an intuitive sense in which (\ref{paulvapea}) is the subject matter of the sentence -- in uttering (\ref{paulvape}), the speaker aims to communicate that (\ref{paulvapea}).
+
+We can probe the pragmatic status of a given inference using questions -- the at-issue component of a sentence meaning can answer a question, whereas the presupposition cannot, as illustrated by the contrast between (\ref{q1}) and (\ref{q2}).
+
+\ex\label{q1}
+Which Greek philosopher is Peter talking about now?\\
+\ljudge{\cmark} Peter is talking about \textit{Eubulides} again.
+\xe
+
+\ex~\label{q2}
+Which Greek philosopher has Peter talked about before?\\
+\ljudge{\#}Peter is talking about \textit{Eubulides} again.
+\xe
+
+\subsection{Pragmatic vs. semantic presupposition}
+
+If I say the following to you...
+
+\ex
+Peter redet wieder von \textit{Eubulides}.
+\xe
+
+...I pragmatically presuppose (at least) the following:
+
+\begin{itemize}
+
+  \item you understand German.
+
+  \item You can hear (or perhaps lip-read).
+
+\end{itemize}
+
+This information however is (probably!) not encoded in the semantics of the NL expressions.
+
+Semantic presupposition relates to pragmatic presupposition, in the sense that semantic presupposition usually (but not always) gives rise to a pragmatic presupposition.
+
+Later on in the class, we'll make precise exactly how this comes about, within a particular theory of presupposition.
+
 \section{Projection}
 
-\section{Failed projection}
+As well as having a different \textit{pragmatic} status (wrt. backgroundedness), the inferences in (\ref{paulvapea_rep}) and (\ref{paulvapeb_rep}) behave differently in embedded contexts.
 
-\section{Other dimensions of meaning}
+\pex\label{paulvape_rep}
+Peter is talking about \textit{Eubulides} again
+\a\label{paulvapea_rep}\(⇝\) \textsf{Peter is talking about Eubulides now} \hfill at-issue
+\a\label{paulvapeb_rep}\(⇝\) \textsf{Peter has talked about Eubulides before} \hfill presupposition
+\xe
+
+Consider what happens when we turn (\ref{paulvape_rep}) into a polar question:
+
+\pex
+Is Peter talking about \textit{Eubulides} again?
+\a \(⇝ ? (\ml{Peter is talking about Eubulides now})\)
+\a \(⇝ \ml{Peter has talked about Eubulides before}\)
+\xe
+
+The inference in (\ref{paulvapea_rep}) is \textit{questioned}, whereas the inference in (\ref{paulvapeb_rep}) is unaffected. We see the same pattern in other \textit{non-veridical contexts}:
+
+\ex
+Peter isn't talking about \textit{Eubulides} again.
+\xe
+
+\ex~
+There's no way that Peter is talking about \textit{Eubulides} again.
+\xe
+
+\ex~
+Peter will never talk about \textit{Eubulides} again.
+\xe
+
+\ex~
+Peter might be talking about \textit{Eubulides} again.
+\xe
+
+\ex~
+Peter should talking about \textit{Eubulides} again.
+\xe
+
+\subsection{Weakened projection}
+
+\ex\label{weakened}Patrick hopes that Peter will talk about \textit{Eubulides} again.
+\xe
+
+The complement of \enquote{hope} (\enquote{Peter will talk about Eubulides again}), as we've seen, presupposes: \textsf{Peter has talked about Eubulides before}.
+
+What does (\ref{weakened}) presuppose globally?
+
+\begin{itemize}
+
+    \item \(⇝ \textsf{Peter has talked about Eubulides before.}\)
+
+    \item \(⇝ \textsf{Patrick believes that Peter has talked about Eubulides before.}\)
+
+\end{itemize}
+
+It has been observed that presuppositions give rise to \textit{weakened} projection, when embedded under attitude verbs (\citealt{heim1992}). We'll talk more about this in session 3!
+
+\subsection{Failed projection (or: \textit{Local Accommodation})}
+
+\todo[inline]{Add some examples of local accommodation}
+
+An example from Beaver \& Zeevat:
+\todo[inline]{Add proper reference here}
+
+\ex\label{accom}
+Context: \textit{Our heroine has landed herself in a difficult spot. From all sides dangerous criminals are approaching.}\\
+\textsc{the Heroine:} I knew they would show no mercy.
+\xe
+
+\textit{to know \(P\)} typically presupposes \(P\), but (\ref{accom}) is felicitous in a context where this is the first time the heroine has informed us of the treatment she expects at the hands of the villains.
+
+In this instance the semantic presupposition fails to translate into a pragmatic presupposition.
+
+\section{Projective meaning beyond presupposition}
+
+Presupposition can be difficult to distinguish from \textit{conventional implicature}, which also displays both \textit{backgroundedness} and \textit{projectivity}.
+
+\textit{Expressives/supplements} (as in (\ref{exp})) and \textit{appositives} two representative kinds of conventional implicature.
+\todo[inline]{cite potts, mccready, gutzmann etc.}
+
+\ex\label{exp}
+This \textit{fucking} class is three hours long!\\
+\(⇝ ☹ (\ml{this class is three hours long})\)
+\xe
+
+\ex\label{app}
+The class, which lasted for three hours, was tedious.\\
+\(⇝ \ml{the class lasted for three hours}\)
+\xe
+
+\textbf{Appositives vs.\,presuppositions}
+
+Despite both being backgrounded, presuppositions typically express \textit{old} information, whereas appositives convey \textit{new} information.
+
+Furthermore, whereas presuppositions can sometimes interact with other operators (cf. our discussion of \textit{weakened projection}, appositives always project all the way out).
+
+\ex
+Patrick hopes that Peter is talking about Eubulides again.\\
+\(⇝ \ml{Patrick believes that Peter has talked about Eubulides before}\)\\
+\phantom{,}\hfill weakened projection
+\xe
+
+\ex~
+Patrick hopes that Peter is talking about Eubulides, who is a Greek philosopher.
+\(⇝ \ml{Eubulides is a Greek philosopher}\)\hfill No weakened projection
+\xe
+
+\textbf{Expressives vs.\,presuppositions}
+
+Expressives are harder to distinguish from presuppositions, and in fact, some authors group the two phenomena together.
+
+\todo[inline]{Add references for this here}
+
+\section{Triggering presupposition}
+
+In many cases, the presence of a presupposition is traceable to a certain NL expression or construction. See, e.g., the contrast in (\ref{again}).
+
+\pex\label{again}
+\a Paul is vaping \textbf{again}.\hfill\textit{presupposes that Paul vaped before}
+\a Paul is vaping.\hfill\textit{presuppositionless}
+\xe
+
+An \textit{it-cleft}, i.e., \textit{it was \(x\) that \(V-\)ed} presupposes that \textit{someone \(V-\)ed}.
+
+\pex
+\a It was \textsc{Paul} that vaped.
+\a It wasn't \textsc{Paul} that vaped.
+\xe
+
+Factive predicates such as \textit{know} presuppose the truth of their complement.
+
+\pex
+\a Hubert knows that Paul vapes
+\a Hubert doesn't know that Paul vapes.
+\xe
+
+We call such expressions and constructions \textbf{presupposition triggers}.
+
+Expressions with similar at-issue meanings cross-linguistically tend to trigger the same presuppositions. This suggests that we want a unified theory of which inferences associated with NL expressions/constructions end up being presupposed.
+
+This is known as the \textbf{triggering problem} of presupposition.
+
+See \citet{schlenker2019} for an independent argument from pro-speech gestures that a triggering algorithm is independently necessary.
+
+
+
+
 
 \section{A multi-dimensional theory of presupposition}
 
+In this section, I'll spell out explicitly a \textit{multi-dimensional} account of presupposition, so that we can see its shortcomings clearly.\footnote{This is essentially a more compositionally explicit version of \citet{karttunenPeters1979}. It most closely mirrors \citeauthor{asudehGiorgolo2012}'s (\citeyear{asudehGiorgolo2012}) analysis of conventional implicature.}
+
 Each natural language expression conveys two kinds of meanings: (a) an \textit{at-issue} meaning, and (b) a \textit{presupposition}.
 
-We'll write this using Sauerland's fraction notation; the presupposition goes on the top, and the at-issue meaning goes on the bottom. We'll assume that presuppositions are propositions.
+We'll write this using \citeauthor{sauerland_2008}'s (\citeyear{sauerland_2008}) fraction notation; the presupposition goes on the top, and the at-issue meaning goes on the bottom. We'll assume that presuppositions are propositions.
 
 \[\displaystyle\frac{\text{\it presupposition}}{\text{\it assertion}}\]
 
@@ -140,23 +345,32 @@ Agents \(a_{1} … a_{n}\) pragmatically presuppose \(p\) iff the following hold
 Semantic presuppositions as felicity conditions on utterances:
 
 \ex
-An utterance of sentence \(S\) by agents \(a_{1}…a_{n}\) is infelicitous unless \(a_{1}…a_{n}\) pragmatically presuppose \(\ml{presupp} \eval{S}\) (i.e., the semantic presupposition of \(S\))
+An utterance of sentence \(S\) by agents \(a_{1}…a_{n}\) is infelicitous unless \(a_{1}…a_{n}\) pragmatically presuppose \(ℙ \eval{S}\) (i.e., the semantic presupposition of \(S\))
 \xe
 
 \subsection{Compositionality}
 
-We'll take NL expressions that don't carry a presupposition to presuppose a tautology (\(⊤\)).
+We'll assume that any uni-dimensional (i.e., non-presuppositional) meaning can be lifted into a multidimensional meaning with a trivial presupposition, via an operator \(π\).
 
-\[\eval{Paul doesn't vape} = \displaystyle\frac{⊤}{\ml{Paul doesn't vape}}\]
+\[\eval{Paul doesn't vape}^{\pi} = \displaystyle\frac{⊤}{\ml{Paul doesn't vape}}\]
 
 Composition proceeds by (a) doing \textit{function application} (FA) in the assertive dimension, and (b) \textit{conjunction} in the presuppositional dimension. We can define an operation of \textit{multi-dimensional function application} (MA) in order to formalise this.
 
 \[\ml{MA} \displaystyle\frac{p}{x} \frac{q}{y} ≔ \frac{p ∧ q}{\ml{FA} x y}\]
 
-      We can treat \textit{presupposition triggers} as functions from uni-dimensional individuals to multi-dimensional meanings:
+      We can treat \textit{presupposition triggers} as functions from uni-dimensional individuals to multi-dimensional meanings. This gives us sub-sentential compositionality.
 
       \ex
       \(\eval{quit vaping} = λ x . \displaystyle\frac{x \ml{used to vape}}{x \ml{doesn't vape now}}\)
+      \xe
+
+      \ex~
+      \begin{forest}
+        [{\(\displaystyle\frac{\ml{Paul used to vape}}{\ml{Paul doesn't vape now}}\)\\\(\ml{FA}\)}
+          [{Paul}]
+          [{...} [{quit vaping},roof]]
+        ]
+      \end{forest}
       \xe
 
 \subsection{Projection}
@@ -164,6 +378,11 @@ Composition proceeds by (a) doing \textit{function application} (FA) in the asse
 \subsubsection{Negation}
 
 NL negation negates the assertive component of a sentence meaning, yet leaves the presupposition unaffected (to use \citeauthor{karttunenPeters1979}'s terminology, it is a \enquote{hole}).
+
+\pex
+\a Paul quit vaping.\hfill\textit{presupposes that Paul vaped before}
+\a Paul didn't quit vaping.\hfill\textit{Presupposes that Paul vaped before}
+\xe
 
 We can capture this behaviour simply by assigning it a trivially multi-dimensional meaning:
 
@@ -182,24 +401,46 @@ We can capture this behaviour simply by assigning it a trivially multi-dimension
 
 \subsubsection{Conjunction}
 
-We'll adopt the following entry for sentential conjunction (assuming a left-branching structure for conjunctive sentences).
+How do presuppositions project in conjunctive sentences?
 
 \ex
-\(\displaystyle\eval{and} = λ \frac{q'}{q} . λ \frac{p'}{p} . \frac{p' ∧ (p ⇒ q')}{p ∧ q}\)
+Sam visited Rome again and Ka visited Venice.\\
+presupp.: \(\ml{Sam has visited Rome before}\)
 \xe
 
 \ex~
-\(\displaystyle\eval{\begin{array}{c}\begin{forest}
-    [{...}
-      [{...} [{Paul used to smoke},roof]]
+Sam visited Rome and Ka visited Venice again.\\
+presupp.: \(\ml{Ka has visited Venice before}\)
+\xe
+
+\ex
+Sam and Ka visited Rome and Venice last Summer, and Ka visited Venice again.\\
+\textit{presuppositionless}
+\xe
+
+\ex~
+Ka visited Venice again, and Sam and Ka visited Rome and Venice last Summer.\\
+presupp.: \(\ml{Ka has visited Venice before}\)
+\xe
+
+As famously observed by \citeauthor{karttunenPeters1979}, presuppositions embedded in a conjunctive sentence do not always project all the way out.
+
+We'll adopt the following entry for sentential conjunction (assuming a left-branching structure for conjunctive sentences).
+
+\ex
+\(\displaystyle\eval{and} ≔ λ \frac{q'}{q} . λ \frac{p'}{p} . \frac{p' ∧ (p ⇒ q')}{p ∧ q}\)
+\xe
+
+\ex~
+\begin{forest}
+    [{\(\overbrace{\displaystyle\frac{\ml{if s and k visited r and v last summer then k has visited v before}}{\ml{s and k visited r and v last summer and k visited v}}}^{\top}\)}
+      [{\(\displaystyle\frac{⊤}{\ml{s and k visited r and v last summer}}\)\\\(\pi\)} [{Sam and Ka visited\\Rome and Venice last Summer},roof]]
       [{...}
         [{and}]
-        [{...} [{Paul quit smoking},roof]]
+        [{\(\displaystyle\(\frac{\ml{k has visited v before}}{\ml{k visited v}}\)\)} [{Ka visited Venice again},roof]]
       ]
     ]
-  \end{forest}\end{array}}\)\\
-\(= \displaystyle\frac{\ml{if Paul used to vape then Paul used to vape}}{\ml{Paul used to vape and Paul doesn't vape now}}\)\\
-\(= \displaystyle\frac{⊤}{\ml{Paul used to vape and Paul doesn't vape now}}\)
+  \end{forest}
 \xe
 
 \textbf{A preview of the proviso problem}
@@ -222,6 +463,46 @@ This seems too weak! (\ref{proviso}) is only felicitous in a context where the c
 
 Other theories of presupposition projection inherit the problem of assigning certain sentences weak, conditional presuppositions; this is known as the \textit{proviso problem}. We'll come back to this in week three, after introducing the satisfaction theory of presupposition projection (i.e., dynamic semantics).
 
+\subsection{Disjunction}
+
+\ex
+Either Sam visited London again, or Ka visited Venice.\\
+presupp.: \(\ml{Sam has visited London before}\)
+\xe
+
+\ex~
+Either Sam visited London, or Ka visited Venice again.\\
+presupp.: \(\ml{Ka has visited Venice before}\)
+\xe
+
+\ex~
+Either Ka has never visited Venice, or she visited Venice again.\\
+\textit{presuppositionless}
+\xe
+
+\ex~
+Either Ka visited Venice again, or she has never visited Venice.\\
+???
+\xe
+
+\ex~
+\(\eval{or} ≔ \displaystyle λ\frac{q'}{q} . λ\frac{p'}{p} . \frac{p' ∧ ¬p ⇒ q'}{p ∨ q}\)
+\xe
+
+\ex~
+\begin{forest}
+  [{\(\overbrace{\displaystyle\frac{\ml{if k has visited v before she has visited v before}}{\ml{Ka hasn't visited v before or she visited v}}}^{\top}\)}
+   [{\(\displaystyle\frac{\top}{\ml{k hasn't visited Venice before}}\)\\\(\pi\)} [{Ka has never visited Venice},roof]]
+   [{...}
+     [{or}]
+     [{\(\displaystyle\frac{\ml{k visited v before}}{\ml{k visited v}}\)} [{Ka visited Venice again},roof]]
+   ]
+  ]
+\end{forest}
+\xe
+
+\section{Problems for a multi-dimensional semantics}
+
 \subsection{The binding problem}
 
 As noted by \citet{karttunenPeters1979}, the multi-dimensional theory has a (potentially fatal) flaw.
@@ -235,11 +516,16 @@ We can illustrate the problem simply by trying to give a multi-dimensional seman
 \(\displaystyle\frac{∃ x[x \ml{used to vape}]}{∃ x[x \ml{doesn't vape now}]}\)
 \xe
 
-Does this satisfactorily capture the meaning of the utterance in (\ref{binding-prob})? If not, why not?
+Does this satisfactorily capture the meaning of the utterance in (\ref{binding-prob})? If not, why not?\footnote{In \citet{elliott-fuck} I give a multi-dimensional semantics for conventional implicature which doesn't face the binding problem, essentially by adopting a version of alternative semantics where alternatives are themselves multi-dimensional.
+
+It would be natural to extend this system to presupposition. This could be a cool squib topic!
+}
 
 \subsection{Explanatory adequacy}
 
-We built a linear asymmetry directly into the entry for sentential conjunction. Different predictions for presupposition projection are simply a matter of reversing the lambdas:
+We observed a linear asymmetry in the projection pattern observed with conjunction.
+
+Note that different predictions for presupposition projection are simply a matter of reversing the lambdas:
 
 \ex
 \(\displaystyle\eval{and} = λ \frac{p'}{p} . λ \frac{q'}{q} . \frac{p' ∧ (p ⇒ q')}{p ∧ q}\)
@@ -251,15 +537,38 @@ Now we (erroneously?) predict the following sentence to be presuppositionless:
 Paul quit vaping and Paul used to vape.
 \xe
 
+Are we doing anything more than simply building the projection behaviour we observe into the lexical semantics of individual operators? This doesn't seem very satisfying. See \citet{schlenker_local_2009,schlenker_local_2010} for related criticisms.
+
+Note that the problem of explanatory adequacy extends to the \textit{satisfaction} theory, which we'll be covering next week.
+
 \section{Next time}
 
-The next two sessions will be devoted to an exposition one of the major accounts of projection: the \textit{satisfaction} theory. In order to understand the satisfaction theory, we'll learn about dynamic semantics.
+The remainder of the presupposition block will be devoted to an exposition of two of the major accounts of \textit{projection}:
+
+\begin{itemize}
+
+    \item The satisfaction theory (i.e., dynamic semantics)
+
+    \begin{description}
+
+        \item[part i]overview of dynamic semantics: \cite{heim1983,rothschild2017}
+        \todo[inline]{Add more references here}
+
+      \item[part ii]projection from the complement of attitude verbs, the proviso problem, etc.: \cite{heim1992}
+        \todo[inline]{Add, e.g., a reference to Mandelkern here}
+
+    \end{description}
+
+    \item The trivalent theory
+    \todo[inline]{Add references for trivalent theory}
+
+\end{itemize}
 
 \printbibliography
 
 \end{document}
 
 %%% Local Variables:
-%%% TeX-engine: default
+%%% TeX-engine: xetex
 %%% TeX-master: t
 %%% End:
