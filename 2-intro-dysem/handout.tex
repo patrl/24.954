@@ -1,0 +1,190 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{fontawesome,calc,enumitem,parskip}
+
+\lingset{
+  belowexskip=0pt,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt},
+}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{The satisfaction theory}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{\today}
+
+\author{Patrick~D. Elliott}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Readings}
+
+\begin{itemize}
+
+    \item \fullcite{heim1983}
+
+    \item Kadmon (1990) \textit{Formal Pragmatics}, chapter 6.
+
+    \item \todo[inline]{Rothschild 2011?}
+
+    \item \todo[inline]{Get them to read some Chierchia}
+
+\end{itemize}
+
+\subsection{Notational conventions}
+
+\begin{itemize}
+
+    \item \(λxy . …\) is to be read as \(λ x . λ y . …\)
+
+    \todo[inline]{Be precise about other things here}
+
+\end{itemize}
+
+\section{Dynamic Semantics}
+
+\subsection{Context Change Potentials}
+
+A Context Change Potential (CCP) is a (possibly partial) function over contexts. For example, the CCP associated with the utterance \enquote{Paul vapes} is:
+
+\ex
+\label{ccp1}\(λ c . λ w . c w ∧ \ml{p vapes}_{w}\)
+\xe
+
+Assuming that sentences denote \textit{propositions}, how do we get from an ordinary (static) sentential meaning, to a CCP? Let's define an operator \textsc{Assert} (\(𝔸\)) to accomplish this for us:
+
+\ex \textsc{Assert} (first attempt)\\
+\(𝔸 p ≔ λ c . λ w . c w ∧ p w\)
+\xe
+
+\ex~
+\(𝔸 (\eval{Paul vapes}) = (\ref{ccp1})\)
+\xe
+
+Suppose that the context set contains both worlds in which Paul vapes, and worlds in which he doesn't, representing a state of ignorance wrt whether or not Paul vapes, i.e.:
+
+\ex
+\(c_{1} = λ w . \ml{p vapes}_{w} ∨ ¬ \ml{p vapes}_{w}\)
+\xe
+
+We update the context set \(c_{1}\) with the CCP associated with \enquote{Paul vapes} by \textit{applying} the CCP to the context set. The result is an \textit{updated} context set which only includes worlds in which paul vapes.
+
+\ex
+\([λ c . λ w . c w ∧ \ml{p vapes}_{w}] c_{1} = λ w . \ml{p vapes}_{w}\)
+\xe
+
+Note that we can always get back from a CCP to a proposition. Let's define an operator \(↓\) to do this for us:
+
+\todo[inline]{Check that this works out}
+
+\ex
+\(d^{↓} ≔ λ w' . (d (λ w . w = w')) = (λ w . w = w')\)
+\xe
+
+Before moving on to the analysis of presupposition in FCS, let's consider how we might analyse conjunction/discourse sequencing within this framework.
+
+Consider the discourse in (\ref{discourse1}). Suppose that at \(c_{1}\), the participants are ignorant about both whether Paul vapes and whether Sophie smokes. At \(c_{2}\) the participants know that Paul vapes, but are ignorant about whether Sophie smokes. At \(c_{3}\), the participants know both that Paul vapes and that Sophie smokes.
+
+\ex\label{discourse1}
+\(c_{1}\) Paul vapes \(c_{2}\); Sophie smokes \(c_{3}\).
+\xe
+
+We can give a \textit{semantics} of the discourse sequencing operator \((;)\) which captures the intuition that a sequential utterances successively update the context set. To sequence CCPs, we simply \textit{compose} them.
+
+\ex
+\((;) ≔ λ q . λ p . q ∘ p\)
+\xe
+
+\ex~
+\begin{forest}
+  [{\(λ c . [𝔸 \eval{Sophie smokes}] ([𝔸 \eval{Paul vapes}] c)\)}
+    [{...} [{Paul vapes},roof]]
+    [{...}
+      [{\(;\)}]
+      [{...} [{Sophie smokes},roof]]
+    ]
+  ]
+\end{forest}
+\xe
+
+As it stands, the CCPs we've dealt with so far have been \textit{total} functions over contexts. Furthermore, CCPs are defined in terms of conjunction, and since conjunction is associative:
+
+\ex
+Paul vapes; Sophie smokes = Sophie smokes; Paul vapes.
+\xe
+
+In fact, if we lower the result of sequencing the two sentences, we just get...classical conjunction. So what have we achieved exactly?
+
+\todo[inline]{Get them to demonstrate this in the exercises.}
+
+\subsection{Presupposition satisfaction}
+
+\citeauthor{heim1983}'s (\citeyear{heim1983}) innovation was to treat presuppositions as, essentially, \textit{definedness conditions on CCPs}. We say that, if a context set \(c\) entails the presupposition of a sentence S, \(c\) \textbf{satisfies} the presupposition S.\footnote{You can also write definedness conditions on functions using \citeauthor{heimKratzer1998}'s colon notation, although it will quickly get quite unwieldy. For example:
+
+  \ex
+  \(λ c . c ⊆ \set{w|\ml{p used-to-vape}_w} . λ w . c w ∧ ¬ \ml{p vapes}_{w}\)
+  \xe
+}
+
+We can now shift gears and treat the CCPs associated with sentences as (potentiall!) partial functions from contexts to contexts. The CCP associated with the presuppositional sentence \enquote{Paul quit vaping} is given below:
+
+\ex
+\(λ c . \begin{cases}
+  λ w . c w ∧ ¬ \ml{p vapes}_{w} & c ⊆ \set{w | \ml{p used-to-vape}_{w}}\\
+  ♯&\ml{else}
+  \end{cases}\)
+\xe
+
+Now that CCPs can be \textit{partial}, treating discourse sequencing as function composition has an interesting consequence.
+
+\subsection{Quantification}
+
+\subsubsection{Assignment functions and variables}
+
+In order to deal with anaphora, \citeauthor{heim1983}'s dynamic semantics deals with an enriched notion of context set -- namely, a \textit{file}. A file is a set of \textit{world-assignment function pairs} (or equivalently, a relation between worlds and assignments).
+
+The file associated with the information that a person at identifier \(7\) vapes is:
+
+\ex
+\(\set{⟨g,w⟩ : g_{7} \ml{vapes}_{w}}\)
+\xe
+
+\ex~ Definition of a \textit{file}:\\
+\(c\) is a file iff there is a subset \(ℕ'\) of \(ℕ\), and \(c\) is a set of assignment-world pairs, \(⟨g,w⟩\), where \(g: ℕ' ↦ D_{\ml{e}}\). We refer to \(ℕ'\) as the \textit{domain} of the file (i.e., \(\ml{dom} c\))
+\xe
+
+We'll use variables named \(c,c',c''…\) to range over \textit{files}. \(λ c . …\) can be read as an abbreviation of \(λ c :\ml{file} c . …\)
+
+\(g[n]g'\) mean that \(g\) and \(g'\) differ only at \(n\), and that \(g_{n}\) is defined (\(g'_{n}\) may be undefined).
+
+We can now give a CCP for a sentence with an indefinite:
+
+\ex
+Someone\(^{7}\) arrived = \(λ c . \set{⟨g,w⟩|∃⟨g',w⟩ ∈ c[g[7]g' ∧ g_{7} \ml{arrived}_{w}]}\)
+\xe
+
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: xetex
+%%% TeX-master: t
+%%% End:

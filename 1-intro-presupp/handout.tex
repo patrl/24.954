@@ -1,8 +1,10 @@
 \documentclass[cronos,landscape,paper=letter]{ling-handout}
 
-\usepackage[margin=0.5in]{geometry}
+\usepackage[margin=1in]{geometry}
 
 \usepackage{fontawesome,calc,enumitem,parskip}
+
+\usepackage{tcolorbox}
 
 \lingset{
   belowexskip=0pt,
@@ -33,35 +35,21 @@
 
 \section{Overview}
 
-\textbf{Roadmap}
+\textbf{Roadmap for today}
 
-Today we'll give a wide-ranging overview of the major problems, empirical and conceptual, in the literature on \textit{presupposition} -- a highly significant frontier on the border between semantics and pragmatics. We'll cover:
+Today we'll give a wide-ranging overview of the major problems, empirical and conceptual, in the literature on \textit{presupposition} -- a highly significant frontier on the border between semantics and pragmatics. We'll primarily cover:
 
 \begin{itemize}
 
-    \item Natural Language Semantics and the law of the excluded middle
+    \item The empirical properties of presupposition.
 
-    \item The pragmatic status of presuppositions (i.e., \textit{backgroundedness})
-
-    \item Semantic vs.\,pragmatic presupposition
-
-  \item The projection problem
-
-    \begin{itemize}
-
-      \item Weakened projection
-
-        \item Failed projection (i.e., \textit{local accommodation})
-
-        \item Presupposition vs.\,other kinds of projective meaning
-
-    \end{itemize}
-
-  \item The triggering problem
-
-  \item A multi-dimensional theory of presupposition (after \citealt{karttunenPeters1979})
+  \item A multi-dimensional theory of presupposition, and its failings.
 
 \end{itemize}
+
+\textbf{Homework}
+
+We'll post the first p-set, based on material from this class, on the stellar site today. Please submit your solutions by the Thursday before next class (11:30pm).
 
 \textbf{Readings}
 
@@ -76,11 +64,11 @@ Optional (but strongly recommended) readings for this week:
 
 \end{itemize}
 
-\textbf{The data under consideration}
+\section{Introduction}
 
 Let's start by being maximally non-commital: a \enquote{presupposition}\footnote{When we say \textit{presupposition}, we typically mean \textit{semantic presupposition}, unless otherwise noted.} is a kind of \textit{inference} that sentences in natural languages \textit{may} convey.
 
-\pex
+\pex\label{basics}
 \a Paul quit vaping.\\
 presupp: \textit{Paul used to vape}
 \a The mayor of Oakland waterskis.\\
@@ -107,7 +95,7 @@ Issues to flag up immediately:
 
 \end{itemize}
 
-\section{Eubulides' \textit{Horns paradox}}
+\section{Natural language and the law of the excluded middle}
 
 Eubulides of Miletus' ($±$405-330 BC) noted that, if the following argument is sound, then we should conclude that \textit{everyone is a cuckold}. Why doesn't it go through?\footnote{We can thank Seuren (2005: p.\,89) for pointing out the relevance of Eubulides' paradoxes to contemporary semantic thinking.}
 
@@ -117,16 +105,11 @@ Eubulides of Miletus' ($±$405-330 BC) noted that, if the following argument is 
 \a Ergo: You still have your horns.
 \xe
 
-To see what's going on more clearly, we can render the argument into predicate logic:
-
-\pex
-\a \(∀x[¬ \ml{youLost} x → \ml{youStillHave} x]\)\hfill Major
-\a \(¬ \ml{youLost} \ml{YourHorns}\)\hfill Minor
-\a \(¬ \ml{youLost} \ml{yourHorns} → \ml{youStillHave} \ml{yourHorns}\)\hfill \textit{Universal Instantiation}
-\a \(\ml{youStillHave} \ml{yourHorns}\)\hfill\textit{Modus Ponens}
-\xe
-
-What went wrong here?
+\begin{tcolorbox}
+  Exercise
+  \tcblower
+  Try to render this argument into first order logic. Is it valid? What's going wrong here?
+\end{tcolorbox}
 
 A non-trivial fact about natural language semantics: sentences don't obey the \textit{law of the excluded middle}, i.e., sentences in natural language can be neither true nor false.
 
@@ -144,8 +127,6 @@ We can think of \textit{presupposition} as a dimension of meaning characterised 
 
 \section{Backgroundedness}
 
-\todo[inline]{Mention Schlenker's description of presuppositions a ``epistemic preconditions''}
-
 From an utterance of (\ref{paulvape}), we can infer (at least) two things: (\ref{paulvapea}) and (\ref{paulvapeb}).
 
 \pex\label{paulvape}
@@ -154,7 +135,7 @@ Peter is talking about \textit{Eubulides} again
 \a\label{paulvapeb}\(⇝\) \textsf{Peter has talked about Eubulides before} \hfill presupposition
 \xe
 
-There is an intuitive sense in which (\ref{paulvapea}) is the subject matter of the sentence -- in uttering (\ref{paulvape}), the speaker aims to communicate that (\ref{paulvapea}).
+There is an intuitive sense in which (\ref{paulvapea}) is the subject matter of the sentence -- in uttering (\ref{paulvape}), the speaker aims to communicate that (\ref{paulvapea}). The presupposition is different -- the speaker \textit{takes for granted} that the information conveyed by the presupposition is already known (in some sense to be made precise).
 
 We can probe the pragmatic status of a given inference using questions -- the at-issue component of a sentence meaning can answer a question, whereas the presupposition cannot, as illustrated by the contrast between (\ref{q1}) and (\ref{q2}).
 
@@ -168,15 +149,31 @@ Which Greek philosopher has Peter talked about before?\\
 \ljudge{\#}Peter is talking about \textit{Eubulides} again.
 \xe
 
+\begin{tcolorbox}
+Exercise
+\tcblower
+Run this diagnostic on the data in (\ref{basics})
+\end{tcolorbox}
+
+A famous diagnostic which diagnoses the backgroundedness of presuppositions is \citeauthor{fintel2004}'s (\citeyear{fintel2004}) \textit{Hey, wait a minute!} test (based on Shanon 1976).
+
+\pex
+The mathematician who proved Goldbach's conjecture is a woman.
+\a Hey, wait a minute. I had no idea that someone proved Goldbach's conjecture.
+\a\ljudge{\#}Hey, wait a minute. I had no idea that that was a woman.
+\xe
+
+\enquote{Hey, wait a minute} can preface a complaint about the truth \textit{presupposition} being taken for granted, but not the at-issue component of the meaning.
+
 \subsection{Pragmatic vs. semantic presupposition}
 
 If I say the following to you...
 
 \ex
-Peter redet wieder von \textit{Eubulides}.
+\label{german}Peter redet wieder von \textit{Eubulides}.
 \xe
 
-...I pragmatically presuppose (at least) the following:
+...I \textit{pragmatically} presuppose (at least) the following:
 
 \begin{itemize}
 
@@ -186,7 +183,7 @@ Peter redet wieder von \textit{Eubulides}.
 
 \end{itemize}
 
-This information however is (probably!) not encoded in the semantics of the NL expressions.
+This information however is (probably!) not encoded in the semantics of the NL expressions. Nevertheless, we can draw these inferences from an utterance of (\ref{german}), and furthermore, they are \textit{backgrounded}, and \textit{project} (in the sense we introduce in the subsequent section).
 
 Semantic presupposition relates to pragmatic presupposition, in the sense that semantic presupposition usually (but not always) gives rise to a pragmatic presupposition.
 
@@ -232,6 +229,59 @@ Peter might be talking about \textit{Eubulides} again.
 Peter should talking about \textit{Eubulides} again.
 \xe
 
+\begin{tcolorbox}
+\textbf{Q:} why can't veridical contexts be used to detect presuppositions?
+\end{tcolorbox}
+
+We'll see more cases of \textit{presupposition projection} later.
+
+\subsection{Failed projection (or: \textit{Local Accommodation})}
+
+It seems like projection cannot always be guaranteed.
+
+\ex
+\label{kf}The king of France isn't bald...there is no king of France!!
+\xe
+
+If the presupposition of the first sentence in (\ref{kf}) were to project, the second sentence would be a contradiction.
+
+
+Another example from \cite{beaverZeevat2007}:
+
+\ex\label{accom}
+Context: \textit{Our heroine has landed herself in a difficult spot. From all sides dangerous criminals are approaching.}\\
+\textsc{The Heroine:} I knew they would show no mercy.
+\xe
+
+\textit{to know \(P\)} typically presupposes \(P\), but (\ref{accom}) is felicitous in a context where this is the first time the heroine has informed us of the treatment she expects at the hands of the villains.
+
+In this instance the semantic presupposition fails to translate into a pragmatic presupposition.
+
+More examples:
+
+\pex
+\a I don't have a dog.
+\a So at least you don't have to \textsc{walk} your dog.\hfill \cite[p.\,145]{kadmon2001}
+\xe
+
+\ex~
+The king thinks it's the knave that stole the tarts, but he's obviously gone mad, since there is no knave here.\hfill \cite{beaverGuerts2014}
+\xe
+
+\ex~
+Have you quit smoking recently?
+\xe
+
+\ex~
+\label{spouse}If your spouse works at MIT, then you will receive a discount.
+\xe
+
+This last example is especially interesting. If the presupposition were accommodated globally, we would predict that it should mean: \textit{You have a spouse, and if they work at MIT, then you will receive a discount}.
+
+Rather, what we infer from (\ref{spouse}) is: \textit{if you have a spouse and they work at MIT, then you will receive a discount}.
+
+In the literature, such cases are referred to as \textit{local accommodation}, since the presupposition is seemingly accommodated at some subsentential level, as diagnosed by its interaction with some other operator in the sentence.
+
 \subsection{Weakened projection}
 
 \ex\label{weakened}Patrick hopes that Peter will talk about \textit{Eubulides} again.
@@ -239,49 +289,36 @@ Peter should talking about \textit{Eubulides} again.
 
 The complement of \enquote{hope} (\enquote{Peter will talk about Eubulides again}), as we've seen, presupposes: \textsf{Peter has talked about Eubulides before}.
 
-What does (\ref{weakened}) presuppose globally?
+\begin{tcolorbox}
+\textbf{Q} what does (\ref{weakened}) presuppose?
+\end{tcolorbox}
 
-\begin{itemize}
+% What does (\ref{weakened}) presuppose globally?
+% \begin{itemize}
 
-    \item \(⇝ \textsf{Peter has talked about Eubulides before.}\)
+%     \item \(⇝ \textsf{Peter has talked about Eubulides before.}\)
 
-    \item \(⇝ \textsf{Patrick believes that Peter has talked about Eubulides before.}\)
+%     \item \(⇝ \textsf{Patrick believes that Peter has talked about Eubulides before.}\)
 
-\end{itemize}
+% \end{itemize}
 
-It has been observed that presuppositions give rise to \textit{weakened} projection, when embedded under attitude verbs (\citealt{heim1992}). We'll talk more about this in session 3!
+% It has been observed that presuppositions give rise to \textit{weakened} projection, when embedded under attitude verbs (\citealt{heim1992}). We'll talk more about this in session 3!
 
-\subsection{Failed projection (or: \textit{Local Accommodation})}
-
-\todo[inline]{Add some examples of local accommodation}
-
-An example from Beaver \& Zeevat:
-\todo[inline]{Add proper reference here}
-
-\ex\label{accom}
-Context: \textit{Our heroine has landed herself in a difficult spot. From all sides dangerous criminals are approaching.}\\
-\textsc{the Heroine:} I knew they would show no mercy.
-\xe
-
-\textit{to know \(P\)} typically presupposes \(P\), but (\ref{accom}) is felicitous in a context where this is the first time the heroine has informed us of the treatment she expects at the hands of the villains.
-
-In this instance the semantic presupposition fails to translate into a pragmatic presupposition.
 
 \section{Projective meaning beyond presupposition}
 
 Presupposition can be difficult to distinguish from \textit{conventional implicature}, which also displays both \textit{backgroundedness} and \textit{projectivity}.
 
-\textit{Expressives/supplements} (as in (\ref{exp})) and \textit{appositives} two representative kinds of conventional implicature.
-\todo[inline]{cite potts, mccready, gutzmann etc.}
+\textit{Expressives/supplements} (as in (\ref{exp})) and \textit{appositives} are often taken to be two representative kinds of conventional implicature, starting from \citet{potts2005} (see, e.g., \citet{mccready2010a,gutzmann_use-conditional_2015} for other kinds).
 
 \ex\label{exp}
 This \textit{fucking} class is three hours long!\\
-\(⇝ ☹ (\ml{this class is three hours long})\)
+\(⇝ ☹ (\ml{this class is three hours long})\)\hfill\textit{expressive}
 \xe
 
 \ex\label{app}
 The class, which lasted for three hours, was tedious.\\
-\(⇝ \ml{the class lasted for three hours}\)
+\(⇝ \ml{the class lasted for three hours}\)\hfill\textit{appositive}
 \xe
 
 \textbf{Appositives vs.\,presuppositions}
@@ -297,15 +334,20 @@ Patrick hopes that Peter is talking about Eubulides again.\\
 \xe
 
 \ex~
-Patrick hopes that Peter is talking about Eubulides, who is a Greek philosopher.
+Patrick hopes that Peter is talking about Eubulides, who is a Greek philosopher.\\
 \(⇝ \ml{Eubulides is a Greek philosopher}\)\hfill No weakened projection
 \xe
 
 \textbf{Expressives vs.\,presuppositions}
 
-Expressives are harder to distinguish from presuppositions, and in fact, some authors group the two phenomena together.
+Expressives are harder to distinguish from presuppositions, although they also tend to display stubborn projection behaviour:
 
-\todo[inline]{Add references for this here}
+\ex\label{expproj}
+Patrick hopes that Peter isn't talking about that fucking Greek philosopher.\\
+\(⇝ ☹ \ml{that Greek philosopher}\)
+\xe
+
+Nevertheless, some authors argue that expressives are in fact presuppositional, although this is still an area of ongoing debate (\citealt{schlenker2007,sauerland2007,lasersohn2007}).
 
 \section{Triggering presupposition}
 
@@ -330,17 +372,45 @@ Factive predicates such as \textit{know} presuppose the truth of their complemen
 \a Hubert doesn't know that Paul vapes.
 \xe
 
+Certain attitude predicates induce more idiosyncratic presuppositions. \textit{pretend} gives rise to the presupposition that it's complement is false.
+
+\pex
+\a Patrick pretends that he knows about syntax.\\
+\(⇝ \ml{Patrick doesn't know about syntax}\)
+\a Patrick never pretends that he knows about syntax.\\
+\(⇝ \ml{Patrick doesn't know about syntax}\)
+\xe
+
+\textit{forget to V} and \textit{pretend to V} both give rise to the presupposition that they subject was \textit{supposed to V}.
+
+\pex
+\a Andy forgot to go to bed.\hfill\(⇝ \ml{Andy should go to bed}\)
+\a Andy didn't forget to go to bed.\hfill\(⇝ \ml{Andy should go to bed}\)
+\xe
+
 We call such expressions and constructions \textbf{presupposition triggers}.
 
-Expressions with similar at-issue meanings cross-linguistically tend to trigger the same presuppositions. This suggests that we want a unified theory of which inferences associated with NL expressions/constructions end up being presupposed.
+Expressions with similar at-issue meanings cross-linguistically tend to trigger the same presuppositions. See, e.g., \citet{levinsonAnnamalai1992} for a detailed study comparing English and Tamil. Despite not being related, in both languages, exactly the same components of meaning are expressed as presuppositions vs. at-issue entailments.
+
+This suggests that we want a unified theory of which inferences associated with NL expressions/constructions end up being presupposed, based on their at-issue meanings.
 
 This is known as the \textbf{triggering problem} of presupposition.
 
 See \citet{schlenker2019} for an independent argument from pro-speech gestures that a triggering algorithm is independently necessary.
 
+One major problem for any triggering algorithm is the existence of expressions whose meanings are apparently \textit{purely presuppositional}:
 
+\begin{itemize}
 
+    \item Triggers such as \textit{also}, \textit{even}, and \textit{again}.
 
+    \item Phi-features, according to some analyses (see, e.g., \citealt{sauerland2013}).
+
+\end{itemize}
+
+Furthermore, there are pairs of expressions such as \textit{come} and \textit{go}, which seem to express the same at-issue meaning, and yet differ in their presuppositions.
+
+We'll come back to the triggering problem later in the course. For now, we'll focus on how to represent presupposition in compositional semantics.
 
 \section{A multi-dimensional theory of presupposition}
 
@@ -366,9 +436,17 @@ Let's also define helper functions to retrieve the presupposition and assertion:
 \xe
 \end{multicols}
 
+For us, presuppositional meanings are \textit{pairs} of ordinary meanings, and presupposed propositions. We're using the fraction notation here as sugar for a pair of semantic objects. We could, for instance, also write the following, but it's a little more difficult to distinguish the presupposition and at-issue meaning at a glance.
+
+\[\eval{Paul quit vaping} = (\ml{Paul used to vape}, \ml{Paul doesn't vape now})\]
+
+We can also use fraction notation as a sugar for \textit{pair-types}: let's treat presuppositional meanings as type \(\displaystyle\frac{\type{st}}{a}\).
+
+We're essentially building the idea that presuppositions are a distinct dimension of meaning directly into our theory. Since presuppositions have a distinct pragmatic status, and furthermore display a distinct behaviour with respect to other operators in the sentence (projection), this seems like a reasonable starting point.
+
 \subsection{Bridging between semantics and pragmatics}
 
-Formal definition of a pragmatic presupposition:
+Let's characterise more formally what it means for a proposition to be pragmatically presupposes (after \citealt{stalnaker1976}).
 
 \pex
 Agents \(a_{1} … a_{n}\) pragmatically presuppose \(p\) iff the following hold:
@@ -378,11 +456,21 @@ Agents \(a_{1} … a_{n}\) pragmatically presuppose \(p\) iff the following hold
 \ldots
 \xe
 
-Semantic presuppositions as felicity conditions on utterances:
+We can now bridge the gap between semantic presupposition and pragmatic presupposition by stating a felicity condition on utterances sensitive to the semantic presupposition carried by a sentence.
 
 \ex
 An utterance of sentence \(S\) by agents \(a_{1}…a_{n}\) is infelicitous unless \(a_{1}…a_{n}\) pragmatically presuppose \(ℙ \eval{S}\) (i.e., the semantic presupposition of \(S\))
 \xe
+
+The prediction now is that an utterance of...
+
+\ex
+\label{quit}Paul quit vaping
+\xe
+
+...is only felicitous if it is \textit{pragmatically presupposed} (informally: \enquote{taken for granted}) by both speaker and hearer that Paul used to vape.
+
+By separating out presupposition as a separate dimension of meaning, we have made it easy to \textit{capture} its special pragmatic status (although one may of course question how explanatory such an account can ultimately be).
 
 \subsection{Compositionality}
 
@@ -390,7 +478,7 @@ We'll assume that any uni-dimensional (i.e., non-presuppositional) meaning can b
 
 \[\eval{Paul doesn't vape}^{\pi} = \displaystyle\frac{⊤}{\ml{Paul doesn't vape}}\]
 
-Composition proceeds by (a) doing \textit{function application} (FA) in the assertive dimension, and (b) \textit{conjunction} in the presuppositional dimension. We can define an operation of \textit{multi-dimensional function application} (MA) in order to formalise this.
+Composition proceeds by (a) doing \textit{function application} (FA) in the assertive dimension, and (b) \textit{conjunction} in the presuppositional dimension. We can define an operation of \textit{multi-dimensional function application} (MA) in order to formalise this.\footnote{Here we're using \(\ml{FA}\) to stand in for \textit{bi-directional} (or \enquote{overloaded}) function application.}
 
 \[\ml{MA} \displaystyle\frac{p}{x} \frac{q}{y} ≔ \frac{p ∧ q}{\ml{FA} x y}\]
 
@@ -409,6 +497,19 @@ Composition proceeds by (a) doing \textit{function application} (FA) in the asse
       \end{forest}
       \xe
 
+      \begin{tcolorbox}
+        Exercise
+        \tcblower
+        We might start with the assumption that a presuppositional DP, such as \textit{the Frenchman}, has the following semantics:
+
+                \[\displaystyle\frac{∃!x[\ml{frenchman} x]}{\(λ P . ∃x[\ml{frenchman} x ∧ P x]\)}\]
+
+                \textit{the Frenchman quit vaping} fails to compose -- demonstrate this. How do we fix it?
+
+                Hint: consider changing the meaning of the DP.
+      
+        \end{tcolorbox}
+
 \subsection{Projection}
 
 \subsubsection{Negation}
@@ -418,6 +519,10 @@ NL negation negates the assertive component of a sentence meaning, yet leaves th
 \pex
 \a Paul quit vaping.\hfill\textit{presupposes that Paul vaped before}
 \a Paul didn't quit vaping.\hfill\textit{Presupposes that Paul vaped before}
+\xe
+
+\ex
+\textbf{Negation}\\If A\(_π\), then a sentence of the form \enquote{not A} presupposes \(π\).
 \xe
 
 We can capture this behaviour simply by assigning it a trivially multi-dimensional meaning:
@@ -460,6 +565,10 @@ presupp.: \(\ml{Ka has visited Venice before}\)
 \xe
 
 As famously observed by \citeauthor{karttunenPeters1979}, presuppositions embedded in a conjunctive sentence do not always project all the way out.
+
+\ex
+\textbf{Conjunction}\\If A\(_π\), and B\(_ρ\), then a sentence of the form \enquote{A and B} presupposes \(π\), and unless A entails \(ρ\), also presupposes \(ρ\)
+\xe
 
 We'll adopt the following entry for sentential conjunction (assuming a left-branching structure for conjunctive sentences).
 
@@ -526,6 +635,11 @@ Either Ka visited Venice again, or she has never visited Venice.\\
 \xe
 
 \ex~
+ \textbf{Disjunction}\\If A\(_π\), and B presupposes B\(_ρ\), then a sentence of the form \enquote{A or B} presupposes \(π\), and unless \enquote{not A} entails \(ρ\), also presupposes \(ρ\).
+ \xe
+
+
+\ex~
 \begin{forest}
   [{\(\overbrace{\displaystyle\frac{\ml{if k has visited v before she has visited v before}}{\ml{Ka hasn't visited v before or she visited v}}}^{\top}\)}
    [{\(\displaystyle\frac{\top}{\ml{k hasn't visited Venice before}}\)\\\(\pi\)} [{Ka has never visited Venice},roof]]
@@ -536,6 +650,12 @@ Either Ka visited Venice again, or she has never visited Venice.\\
   ]
 \end{forest}
 \xe
+
+\begin{tcolorbox}
+Exercise
+\tcblower
+Figure out the projection properties of an \textit{if...then...} conditional, and write a lexical entry which captures them (you may treat \textit{if...then...} as a single connective).
+\end{tcolorbox}
 
 \section{Problems for a multi-dimensional semantics}
 
@@ -587,16 +707,13 @@ The remainder of the presupposition block will be devoted to an exposition of tw
 
     \begin{description}
 
-        \item[part i]overview of dynamic semantics: \cite{heim1983,rothschild2017}
-        \todo[inline]{Add more references here}
+        \item[part i]introduction to File Change Semantics.
 
-      \item[part ii]projection from the complement of attitude verbs, the proviso problem, etc.: \cite{heim1992}
-        \todo[inline]{Add, e.g., a reference to Mandelkern here}
+      \item[part ii]projection from the complement of attitude verbs, the proviso problem, and other issues with the satisfaction theory; Mandelkern's dissatisfaction theory.
 
     \end{description}
 
-    \item The trivalent theory
-    \todo[inline]{Add references for trivalent theory}
+    \item The trivalent theory (Roger).
 
 \end{itemize}
 

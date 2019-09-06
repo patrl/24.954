@@ -1,0 +1,65 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{fontawesome,calc,enumitem,parskip}
+
+\lingset{
+    aboveglftskip=0pt,
+    belowglpreambleskip=0pt,
+    belowpreambleskip=0pt,
+    extraglskip=0pt,
+    Everyex={\parskip=0pt},
+}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Satisfaction P-Set}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{\today}
+
+\author{Patrick~D. Elliott}
+
+ \begin{document}
+
+\maketitle
+
+\section{Sequencing and conjunction}
+
+Recall that we initially defined our assert operator \(𝔸\) as:
+
+\ex
+\(𝔸 p ≔ λ c . c w ∧ p w\)
+\xe
+
+Show whether or not the following hold for any propositions \(p,q\):
+
+\ex
+\(((𝔸 p);(𝔸 q))^{↓} = λ w . p w ∧ q w\)
+\xe
+
+\ex~
+\(𝔸 (λ w . p w ∧ q w) = (𝔸 p);(𝔸 q)\)
+\xe
+
+
+
+\printbibliography
+
+\begin{appendix}
+
+  \section{Solutions}
+
+\end{appendix}
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: default
+%%% TeX-master: t
+%%% End:
