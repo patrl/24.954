@@ -4,6 +4,8 @@
 
 \usepackage{fontawesome,calc,enumitem,parskip}
 
+\usepackage{tcolorbox}
+
 \lingset{
     aboveglftskip=0pt,
     belowglpreambleskip=0pt,
@@ -29,114 +31,93 @@
 
 \maketitle
 
-\section{Propositional logic}
+\section{From \textit{the law of non-contradiction} to \textit{the law of the excluded middle}}
 
-\subsection{Exercise i}
+One logical law that is easy to accept is \textit{the law of non-contradiction}, which can be expressed as the following formula of propositional logic:
 
-Prove the following:
+\[¬ (p ∧ ¬ p)\]
 
-\[⊢ A ∨ B ⇔ ¬ (¬ A ∧ ¬ B)\]
+This tells us that no statement can be both true and false. Seems pretty uncontroversial, right?
 
-\section{A compositionalisation of multi-dimensional semantics}
+The exercise here is to show (informally) how \textit{the law of the excluded middle} -- every statement is either true or false -- follows from \textit{the law of non-contradiction}.
 
-Let's get a little more precise about the compositional assumptions underlying a multi-dimensional semantics.
+Hint: first, render the law of the excluded middle into a formula of propositional logic, and go from there (using the truth-tables for the logical connectives).
 
-We can write \textit{pair types}, i.e., the type of a pair of \(a\)s and \(b\)s, where \(a\) is type \(\type{a}\) and \(b\) is type \(\type{b}\), as \(\type{a} ∗ \type{b}\). The type of a pair of propositions is therefore: \(\type{st ∗ st}\).
+% Show (informally) that the following holds:
+% \[¬(p∨q)≡¬p∧¬q.\]
 
-Presuppositional expressions are of type \(\type{a} ∗ \type{st}\) (where \(\type{a}\) is a variable over types).
+\section{Projection in conditional statements}
 
-In the lecture we defined \enquote{quit smoking} as a function from an individual to a presuppositional proposition, i.e.,
+Treating \textit{if...then...} as a two place sentential operator, (a) state the generalisation concerning how presuppositions project in conditional statements, and (b) write a multi-dimensional lexical entry for \textit{if...then...} which captures the generalisation. Use the entries for conjunction and disjunction as a guideline.
 
-\pex
-\a \(\eval{quit smoking} = λ x . \displaystyle\frac{x\ml{ used to smoke}}{x\ml{ doesn't smoke now}}\)
-\a \(\eval{quit smoking} ∷ \type{⟨e,st ∗ st⟩}\)
-\xe
+\section{More on compositionality}
 
-\subsection{Exercise i}
-
-Define a type-shifter that takes any \textit{uni-}dimensional meaning, and returns a \textit{trivially} presuppositional meaning (i.e., a multi-dimensional meaning which will not give rise to a contentful pragmatic presupposition). Give both (a) the entry for the type-shifter, and (b) its type.
-
-\subsection{Exercise ii}
-
-We can assign a definite description the following multi-dimensional meaning:
+Define an operator (call it ({\bind})) which will allow us to compose something of type \(\displaystyle\frac{\type{st}}{a}\) with something of type \(\left⟨a,\displaystyle\frac{\type{st}}{⟨a,b⟩}\right⟩\) (where \(a\) and \(b\) could be any type).
 
 \ex
-\label{theDog}\(\eval{the dog} = \displaystyle\frac{λ w . ∃!x[\ml{dog}_{w} x]}{λ P . λ w . ∃x[\ml{dog}_{w} x ∧ P x w]}\)
+\(\displaystyle\frac{\ml{st}}{a} \bind m = ???\)\hfill\((\bind) ∷ \displaystyle\left\langle\frac{\ml{st}}{a},\left\langle\left\langle a, \frac{\ml{st}}{b}\right\rangle,\frac{\ml{st}}{b}\right\rangle\right\rangle\)
 \xe
 
-What is the type of (\ref{theDog})?
-
-\subsection{Exercise iii}
-
-Recall the rule for composing multi-dimensional meanings:
+Tailor the definition of \(\bind\) such that it makes the right predictions for the presuppositions of the following sentence:
 
 \ex
-\(\eval{\begin{array}{c}\begin{forest}
-      [{...}
-        [{X}]
-        [{Y}]
-      ]
-    \end{forest}\end{array}} = \displaystyle\frac{ℙ \eval{X} ∧ ℙ \eval{Y}}{\ml{FA} (𝔸 \eval{X}) (𝔸 \eval{Y})}\)
+she\(_{1}\) quit vaping.
 \xe
 
-Point out what goes wrong when attempting to compute the meaning of the following:
+Assume the following semantics for the pronoun:\footnote{Since relativising meanings to assignments hasn't been relevant, we omitted the \(g\) parameter in the handout.}
 
 \ex
-\begin{forest}
-  [{...}
-    [{...} [{the dog},roof]]
-    [{...} [{quit smoking},roof]]
-  ]
-\end{forest}
+\(\eval[g]{she\sub{1}} = \displaystyle\frac{g(1)\ml{ identifies female}}{g(1)}\)
 \xe
 
-Suggest a fix.
+Give the LF and compute the meaning, using the operator you have just defined.
 
-\subsection{Exercise iv}
 
-Instead of formalising multi-dimensional semantics using \textit{pairs}, we could also have gone a different route. We'll explore that route in this exercise.
+% \subsection{Exercise iv}
 
-Just for this exercise, let's assume that \(\eval{.}\) always returns an ordinary, \textit{uni-}dimensional at-issue meaning.
+% Instead of formalising multi-dimensional semantics using \textit{pairs}, we could also have gone a different route. We'll explore that route in this exercise.
 
-Let's supply an additional interpretation function \(⦅.⦆\) that returns the \textit{presupposition} of an expression.\footnote{If you're familiar with Roothian focus semantics, this should be familiar.}
+% Just for this exercise, let's assume that \(\eval{.}\) always returns an ordinary, \textit{uni-}dimensional at-issue meaning.
 
-\ex
-\(\eval{Paul quit smoking} = \ml{Paul doesn't smoke now}\)
-\xe
+% Let's supply an additional interpretation function \(⦅.⦆\) that returns the \textit{presupposition} of an expression.\footnote{If you're familiar with Roothian focus semantics, this should be familiar.}
 
-\ex~
-\(⦅\text{Paul quit smoking}⦆ = \ml{Paul used to smoke}\)
-\xe
+% \ex
+% \(\eval{Paul quit smoking} = \ml{Paul doesn't smoke now}\)
+% \xe
 
-Fill in the definitions of the following composition rules:
+% \ex~
+% \(⦅\text{Paul quit smoking}⦆ = \ml{Paul used to smoke}\)
+% \xe
 
-\begin{multicols}{2}
+% Fill in the definitions of the following composition rules:
 
-\ex~
-\(\eval{\begin{array}{c}\begin{forest}
-    [{...}
-      [{X}]
-      [{Y}]
-    ]
-  \end{forest}\end{array}} = ???\)
-\xe
+% \begin{multicols}{2}
 
-\columnbreak
+% \ex~
+% \(\eval{\begin{array}{c}\begin{forest}
+%     [{...}
+%       [{X}]
+%       [{Y}]
+%     ]
+%   \end{forest}\end{array}} = ???\)
+% \xe
 
-\ex~
-\(\left⦅\begin{array}{c}
-          \begin{forest}
-            [{...}
-              [{X}]
-              [{Y}]
-            ]
-          \end{forest}
-          \end{array}\right⦆ = ???\)
-\xe
+% \columnbreak
 
-\end{multicols}
+% \ex~
+% \(\left⦅\begin{array}{c}
+%           \begin{forest}
+%             [{...}
+%               [{X}]
+%               [{Y}]
+%             ]
+%           \end{forest}
+%           \end{array}\right⦆ = ???\)
+% \xe
 
-\subsection{Exercise v}
+% \end{multicols}
+
+\section{More on the binding problem}
 
 Recall that a multi-dimensional theory of presupposition faces the \textit{binding problem}.
 
@@ -152,27 +133,36 @@ Does the binding problem still arise? Assume that \textit{someone} has the follo
 \(\eval{someone} ≔ λ P . \displaystyle\frac{∃ x[ℙ (P x)]}{∃ x[𝔸 (P x)]}\)
 \xe
 
-\printbibliography
+\section{Bonus question on disjunction}
 
-\begin{appendix}
+Try to come up with counter-examples to the following generalisation (subscript Greek letters are presuppositions):
 
-  \section{Solutions}
+\ex
+ \textbf{Disjunction}\\If A\(_π\), and B\(_ρ\), then a sentence of the form \enquote{A or B} presupposes \(π\), and unless \enquote{not A} entails \(ρ\), also presupposes \(ρ\).
+ \xe
 
-  \subsection{Compositionalisation}
 
-  \subsubsection{Exercise iii}
+% \printbibliography
 
-  The most obvious fix is to redefine \enquote{the dog} as a function from an individual to a presuppositional proposition, to a presuppositional proposition.
+% \begin{appendix}
 
-  \ex
-  \(\displaystyle \eval{the dog} ≔ λ P . \frac{\ml{there is a unique dog} ∧ ∃x[\ml{dog} x ∧ ℙ (P x)]}{∃ x[\ml{dog} x ∧ 𝔸 (P x)]}\)
-  \xe
+%   \section{Solutions}
 
-  \ex~
-  type: \(\type{⟨⟨e,st ∗ st⟩, st ∗ st⟩}\)
-  \xe
+%   \subsection{Compositionalisation}
 
-\end{appendix}
+%   \subsubsection{Exercise iii}
+
+%   The most obvious fix is to redefine \enquote{the dog} as a function from an individual to a presuppositional proposition, to a presuppositional proposition.
+
+%   \ex
+%   \(\displaystyle \eval{the dog} ≔ λ P . \frac{\ml{there is a unique dog} ∧ ∃x[\ml{dog} x ∧ ℙ (P x)]}{∃ x[\ml{dog} x ∧ 𝔸 (P x)]}\)
+%   \xe
+
+%   \ex~
+%   type: \(\type{⟨⟨e,st ∗ st⟩, st ∗ st⟩}\)
+%   \xe
+
+% \end{appendix}
 
 \end{document}
 
