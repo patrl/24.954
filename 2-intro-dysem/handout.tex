@@ -1,7 +1,6 @@
 \documentclass[cronos,landscape,paper=letter]{ling-handout}
 
 \usepackage[margin=0.5in]{geometry}
-
 \usepackage{fontawesome,calc,enumitem,parskip,tcolorbox}
 
 \lingset{
@@ -23,7 +22,7 @@
 \title{File Change Semantics}
 \subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
 
-\date{\today}
+\date{September 13, 2019}
 
 \author{Patrick~D. Elliott}
 
@@ -34,6 +33,10 @@
 \section*{Readings}
 
 % \subsection{Readings}
+%
+The following readings can be found on the Stellar site.
+
+Strongly recommended:
 
 \begin{itemize}
 
@@ -41,9 +44,50 @@
 
     \item \fullcite[chapter 6]{kadmon2001}
 
+\end{itemize}
+
+Optional:
+
+\begin{itemize}
+
     \item \fullcite{rothschild2011}
 
 \end{itemize}
+
+\section*{Recap}
+
+Last week we gave an overview of presupposition and the issues surrounding its analysis, including:
+\begin{itemize}
+  \item The projection problem.
+  \item Presupposition accommodation.
+    \item The triggering problem.
+\end{itemize}
+
+We also presented a take on one of the earliest treatments of presupposition in the literature -- the \textit{multidimensional theory} (\citealt{karttunenPeters1979}).
+
+Remember, we treated presuppositions as a \textit{seperate dimension of meaning}; we took presuppositional meanings to be \textit{pairs} of ordinary semantic values and presuppositions, which we wrote as:
+
+\[\displaystyle\frac{\text{\it presupposition}}{\text{\it assertion}}\]
+
+This theory of presupposition had some fatal flaws, most crucial \textit{the binding problem}. We were unable to give a satisfactory analysis for:
+
+\ex
+Someone quit smoking.
+\xe
+
+This was one of the problems that motivated the move away from the multidimensional theory. There were two other problems, that are inherited to a certain extent by the account we'll introduce today (although it has other virtues). This is worth bearing in mind.
+
+\begin{description}
+  \item[The proviso problem] we predict weak, \textit{conditionalised} presuppositions in certain cases, e.g., (\ref{prov}) is predicted to presuppose that: \textit{if Mary is pregnant, then she has a brother}.
+
+    \ex
+    \label{prov}Mary is pregnant and her brother is happy.
+    \xe
+
+  \item[Explanatory adequacy] the projection properties of each connective are simply lexicalised as part of their meaning.
+
+   Why don't we see more cross-linguistic variation in projection properties? Whence the left-to-right asymmetry?
+\end{description}
 
 \section{Sentences as \textit{updates}}
 
@@ -59,19 +103,21 @@ Sam and Ka visited Rome and Venice last Summer, and Ka visited Venice again.\\
 \xe
 
 \begin{tcolorbox}
-  Peter's intuition
+  Peter's conjecture
   \tcblower
   An assertion of the first conjunct \textit{Sam and Ka visited Rome and Venice last Summer} should alter the common ground in such a way that an assertion of the second conjunct is felicitous (heavily paraphrased).
 \end{tcolorbox}
 
 One way of thinking about this intuition is that we should treat (\ref{conj1}) in a way parallel to the discourse in (\ref{conj2}).
 
-\ex\label{conj2}
-Sam and Ka visited Rome and Venice last Summer.\\
-Ka visited Venice again.\hfill\textit{presuppositionless}
+\pex\label{conj2}
+\a\label{conj2a}Sam and Ka visited Rome and Venice last Summer.
+\a\label{conj2b}Ka visited Venice again.\hfill\textit{presuppositionless}
 \xe
 
-It's difficult to make sense of this idea given the theory introduced last week, since \textit{assertion} is a strictly \textit{pragmatic} notion.
+The pragmatic felicity condition we introduced for presuppositional sentences last week \textit{does} actually capture this, since at the point that (\ref{conj2b}) is uttered, the presupposition \textit{that Ka has visited Venice before} is entailed by the common ground.
+
+So, we have a story about (\ref{conj2b}), but it's not clear how to extend this to (\ref{conj1}), since \textit{assertion} is a strictly \textit{pragmatic} notion.
 
 \begin{itemize}
 
@@ -91,21 +137,31 @@ The core idea of FCS is that the denotation of a declarative sentence is not a \
 
 Before we say something about what a CCP is, we first need to be precise about the notion of a \textit{conversational context}.
 
-Following Stalnaker, we'll represent the Common Ground in \(c\) as the \textit{Context Set} -- the set of possible worlds compatible with the shared knowledge of the discourse participants.
+Following Stalnaker, we'll represent the Common Ground in \(c\) as the \textit{Context Set} -- the set of possible worlds compatible with the shared knowledge of the discourse participants (Stalnaker 1973, 1974, 1978, 1998, 2002).
 
-\todo[inline]{Add actual Stalnaker references here}
+\pex Context Set (def.)
+Given conversational participants \(a_{1},\ldots , a_{n}\), the context set \(C\) is the strongest proposition (i.e., the smallest set of possible worlds), such that:
+\a Each \(a_{i}\) believes \(C\);
+\a Each \(a_{i}\) believes that each \(a_{j}\) believes \(C\);
+\a Each \(a_{i}\) believes that each \(a_{j}\) believes that each \(a_{k}\) believes \(C\)\\
+\ldots
+\xe
 
-\todo[inline]{Elaborate on this}
+Informally: \(C\) is the grand conjunction of all the propositions mutually believed to be true by the discourse participants.
 
 \subsection{The CCPs of declarative sentences}
 
-The context set is a set of worlds (type \(\ml{st}\)). The denotation of a declarative sentence is an \textit{instruction} to take the current context set, and sift out all those possible worlds that aren't compatible with the information conveyed by a sentence.
+The context set can be thought of as either a set of worlds, or equivalently as a proposition (type \(\ml{st}\)). The denotation of a declarative sentence is an \textit{instruction} to take the current context set, and sift out all those possible worlds that aren't compatible with the information conveyed by a sentence.
 
-We can model this \enquote{instruction} formally by treating the denotation of a declarative sentence as a \textit{function from context sets to updated context sets} of type \(\ml{⟨st,st⟩\}\).
+We can model this \enquote{instruction} formally by treating the denotation of a declarative sentence as a \textit{function from context sets to updated context sets} of type \(\ml{⟨st,st⟩\}\). Let's write this type as \(\ml{u}\)
 
   \ex
-  \(\eval{Paul vapes} = λ c . c ∩ \set{w|\ml{p vapes}_{w}}\)
+  \(\eval{Paul vapes} = λ c . c ∩ \set{w|\ml{p vapes}_{w}}\) \hfill \(∷\ml{u}\)
   \xe
+
+  \begin{tcolorbox}
+  Let's stop for a moment to consider this move -- typically, we model the role of \textit{assertions} in discourse as updating the current context set. Here, we're \textit{semanticising} assertion, such that the the \textit{semantic value} of a sentence is its effect on the context set. This is a substantive hypothesis about the semantics-pragmatics interface!
+  \end{tcolorbox}
 
     This meaning for \textit{Paul vapes} captures the dynamic flow of information over the course of a discourse.
 
@@ -144,7 +200,7 @@ We can model this \enquote{instruction} formally by treating the denotation of a
   To retrieve a proposition from a CCP \(f\), we take the set of worlds \(w\), such that applying \(f\) to \(\set{w}\) returns \(w\).
 
   \ex
-  \(f^{↓} = λ w . f (\set{w}) = \set{w}\)
+  \(f^{↓} = λ w . f (\set{w}) = \set{w}\)\hfill\((↓) ∷ ⟨\ml{u},\ml{st}⟩\)
   \xe
 
   \ex~
@@ -157,22 +213,18 @@ We can model this \enquote{instruction} formally by treating the denotation of a
   \begin{tcolorbox}
     Exercise
     \tcblower
-    Define an operator \(𝔸 ∷ ⟨\ml{st},⟨\ml{st},\ml{st}⟩⟩\) which takes a classical proposition and returns the corresponding CCP.
+    Define an operator \(𝔸 ∷ ⟨\ml{st},\ml{u}⟩\) which takes a classical proposition and returns the corresponding CCP.
   \end{tcolorbox}
-
-  % We can also define an operator \(𝔸\) (Assert), that takes a proposition and returns the corresponding CCP:
-
-  % \ex
-  % \(𝔸 p = λ c . c ∩ p\)
-  % \xe
 
   \subsection{Modelling presuppositions}
 
+  \subsubsection{Presuppositions as preconditions on updates}
+
   Heim's intuition is that presuppositions impose \textit{preconditions} for CCPs to update (i.e., apply to) the current context set.
 
-  If these preconditions are met, we say that the presuppositions of a given CCP are \textbf{satisfied} relative to a context set \(c\).
+  If these preconditions are met, we say that the presuppositions of a given CCP are \textbf{satisfied} relative to a context set \(c\) -- sometimes the dynamic theory of presupposition projection is called the \textbf{satisfaction theory}.
 
-  We can easily cash out this intuition formally by treating CCPs as \textit{partial} functions from context sets -- an utterance is infelicitous if the associated CCP is undefined when applied to the current context set.
+  We can cash out this intuition formally by treating CCPs as \textit{partial} functions from context sets -- an utterance is infelicitous if the associated CCP is undefined when applied to the current context set.
 
   \ex
   \(\eval{Paul quit vaping} = λ c . \begin{cases}
@@ -184,6 +236,21 @@ We can model this \enquote{instruction} formally by treating the denotation of a
   The CCP associated with \textit{Paul quit vaping} imposes as a precondition, that the current context \(c\) entails \textit{that Paul used to smoke}.
 
   If this precondition is satisfied, it updates \(c\) with the information that \textit{Paul doesn't smoke now}, otherwise the result is undefined (and therefore: infelicitous).
+
+  \subsubsection{The bridge principle}
+
+  In this theory, the felicity principle bridging between the semantic value of a sentence and its pragmatic contribution is extremely straightforward:
+
+  \ex
+  An utterance of sentence S by agents \(a_{1}…a_{n}\) in a context set \(C\) is only felicitous if \(\eval{S} C\) is defined.
+  \xe
+
+  Arguably, this falls out from the following more general principle:
+
+  \ex
+  An utterance of sentence S by agents \(a_{1} \ldots a_{n}\) in a context \(C\) results in an updated context \(\eval{S} C\).
+  \xe
+
 
   \begin{tcolorbox}
     Writing partial functions
@@ -202,9 +269,374 @@ We can model this \enquote{instruction} formally by treating the denotation of a
 
   \section{Presupposition projection}
 
-  \subsection{Conjunctive sentences}
+  \subsection{From discourse sequencing to dynamic conjunction}
 
-  \todo[inline]{Conjunction is just function composition}
+  One...dare I say...\textit{beautiful} result of dynamic semantics is that \textit{discourse sequencing}, which we'll write as \((;)\), is just \textit{function composition}.
+
+  \begin{tcolorbox}
+    Function composition
+    \tcblower
+    The composition of \(f\) of type \(⟨ρ,τ⟩\) with \(g\) of type \(⟨σ,ρ⟩\), written \(f ∘ g\) is defined as follows:
+
+    \ex
+    \(f∘g ≔ λ x . f (g x)\)
+    \xe
+  \end{tcolorbox}
+
+  The intuition here: the current conversational context \(c\) is first updated by \(p\), the first sentence, and then the updated context \(c'\) is updated by the second sentence \(q\).
+
+  In the literature, people often use the following language: the \enquote{local context} of \(q\) is \(p c\) (i.e., the context updated with \(p\)).
+
+  \ex Discourse sequencing \((;)\) (def.)\\
+  \(p;q ≔q∘p \)\hfill\(∷⟨\ml{u},⟨\ml{u,u}⟩⟩\)
+  \xe
+
+  Using \((;)\) we can assign a \textit{meaning}, compositionally, to a discourse.
+
+  \ex
+  \(\eval{\begin{aligned}[c]
+      &\text{Hubert smokes;}\\
+      &\text{Paul vapes}
+    \end{aligned}} \begin{aligned}[t]
+    &=(λ c ∙ c ∩ \set{w|\ml{p vapes}_{w}}) ∘ (λ c ∙ c ∩ \set{w|\ml{h smokes}_{w}})\\
+    &= λ c . (c ∩ \set{w|\ml{h smokes}_{w}}) ∩ \set{w|\ml{p vapes}_{w}}\\
+    \end{aligned}\)
+  \xe
+
+  Now, let's take a scenario where the first sentence in a discourse \textit{entails} the presupposition of the second. If we treat discourse sequencing is function composition, it falls out automatically that the presupposition is \textit{satisfied} within the confines of the sentence, and therefore fails to project.
+
+  Let's take the discourse \textit{Paul vaped last year; Paul quit vaping}. Recall, we're treating \textit{Paul quit vaping} as a partial function from contexts to contexts.
+
+  \ex
+  \(\eval{Paul vaped last year; Paul quit vaping}\)
+  \xe
+
+  How do we compute the meaning? First take the meaning of \textit{Paul vaped last year}, and update \(c\) with it:
+
+  \ex
+  \(\textcolor{gray}{λ c . }c ∩ \set{w|\ml{p vaped}_{w}}\)
+  \xe
+
+  Now, update the result with \textit{Paul quit vaping}:
+
+  \ex
+  \(\begin{aligned}[t]
+    &\textcolor{gray}{λ c . }\begin{cases}
+      \begin{aligned}[t]
+        &(c ∩ \set{w|\ml{p vaped}_{w}})\\
+        &∩ \set{w|¬ \ml{p vapes-now}_{w}}\end{aligned} & \overbrace{\set{w|\ml{p vaped}_{w}} ⊆ (c ∩ \set{w|\ml{p vaped}_{w}})}^{\text{this is a tautology!}}\\
+    ♯&\text{else}
+  \end{cases}\\
+  &= \textcolor{gray}{λ c . }\begin{cases}
+    \begin{aligned}[t]
+      &(c ∩ \set{w|\ml{p vaped}_{w}})\\
+      &∩ \set{w|¬ \ml{p vapes-now}_{w}}
+      \end{aligned}& ⊤\\
+    ♯&\text{else}
+  \end{cases}\\
+  &= \textcolor{gray}{λ c . }(c ∩ \set{w|\ml{p vaped}_{w}}) ∩ \set{w|¬ \ml{p vapes-now}_{w}}
+  \end{aligned}\)
+  \xe
+
+  Now, in order to capture the projection properties of conjunctive sentence, we make the following claim!
+
+  \ex
+  \(\ml{and}_{d} ≔ (;)\)\hfill\(∷⟨\ml{u},⟨\ml{u,u}⟩⟩\)
+  \xe
+
+  In other words, \textbf{\textit{and} sequences CCPs}.
+
+  As an automatic consequence, we derive the following facts:
+
+  \ex
+  Paul vaped last year and Paul quit vaping.\hfill\textit{presuppositionless}
+  \xe
+
+  \ex~
+  Paul quit vaping and Paul vaped last year.\hfill\textit{presupposes that Paul vaped}
+  \xe
+
+  \begin{tcolorbox}
+    Exercise
+    \tcblower
+    Demonstrate the following equivalence:
+
+    \[(p;q)^{↓} ≡ p^{↓} ∩ q^{↓}\]
+
+    A successful demonstration shows us that \((;)\) subsumes the static contribution of \textit{and}.
+  \end{tcolorbox}
+
+  We've now cashed out Peter's intuition -- the meaning of a discourse is built up compositionally; \textit{and} operates on CCPs, not propositions.
+
+  Ultimately, our new entry for \textit{and} is able to get the linear asymmetry in projection because of the following fact:
+
+
+  \ex Fact: function composition is \textit{asymmetric}:\\
+  \(f∘g ≠ g∘f\)
+  \xe
+
+  \ex~ Fact: conjunction/intersection is \textit{symmetric}:\\
+  \(p ∧ q = q ∧ p\)
+  \xe
+
+  \begin{tcolorbox}
+    On the associativity of composition
+    \tcblower
+    Another fact about function composition is that -- like conjunction/intersection -- it's \textit{associative}.
+
+    \[(f∘g)∘h = f∘(g∘h)\]
+
+    As a consequence, discourse sequencing/dynamic conjunction is associative too! Rather than writing, (\ref{bad}) we can just write (\ref{good}):
+
+    \pex
+    \a\label{bad}\((\eval{Paul vapes};\eval{Hubert smokes});\eval{Uli is straight-edge}\)
+    \a\label{good}\(\eval{Paul vapes};\eval{Hubert smokes};\eval{Uli is straight-edge}\)
+    \xe
+
+  \end{tcolorbox}
+
+  \subsection{An early worry}
+
+  What do we predict the following sentence to presuppose?
+
+  \ex
+  It's raining, and Paul quit vaping.
+  \xe
+
+  We predict \textit{exactly the same presupposition as before}. Namely, that a context \(c\) updated with the proposition \textit{it's raining}, should entail that Paul used to vape. In other words, we the global presupposition is predicted to be: \textit{if it's raining then Paul used to vape}.
+
+  This is an early illustration that, much like the multidimensional theory, FCS is subject to the \textit{proviso problem}. In certain cases, we generate weak, conditionalised presuppositions, rather than the stronger ones that are attested.
+
+  Notice that this problem only arises with \textit{accommodation}. If we are in a context where it is known that \textit{Paul used to vape}, then it is also known that \text{if it's raining then Paul used to vaped}
+
+  The standard solution to the proviso problem in FCS is to say that, indeed, what gets accommodated is the weaker, conditional presupposition \textit{if it's raining than Paul used to vape}, but this is pragmatically an odd thing to accommodate, so it gets strengthened to \textit{Paul used to vape} (see, e.g., \citealt{beaver_presupposition_2001,kadmon2001}).
+
+  We'll see reasons to disbelieve this story in next week's class.
+
+  \subsection{Negation}
+
+  \citet{heim1983} defines the CCP of a negative sentence as follows:
+
+  \ex
+  \(\ml{neg}_{d} p = λ c . c - (p c)\)\hfill\(\ml{neg}_{d} ∷ ⟨\ml{u,u}⟩\)
+  \xe
+
+  Informally, in order to update \(c\) with \textit{not \(p\)}:
+
+  \begin{itemize}
+
+    \item First, update \(c\) with p, returning an updated context \(c'\).
+
+    \item subtract the updated context \(c'\) from \(c\).
+
+  \end{itemize}
+
+  Since \(not p\) first triggers an update of \(c\) by \(p\), the negative update is only defined in \(c ∈ \ml{dom} p\). Therefore the negative sentence inherits the presuppositions of its positive counterpart. As we saw last week, this seems to be a correct prediction.
+
+  \pex
+  \a Paul quit vaping.\hfill\textit{presupposes that Paul used to vape}
+  \a It's false that Paul quit vaping.\hfill\textit{presupposes that Paul used to vape}
+  \xe
+
+  \begin{tcolorbox}
+    Exercise
+    \tcblower
+    Does the following equivalence hold?:
+
+    \[(\ml{neg}_{d} p)^{↓} = \ml{not} (p^{↓})\]
+
+    In a multi-dimensional setting, despite worries concerning \textit{explanatory adequacy} we had a way of systematically lifting negation into a multi-dimensional setting via \(π\). Can we define such an operator to lift propositional negation into the dynamic setting?
+  \end{tcolorbox}
+
+  \subsection{Conditionals}
+
+  If you did the problem set, you hopefully noticed that the projection properties of \textit{if...then...} conditions are the same as for conjunctive sentences.
+
+\ex
+\textbf{Conditionals}\\If A\(_π\), and B\(_ρ\), then a sentence of the form \enquote{if A then B} presupposes \(π\), and unless A entails \(ρ\), also presupposes \(ρ\)
+\xe
+
+\ex~
+If Paul has a good theory, he'll tell you about his theory.\hfill \textit{presuppositionless}
+\xe
+
+\ex~
+If Paul tells you about his theory, he'll be happy.\hfill\textit{presupposes Paul has a theory}
+\xe
+
+Heim's CCP for conditionals:
+
+\ex
+\(p \ml{if...then...}_{d} q ≔ λ c . c - (p c - q (p c))\)
+\xe
+
+The local context for the second disjunct \(q\) is \(c\) updated with \(p\).
+
+This doesn't seem very realistic as a meaning for natural language conditionals though -- truth-conditionally, this leads to the expectation that they should always express material implication (a worry pointed out by Heim).
+
+  \subsection{Disjunction}
+
+  As we observed last week, it seems that if the \textit{negation} of the first disjunct entails the presupposition of the second, the presupposition fails to project:
+
+  \ex
+  Either John has no children, or his children do not live with him.
+  \xe
+
+  \ex~
+  \(p \ml{or}_{d} q ≔ λ c . (p c) ∪ q (c - (p c))\)
+  \xe
+
+  \begin{tcolorbox}
+    Exercise
+    \tcblower
+    Consider the following equivalence:
+
+    \[p → q ≣ ¬ (p ∧ ¬ q)\]
+
+    What happens if we try to derive the dynamic entry for the conditional from the above equivalence (taking the corresponding dynamic entries for the logical operators).
+
+    \[p \ml{if}_{d} q =?= \ml{not}_{d} (p;(\ml{not}_{d} q))\]
+
+    What about disjunction? Start from the following equivalence -- does it derive the dynamic entry for disjunction?
+
+    \[p ∨ q ≡ ¬ (¬ p ∧ ¬ q)\]
+
+  \end{tcolorbox}
+
+  \subsection{Explanatory adequacy}
+
+  \begin{tcolorbox}
+    Possible squib topic alert! -- beyond the canonical logical operators
+    \tcblower
+    Consider the expression \textit{unless}. Naïvely, it looks like it means something similar to (strengthened) NL disjunction:
+
+    \ex
+    {}[Paul vapes]\(_{p}\) unless [Sophie is around]\(_{q}\).\\
+    \textit{False if (a) \(p\) is false and \(q\) is false,\\
+      (b) \(p\) is true and \(q\) is true.}
+    \xe
+
+    What are it's projection properties? They look like the exact reverse of disjunction (thanks Roger for discussing this with me!).
+
+    \ex
+    Paul will tell you about his theory, unless he has no theory.
+    \xe
+
+    Does this raise issues for the idea that the projection properties of a connective should be predictable from its logical properties?
+
+    What about other connectives which carry discourse-related inferences?
+  \end{tcolorbox}
+
+  \section{The dynamics of anaphora}
+
+  The way we've presented dynamic semantics doesn't quite mirror its historical trajectory. DySem was originally developed to account for \textit{anaphora}, and specifically its ability to span across domains which are ordinarily boundaries for syntactic/semantic relations.
+
+  \ex
+  A philosophy student\(^{x}\) walked in. They\(_{x}\) sat down.
+  \xe
+
+  So-called \textit{donkey sentences} such as (\ref{donk}) pose an especially acute problem, since we can't make recourse to exceptional scope of \textit{a donkey}.
+
+  \ex\label{donk}
+  Every farmer who owns a donkey\(^{x}\) beats it\(_{x}\)
+  \xe
+
+  In order to account for the dynamics of anaphora, we'll first need to extend our fragment to quantificational sentences.
+
+  In doing so, we'll also attempt to solve the \textit{binding problem} -- one of our primary motivations for moving away from a multi-dimensional system.
+
+  \subsection{Assignments}
+
+  Assignment functions assign referents to identifiers, often modelled as \textit{indices}. We'll assume that assignments are \textit{partial}.
+
+  We can model contextual knowledge about which identifier is mapped to which referent as a \textit{set of assignments}.
+
+  let's assume that our domain is \(\ml{andy, dani, yasu}\), and we have three indices \(1,2,3\). The following represents a context where we are certain who to map identifiers \(1,2\) to, but ignorant about who \(3\) gets mapped to.
+
+  \[\Set{\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{andy}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{dani}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}
+        \end{aligned}\right]}\]
+
+  \subsection{Extending contexts}
+
+  Rather than treating contexts as sets of worlds (i.e., Stalnakerian context sets), we're going to extend this notion and treat contexts as \textit{sets of world-assignment pairs}.
+
+  \citeauthor{heim1982} calls such objects \textbf{files} (hence, file change semantics).
+
+  \begin{tcolorbox}
+    A note on partial assignments
+    \tcblower
+    Since we're treating assignments as \textit{partial} functions from indices to referents our refined notion of \enquote{file} will need a small caveat. Concretely, a context needs to be defined relative to a \textit{domain} of indices \(N\).
+
+    \pex
+    File (def.)\\
+    A file \(c\) with a domain \(N\) is a set of assignment-world pairs, s.t.
+    \a \(\set{w|∃ g[⟨g,w⟩ ∈ c]}\) is the Stalnakerian context set (or, the \textit{worldly content} of the file)
+    \a For any \(⟨g,w⟩, ⟨g',w'⟩ ∈ c\), \(\ml{dom} g = \ml{dom} g' = N\)
+    \xe
+
+  \end{tcolorbox}
+
+  This extension has no effect on sentences without pronouns or quantifiers:
+
+  \ex
+  \(\eval{Paul vapes} = λ c . \set{⟨g,w⟩|\ml{p vapes}_{w}}\)
+  \xe
+
+  Pronouns denote variables, and impose a \textit{familiarity condition}, i.e., the induce a presupposition that the index they carry is in the domain of the current conversational context.
+
+  \ex
+  \(\eval{he\(_{7}\) vapes} = λ c:7 ∈ \ml{dom} c . \set{⟨g,w⟩|g_7 \ml{vapes}_w}\)
+  \xe
+
+  % In order to account for the binding problem, let's treat indefinites as a function from a dynamic predicate to a CCP.
+
+  % \ex
+  % \(\eval{quit vaping} = λ x . λ c : \set{<g,w>|x \ml{vaped}_{w}} ⊆ c . c ∩ \set{⟨g,w⟩|¬ x \ml{vapes}_lj {w}}\)
+  % \xe
+
+  % \ex~
+  % \(\eval{someone\(^{n}\)} = λ f . λ c : n ∉ \ml{dom} c . c ∩ \set{⟨g,w⟩|∃x,g'[⟨g',w⟩ ∈ f x ∧ g[n ↦ x]g']}\)
+  % \xe
+
+  % Now, finally!
+
+  % \ex
+  % \(\eval{someone\(^{n}\) quit vaping}= λ c:n ∉ \ml{dom} c ∧ \set{}\)
+  % \xe
+
+  % \todo[inline]{Is the following correct??? We could also just give a CCP for a sentence with an indefinite}
+  % \ex
+  % \(\eval{someone\(^{7}\)} = λ f . λ c . \set{⟨g,w⟩|∃g',x[⟨g',w⟩ ∈ (f x) ∧ g[7 ↦ x]g']}\)
+  % \xe
+
+
+
+
+  % \[\Set{\left[\begin{aligned}[c]
+  %         1 ↦ \ml{andy}\\
+  %         2 ↦\ml{yasu}\\
+  %         3 ↦ \ml{andy}
+  %       \end{aligned}\right],\Set{\left[\begin{aligned}[c]
+  %         1 ↦\ml{andy}\\
+  %         2 ↦\ml{yasu}\\
+  %         3 ↦\ml{dani}
+  %       \end{aligned}\right],\Set{\left[\begin{aligned}[c]
+  %         1 ↦\ml{andy}\\
+  %         2 ↦\ml{yasu}\\
+  %         3 ↦\ml{yasu}
+  %       \end{aligned}\right]}\]
+
 
 
 % \subsection{Notational conventions}
@@ -341,6 +773,79 @@ We can model this \enquote{instruction} formally by treating the denotation of a
 
 
 \printbibliography
+
+\begin{appendix}
+
+  \section{Last week's problem set}
+
+\subsection{From the law on non-contradiction to the law of the excluded middle}
+
+\ex\label{nc}The law of non-contradicition\\
+\(¬ (p ∧ ¬ p)\)
+\xe
+
+For (\ref{nc}) to be true, the following must be false:
+
+\ex
+\(p ∧ ¬ p\)
+\xe
+
+What does it take for a conjunction to be false? Either the first conjunct is false, or the second conjunct is false. In other words, the following must hold:
+
+\ex \(¬ p ∨ ¬ ¬ p\)
+\xe
+
+This is of course equivalent to...the law of the excluded middle:
+
+\ex
+\(¬ p ∨ p\)
+\xe
+
+\begin{tcolorbox}
+  Discussion
+  \tcblower
+Now, even the ancient Greeks knew that natural language doesn't obey the law of the excluded middle...nevertheless, we want to maintain the law of non-contradiction as a basic axiom...we can conclude that the inferential system underlying natural language semantics must be non-classical in nature, since these two things are equivalent in a classical setting.
+\end{tcolorbox}
+
+\subsection{Scoping in presuppositions}
+
+\ex
+\(\displaystyle\frac{p}{x} \bind m ≔ \frac{p ∧ ℙ (m x)}{𝔸 (m x)}\)
+\xe
+
+\ex~
+\begin{forest}
+  [{\(\displaystyle\frac{g_{1} \ml{ids fem} ∧ g_{1} \ml{did smoke}}{¬ g_{1} \ml{smokes now}}\)}
+  [{\(λ m . \displaystyle\frac{g_{1} \ml{ids fem} ∧ ℙ (m g_{1})}{𝔸 (m g_{1})}\)}
+    [{\(\bind\)}]
+    [{\(\displaystyle\frac{g_{1} \ml{ids fem}}{g_{1}}\)\\she\(_{1}\)}]
+  ]
+    [{\(λ x . \displaystyle\frac{x \ml{did smoke}}{¬ x \ml{smokes now}}\)} [{quit smoking},roof]]
+  ]
+\end{forest}
+\xe
+
+\begin{tcolorbox}
+  Discussion
+  \tcblower
+  In order to get a presuppositional individual to compose with a presuppositional predicate, we need to define a new operator \((\bind)\) -- note that applying \((\bind)\) to the pronoun returns something of type \(\left\langle\left\langle\ml{e},\displaystyle\frac{\ml{st}}{\ml{st}}\right\rangle,\displaystyle\frac{\ml{st}}{\ml{st}}\right\rangle\). This operator is a way of shifting a presuppositional individual into a presuppositional scope-taker.
+\end{tcolorbox}
+
+\subsection{More on the binding problem}
+
+We suggested a way of solving the binding problem by having the at-issue meaning entail the presupposition. What we predict for \textit{someone quit smoking} is:
+
+\ex
+\(\displaystyle\frac{∃ x[x \ml{did smoke}]}{∃y[¬ \ml{smoke now} ∧ y \ml{did smoke}]}\)
+\xe
+
+\begin{tcolorbox}
+  Discussion
+  \tcblower
+  This only solves the binding problem in a veridical context. In a non-veridical context, the predicted at-issue meaning is too weak.
+\end{tcolorbox}
+
+\end{appendix}
 
 \end{document}
 
