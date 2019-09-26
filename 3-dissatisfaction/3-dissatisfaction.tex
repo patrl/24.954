@@ -1,0 +1,903 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage{fontawesome,calc,enumitem,parskip,tcolorbox}
+
+\lingset{
+  belowexskip=0pt,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt},
+}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{File Change Semantics II: Beyond Satisfaction}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{September 20, 2019}
+
+\author{Patrick~D. Elliott}
+
+\begin{document}
+
+\maketitle
+
+\section*{Homework}
+
+Do the primary reading; submit the p-set (posted later today), by next Friday 27 September.
+
+\section*{Readings}
+
+\begin{itemize}
+
+    \item Primary reading (strongly recommended): \fullcite{mandelkern2016}
+
+    \item Secondary:
+
+    \begin{itemize}
+
+      \item \fullcite[chapter 3]{heim1982}\\
+       (the \textit{locus classicus} on file change semantics)
+
+      \item \fullcite{geurts1996}\\
+        (the \textit{locus classicus} on the proviso problem)
+
+      \item \fullcite{mandelkern2019}\\
+        (Detailed arguments against a pragmatic approach to the proviso problem)
+
+    \end{itemize}
+
+\end{itemize}
+
+\section*{Recap}
+
+The denotation of a declarative sentence is an \textit{instruction} to take the current context set, and sift out all those possible worlds that aren't compatible with the information conveyed by a sentence.
+
+We can model this \enquote{instruction} formally by treating the denotation of a declarative sentence as a \textit{function from context sets to updated context sets} of type \(⟨\ml{st,st}⟩\). Let's write this type as \(\ml{u}\)
+
+  \ex
+  \(\eval{Paul vapes} = λ c . c ∩ \set{w|\ml{p vapes}_{w}}\) \hfill \(∷\ml{u}\)
+  \xe
+
+We treat presuppositional sentences as \textit{partial} CCPs -- an utterance is infelicitous if the associated CCP is undefined when applied to the current context set.
+
+  \ex
+  \(\eval{Paul quit vaping} = λ c . \begin{cases}
+    c ∩ \set{w| ¬ \ml{p vapes now}_{w} } &c ⊆ \set{w | \ml{p did vape}_{w}}\\
+    ♯ & \text{else}
+    \end{cases}\)
+  \xe
+
+  How do we capture the projection properties of the logical connectives? Consider the following conjunctive sentence, with a trigger in the second conjunct.
+
+  \ex
+  \(\eval{Paul vaped last year; Paul quit vaping}\)
+  \xe
+
+  How do we compute the meaning? First take the meaning of \textit{Paul vaped last year}, and update \(c\) with it:
+
+  \ex
+  \(\textcolor{gray}{λ c . }c ∩ \set{w|\ml{p vaped}_{w}}\)
+  \xe
+
+  Now, update the result with \textit{Paul quit vaping}:
+
+  \ex
+  \(\begin{aligned}[t]
+    &\textcolor{gray}{λ c . }\begin{cases}
+      \begin{aligned}[t]
+        &(c ∩ \set{w|\ml{p vaped}_{w}})\\
+        &∩ \set{w|¬ \ml{p vapes-now}_{w}}\end{aligned} & \overbrace{(c ∩ \set{w|\ml{p vaped}_{w}}) ⊆ \set{w|\ml{p vaped}_{w}}}^{\text{this is a tautology!}}\\
+    ♯&\text{else}
+  \end{cases}\\
+  &= \textcolor{gray}{λ c . }\begin{cases}
+    \begin{aligned}[t]
+      &(c ∩ \set{w|\ml{p vaped}_{w}})\\
+      &∩ \set{w|¬ \ml{p vapes-now}_{w}}
+      \end{aligned}& ⊤\\
+    ♯&\text{else}
+  \end{cases}\\
+  &= \textcolor{gray}{λ c . }(c ∩ \set{w|\ml{p vaped}_{w}}) ∩ \set{w|¬ \ml{p vapes-now}_{w}}
+  \end{aligned}\)
+  \xe
+
+  Now, in order to capture the projection properties of conjunctive sentence, we make the following claim!
+
+  \ex
+  \(\ml{and}_{d} ≔ (;)\)\hfill\(∷⟨\ml{u},⟨\ml{u,u}⟩⟩\)
+  \xe
+
+  In other words, \textbf{\textit{and} sequences CCPs}. The same strategy is adopted for the other logical connectives.
+  \vspace{1\baselineskip}
+\hline
+  \vspace{1\baselineskip}
+
+So far, we've essentially developed something akin to a dynamic propositional calculus (see, e.g., \citealt{varieties_1984}).
+
+We haven't said anything about quantifiers or pronouns, and specifically we haven't said anything about the \textit{binding problem} -- one of the main issues that motivated the shift away from a multi-dimensional semantics. This will be addressed today.
+
+We also haven't said anything about how to solve the \textit{proviso problem} -- this will also be addressed today, and as we'll see, it won't be as straightforward as it initially seemed.
+
+  \section{The dynamics of anaphora}
+
+  The way we presented dynamic semantics last week didn't quite mirror its historical trajectory. File Change Semantics, Discourse Representation Theory, and their successors were originally developed to account for \textit{anaphora}, and specifically its ability to span across domains which are ordinarily boundaries for syntactic/semantic relations.\footnote{I'll use superscript and subscript indices to indicate binders and bindee's respectively.}
+
+  \ex
+  A philosophy student\(^{x}\) walked in. They\(_{x}\) sat down.
+  \xe
+
+  So-called \textit{donkey sentences} such as (\ref{donk}) pose an especially acute problem, since we can't make recourse to exceptional scope of \textit{a donkey}.
+
+  \ex\label{donk}
+  Every farmer who owns a donkey\(^{x}\) is obsessed with it\(_{x}\)
+  \xe
+
+  \subsection{Assignments}
+
+  Assignment functions assign referents to identifiers, often modelled as \textit{indices}. We'll assume that assignments are \textit{partial}, i.e., we may have an assignment function \(g\) that is defined for \(0 < n < 4\):
+
+  \[g ≔ \left[\begin{aligned}[c]
+        &1 ↦ \ml{yasu}\\
+        &2 ↦ \ml{dani}\\
+        &3 ↦ \ml{andy}\\
+        &4 ↦ ♯\\
+        &5 ↦ ♯\\
+        &…
+      \end{aligned}\right]\]
+
+  We can model contextual knowledge about which identifier is mapped to which referent as a \textit{set of assignments}.
+
+  let's assume that our domain is \(\set{\ml{andy, dani, yasu, klaus, hans}}\), and we have three indices \(\set{1,2,3}\). The following represents a context where we are certain who to map identifiers \(1,2\) to, but ignorant about who \(3\) gets mapped to, but we know that it doesn't get mapped to \(\ml{andy}\) or \(\m{dani}\).
+
+  \[\Set{\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{hans}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{klaus}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}
+        \end{aligned}\right]}\]
+
+  This could, for example, model an updated context after the following discourse:
+
+  \ex
+  A\(^{1}\) syntactician walked into the bar. He\(_{1}\) works on ellipsis.\\
+  A psycholinguist\(^{2}\) joined him\(_{1}\). He\(_{2}\) is Italian.\\
+  A linguist from UCL\(^{3}\) was there too.
+  \xe
+
+  \subsection{Extending contexts}
+
+  Rather than treating contexts as sets of worlds (i.e., Stalnakerian context sets), we're going to extend this notion and treat contexts as \textit{sets of world-assignment pairs}.
+
+  \citeauthor{heim1982} calls such objects \textbf{files} (hence, \textit{file change semantics}).
+
+  \begin{tcolorbox}
+    Partial assignments and the definition of \textit{file}
+    \tcblower
+    Since we're treating assignments as \textit{partial} functions from indices to referents our refined notion of \enquote{file} will need a small caveat. Concretely, a context needs to be defined relative to a \textit{domain} of indices \(N\).
+
+    \pex
+    File (def.)\\
+    A file \(c\) with a domain \(N\) is a set of assignment-world pairs, s.t.
+    \a \(\set{w|∃ g[⟨g,w⟩ ∈ c]}\) is the Stalnakerian context set (or, the \textit{worldly content} of the file)
+    \a For any \(⟨g,w⟩, ⟨g',w'⟩ ∈ c\), \(\ml{dom} g = \ml{dom} g' = N\)
+    \xe
+
+    \vspace{1\baselineskip}
+
+    Informally, assignments in a file should agree on their domain.
+    \end{tcolorbox}
+
+  This extension has no effect on sentences without pronouns or quantifiers:
+
+  \ex
+  \(\eval{Paul vapes} = λ c . \set{⟨g,w⟩ ∈ c|\ml{p vapes}_{w}}\)
+  \xe
+
+  We'll keep all our previous entries for the connectives.
+
+  \subsubsection{Pronouns}
+
+  Pronouns denote variables, and impose a \textit{familiarity condition} (\citealt{heim1991}), i.e., they induce a precondition that the index they carry is in the domain of the current conversational context.\footnote{\(g_{n}\) is to be understood as \(g n\) (i.e., \(g\) applied to \(n\)).}
+
+  \ex
+  \(\eval{he\(_{7}\) vapes} = λ c:7 ∈ \ml{dom} c . \set{⟨g,w⟩ ∈ c|g_7 \ml{vapes}_w}\)
+  \xe
+
+  For example, the CCP above will be undefined if applied to the following file (worlds are ignored for ease of exposition):
+
+    \[\Set{\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{hans}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{klaus}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}
+        \end{aligned}\right]}\]
+
+  But defined if applied to the following file:
+
+      \[\Set{\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{hans}\\
+          &7 → \ml{paul}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{klaus}\\
+          &7 → \ml{paul}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}\\
+          &7 → \ml{paul}
+        \end{aligned}\right]}\]
+
+  This captures the fact that it's odd to say \enquote{he vapes} in a neutral context.
+
+  \subsubsection{Indefinites}
+
+  Unlike pronouns, indefinites impose a \textit{novelty condition}. We cash this out formally by having indefinites impose a presupposition on the input file that associated index is \textit{not} in its domain.
+
+  We can define an indefinite/\textit{some} as itself a sentence, associated with CCP.\footnote{There are various other ways of compositionalising dynamic semantics, but this will be useful for presentational purposes.}
+
+  \ex
+  \(\ml{a}_{n} ≔ λ c:n ∉ \ml{dom} c . \set{⟨g'[n ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ x ∈ D_{\ml{e}}}\)
+  \xe
+
+      \begin{tcolorbox}
+    A note on modified assignment functions
+    \tcblower
+    We write \(g[n ↦ x]\) to mean: that assignment function that is identical to \(g\), except that \(g[n ↦ x]_{n} = x\).
+  \end{tcolorbox}
+
+
+  \(\ml{a}_{n}\) has the following effect on the input context: we take each assignment, and extend it so that the index \(n\) gets mapped to an arbitrary individual. This encodes, in the file, the information that we are ignorant about who \(n\) gets mapped to. In dynamic semantics, this process is often referred to as \textbf{random assignment}.
+
+  If we take the following file:
+
+    \[\Set{\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}
+        \end{aligned}\right]}\]
+
+  And apply the CCP associated with \(\ml{a}_{4}\), we get:
+
+      \[\Set{\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}\\
+          &4 → \ml{andy}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}\\
+          &4 → \ml{dani}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}\\
+          &4 → \ml{yasu}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}\\
+          &4 → \ml{klaus}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦\ml{andy}\\
+          &2 ↦\ml{dani}\\
+          &3 ↦\ml{yasu}\\
+          &4 → \ml{hans}
+        \end{aligned}\right],...}\]
+
+  Following Heim, we assume the following LF for a quantificational sentence, where traces are interpreted as pronouns:
+
+  \ex
+  \begin{forest}
+    [{...}
+    [{}
+      [{an\(_{3}\)}]
+      [{...} [{\(t_{3}\) Italian},roof]]
+    ]
+      [{...} [{\(t_{3}\) is a good dancer},roof]]
+    ]
+  \end{forest}
+  \xe
+
+  Furthermore, we assume that a sentence with an indefinite, of the form \(\ml{a}_{n} p q\), is interpreted as \(\ml{a}_{n};p;q\).
+
+  Imagine we're in a context where identifiers \(1,2\) have been introduced, and we're certain about who they point to:
+
+  \[c = \Set{\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}
+        \end{aligned}\right]}\]
+
+  An utterance of \enquote{an\(_{3}\) Italian is a good dancer} first updates the input context with \(\ml{a}_{3}\), triggering random assignment relative to index \(3\):
+
+  \[\ml{a}_{3} c = \Set{\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}\\
+          &3 ↦ \ml{yasu}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}\\
+          &3 ↦ \ml{jacopo}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}\\
+          &3 ↦ \ml{daniele}
+        \end{aligned}\right],…}\]
+
+  The result is then updated by the restrictor, \textit{\(t_{3}\) is Italian}, winnowing out assignments which map \(3\) to a non-Italian:
+
+    \[\eval{$t_{3}$ is Italian} (\ml{a}_{3} c) = \Set{\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}\\
+          &3 ↦ \ml{jacopo}
+        \end{aligned}\right],\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}\\
+          &3 ↦ \ml{daniele}
+        \end{aligned}\right],…}\]
+
+Finally, the result is updated by the nuclear scope, \textit{\(t_{3}\) is a good dancer}, winnowing out assignments which map \(3\) to a bad dancer:
+
+      \[\eval{$t_{3}$ is a good dancer} (\eval{$t_{3}$ is Italian} (\ml{a}_{3} c)) = \Set{\left[\begin{aligned}[c]
+          &1 ↦ \ml{yasu}\\
+          &2 ↦ \ml{jacopo}\\
+          &3 ↦ \ml{jacopo}
+        \end{aligned}\right],…}\]
+
+  Since Jacopo is the only Italian in context who is a good dancer, we are left in a state of certainty about who \(3\) gets mapped to.
+
+Once we compose the CCPs denoted by the indefinite, the restrictor, and the nuclear scope, we end up with the following CCP:
+
+  \ex \(λ c:n ∉ \ml{dom} c . \set{⟨g[n ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{italian} x ∧ \ml{good-dancer} x}\)
+  \xe
+
+  \subsubsection{Dynamic binding}
+
+  Note that the meaning of \textit{some} is stated in terms of dynamic sequencing. In fact, we predict exactly the same CCP for the following:
+
+  \ex
+  Someone\(^{7}\) is Italian. He\(_{7}\) is a good dancer.
+  \xe
+
+  \ex~
+  \(\eval{someone\(^{7}\) is Italian} = λ c: 7 ∉ \ml{dom} c . \set{⟨g[n ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{italian} x}\)
+  \xe
+
+  \ex~
+\(\eval{He\(_{7}\) is a good dancer} = λ c: 7 ∈ \ml{dom} c . \set{⟨g,w⟩ ∈ c|\ml{good-dancer} g_7}\)
+  \xe
+
+  Remember, when we sequence the sentences, we compose the CCPs. The fact that the indefinite triggers random assignment relative to 7 guarantees that the precondition associated with the pronoun (familiarity) will be satisfied.
+
+  \[
+    λ c : 7 ∉ \ml{dom} c . \set{⟨g[7 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{italian} x ∧ \ml{good-dancer} x}
+  \]
+
+
+  \subsection{Back to the binding problem}
+
+  Now let's see what happens when we have a presupposition trigger in the nuclear scope of the quantifier, as in the following example from \citet{heim1983}. Remember, these were the cases that were problematic for the multidimensional theory:
+
+  \ex
+  \(a_{1}\) [x\(_{1}\) fat man] [\(x_{1}\) was pushing his\(_{1}\) bike]
+  \xe
+
+  Restrictor denotation:
+
+  \ex
+  \label{res}\(λ c:1 ∈ \ml{dom} c . \set{⟨g,w⟩∈ c|\ml{fat man} g_{1}}\)
+  \xe
+
+  Nuclear scope denotation:
+
+  \ex\label{scope}
+  \(λ c\begin{aligned}[t]
+    &:1 ∈ \ml{dom} c ∧ ∀⟨g,w⟩ ∈ c[\ml{owns-bike} g_{1}]\\
+    &. \set{⟨g',w'⟩ ∈ c|g'_{1}\ml{ was pushing }g'_{1}\ml{'s bike}}
+    \end{aligned}\)
+  \xe
+
+  The predicted presupposition can be computed as follows. If we update \(c\) with the indefinite, we trigger random assignment relative to \(1\):
+
+  \ex
+  \(\set{⟨g[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ x ∈ D_{\type{e}}}\)
+  \xe
+
+  Now we update this file with the restrictor \textit{\(t_{1}\) fat man}
+
+  \ex
+  \(\set{⟨g[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{fat-man} x}\)
+  \xe
+
+  Finally, we update this file with the nuclear scope: \textit{\(t_{1}\) pushing \(t_{1}\)'s bike}. This imposes the following precondition:
+
+  \ex
+  \(\textcolor{gray}{λ c:} ∀⟨g',w'⟩ ∈ \set{⟨g[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{fat-man} x}[\ml{owns-bike} g'_{1}]\textcolor{gray}{ . ...}\)
+  \xe
+
+  In other words, the resulting update is only defined if \textit{every fat man owns a bike}! This seems way too strong. Heim's theory, without modification, predicts \textit{universal projection} when an indefinite binds into a trigger. It's not clear that we've made much progress here in solving the binding problem.
+
+  \subsection{Existential projection via accommodation}
+
+  \citet{heim1983} suggests that in order to solve this problem you do local accommodation before computing the nuclear scope. We haven't been very precise about how to cash out accommodation in a dynamic framework so far, so let's first do so.
+
+  We'll cash out \textit{accommodation} as the result of an operator \(\ml{Acc}\). \(\ml{Acc}\) takes a partial CCP \(p\), and returns a total CCP, where \(c\) is first updated with the presupposition of \(p\), and only then updated by \(p\).
+
+  \ex
+  Accommodate (def.)\\
+  \(\ml{Acc} p = λ c . p (c ∩ \ml{domain} p)\)
+  \xe
+
+Heim's basic idea is that \enquote{A fat man was pushing his bike} should end up meaning the same thing as the following:
+
+  \ex
+A fat man owned a bike and was pushing it.
+  \xe
+
+  The nuclear scope post accommodation:
+
+  \ex\label{scope}
+  \(\begin{aligned}[t]
+    &\ml{Acc} \eval{$t_{1}$ pushing $t_{1}$'s bike}\\
+    &= λ c . \set{⟨g',w'⟩ ∈ c|1 ∈ \ml{dom} c ∧\textcolor{red}{g_{1}\ml{owns a bike}} g'_{1}\ml{ was pushing }g'_{1}\ml{'s bike}}
+    \end{aligned}\)
+  \xe
+
+  Let's try again. First let's take \(c\) updated by \(\ml{a}_{1}\), with the result updated by \textit{\(t_{1}\) fat man}:
+
+\ex
+  \(\set{⟨g[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{fat-man} x}\)
+  \xe
+
+  Now, let's update this file with the nuclear scope, post-accommodation:
+
+ \ex
+  \(\set{⟨g[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ \ml{fat-man} x ∧ x \ml{owns a bike} ∧ \ml{x} \ml{was pushing }x\ml{'s bike}}\)
+  \xe
+
+  Now we can derive the attested reading of the sentence that raised problems for a multi-dimensional theory.
+
+  \begin{tcolorbox}
+    Exercise
+    \tcblower
+    Heim's solution is reminiscent of our observation that the binding problem doesn't arise if the at-issue meaning of the predicate entails its presupposition. Rather than building this into the semantics of the predicate, Heim suggests that this strengthened meaning is derived pragmatically via local accommodation
+
+    What does Heim predict for the following?
+
+    \ex
+    A fat man isn't pushing his bike.
+    \xe
+
+    \vspace{1\baselineskip}
+
+    What about the following:
+
+    \ex
+    No man is pushing his bike
+    \xe
+
+    \vspace{1\baselineskip}
+
+    Assume that the LF is: \([\text{not} [∃ ...]]\)
+    \vspace{1ex}
+
+  \end{tcolorbox}
+
+  \subsection{A trigger in the restrictor}
+
+  A similar problem arises with a trigger in the restrictor of an indefinite:
+
+  \ex
+  A man who was pushing his bike was tired.
+  \xe
+
+  \ex~
+  {}\(\ml{a}_{1}\) [$t_{1}$ pushing $t_{1}$'s bike] [$t_{1}$ tired]
+  \xe
+
+  Restrictor denotation:
+
+
+   \ex\label{scope}
+  \(λ c\begin{aligned}[t]
+    &:1 ∈ \ml{dom} c ∧ ∀⟨g,w⟩ ∈ c[\ml{owns-bike} g_{1}]\\
+    &. \set{⟨g',w'⟩ ∈ c|g'_{1}\ml{ was pushing }g'_{1}\ml{'s bike}}
+    \end{aligned}\)
+  \xe
+
+  As before, first we update \(c\) with the indefinite:
+
+  \ex
+  \(\set{⟨g[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ x ∈ D_{\type{e}}}\)
+  \xe
+
+  Now we update the result with the restrictor:
+
+  \ex
+  \(λ c: 1 ∈ \ml{dom} c ∧ \ml{everything owns a bike} . \)...
+  \xe
+
+  Heim's proposal: perform local accommodation at the edge of the restrictor.
+
+  Restrictor post-accommodation:
+
+  \ex
+  \(λ c . \set{⟨g,w⟩∈ c|1 ∈ \ml{dom} c ∧ g_{1} \ml{owns-bike} ∧ g_{1} \ml{pushing} g_{1}'s \ml{bike}}\)
+  \xe
+
+  Updating \(c\) with the indefinite followed by the restrictor post-accommodation will get us existential projection.
+
+  \begin{tcolorbox}
+    Discussion
+    \tcblower
+    Is this solution really satisfactory? It's strikingly similar to the solution we proposed in a multidimensional setting, and, as in that case (see the first weeks exercise), it faces problems in non-veridical contexts:
+
+    \ex
+    Mary doubts that a fan man is pushing his bike.
+    \xe
+
+    \ex~
+    Was a fat man pushing his bike?
+    \xe
+    \vspace{1ex}
+
+    Roger will discuss presupposition projection through quantificational expressions more in the next block on trivalent approaches.
+  \end{tcolorbox}
+
+\section{Back to the proviso problem}
+
+Note: the discussion here is based primarily on Mandelkern 2016.
+
+Recall, that the two theories we have considered so far this term -- multidimensional semantics and dynamic semantics -- are subject to the \textit{proviso problem}.
+
+\ex
+If p then q\(_{\pi}\)\hfill\(⇝ \ml{if }p\ml{ then }π\)
+\xe
+
+\ex~
+p and q\(_{\pi}\)\hfill\(⇝ \ml{if }p\ml{ then }π\)
+\xe
+
+There's doesn't match up with what we tend to accommodate. Imagine an utterance of the following:
+
+\ex
+\label{ccp}If Theo hates sonnets, then so does his wife.\hfill (Guerts 1996)
+\xe
+
+In an out-of-the-blue context, we would tend to accommodate (\ref{corr}), not the weaker (\ref{bad}) predicted by, e.g., the dynamic theory:
+
+\ex\label{corr}Theo has a wife\xe
+
+\ex~\label{bad}If Theory hates sonnets then Theo has a wife\xe
+
+The implicit assumption here is that, if the presuppositions of a CCP \(p\) aren't entailed by a given context \(c\), we update \(c\) with \(\ml{Acc} p\). Therefore, when we accommodate (\ref{ccp}), we first winnow out files from the context where Theo hates sonnets but doesn't have a wife.
+
+Although we'll only talk about the dynamic theory here for the sake of exposition, this isn't the only theory that facts the proviso problem. As mentioned, the multidimensional theory has the same problem, as does the trivalent approach, which Roger will introduce next week.\footnote{A notable exception is DRT.}
+
+\begin{tcolorbox}
+  The \textit{proviso problem} is a problem about \textit{accommodation}
+  \tcblower
+  The dynamic theory predicts that if the weaker, conditional statement is part of the common ground, then accommodation will be unnecessary. This seems correct.
+
+  \ex
+  We've figured out, that if the butler called in sick on Monday, then someone killed Smith. Furthermore, if the butler called in sick on Monday, it was the butler who killed Smith!\\
+  \cmark We haven't yet figured out whether or not Smith is still alive.
+  \xe
+
+  \vspace{1ex}
+
+  It's only when we have to accommodate that the proviso problem becomes apparent.
+
+  \ex
+  We've figured out, that is the butler called in sick on Monday, then it was the butler who killed Smith.\\
+  \xmark We haven't yet figured out whether or not Smith is still alive.
+  \xe
+
+  \vspace{1ex}
+
+  So the question is, how do we keep the good predictions of dynamic semantics wrt local satisfaction, without making bad predictions wrt what is accommodated.
+
+  (examples from Mandelkern 2017)
+
+\end{tcolorbox}
+
+The proviso problem is a problem for other connectives too:
+
+\ex
+If [Theo hates sonnets and his wife hates sonnets], we shouldn't get Theo a book of sonnets.\\
+\(⇝\) \textit{Theo has a wife}
+\xe
+
+\ex~
+Either Theo doesn't hate sonnets, or he and his wife both hate sonnets.\\
+\(⇝\) \textit{Theo has a wife}
+\xe
+
+To complicate matters further, sometimes the conditional presupposition seems to make \textit{good} predictions for accommodation:
+
+\ex
+If Theo is a scuba-diver, he'll bring his wetsuit on vacation.
+\xe
+
+\ex~
+If France is a monarchy, then the king of France is in hiding.
+\xe
+
+
+\subsection{The proviso problem and projection from attitude verbs}
+
+A possibly related problem is that the dynamic theory predicts weak projection for triggers embedded under attitude verbs, i.e., (\ref{alyx}) is predicted to presuppose that \textit{Alex believes that Robyn used to smoke}
+
+\ex\label{alyx}Alex believes that Robyn stopped smoking.
+\xe
+
+This is motivated by local satisfaction, since the following sentence is presuppositionless:
+
+\ex
+If Alex believes that Robyn used to smoke, then he believes that she stopped.
+\xe
+
+Nevertheless, what is accommodated when (\ref{alyx}) is uttered in an out of the blue context is plausibly \textit{that Robyn used to smoke}
+
+\ex
+Alex believes that Robyn stopped smoking, \# but I have no idea if she used to smoke.
+\xe
+
+\subsection{A pragmatic response to the proviso problem}
+
+A disparity between prediction presuppositions and what is accommodated is not necessarily an \textit{insurmountable} problem. Here is the basic idea behind a pragmatic explanation:
+
+\ex
+\textit{Strengthening}:\\
+For pragmatic reasons, we sometimes accommodate strictly more than is presupposed.
+\xe
+
+Here is one way of spelling this out (from Mandelkern 2017):
+
+\pex
+\textit{Plausibility}:\\
+\a When S asserts \text{if \(p\) then \(q_{\pi}\)}, her listener compares the relative plausibility of:\\
+i. S is presupposing \(p ⊃ π\)\\
+ii. S is presupposing \(π\)
+\a S will conclude in favour of (i) iff she has a pragmatic reason to think (it's common ground that) (i) is more plausible than (ii).
+\xe
+
+This seems to make straightforwardly bad predictions. The following example is from \citet{mandelkern2016}:
+
+\ex
+?? John was limping earlier; I don't know why. Maybe he has a stress fracture. I don't know if he plays any sports, but if he has a stress fracture, then he'll stop running cross-country now.
+\xe
+
+Given the context -- the speaker doesn't know if John plays sports -- the conditional presupposition predicted by the satisfaction theory: \textit{if John has a stress fracture, he used to run cross-country}, is much more plausible than the unconditional presupposition.
+
+This example, tellingly, becomes OK if we alter the contextual set-up:
+
+\ex
+John was limping earlier; I don't know why. Maybe he has a stress fracture. If he has a stress fracture, then he'll stop running cross-country now.
+\xe
+
+Some more problems for a pragmatic account:
+
+\subsubsection{Objection from assertion}
+
+When we assert \enquote{if \(p\) the \(q\)}, why don't we always strengthen to \(q\) if \(q\) is more plausible?
+
+We need to say something here, e.g., if you knew \(q\), you should have asserted \(q\) (wait for the pragmatics block!).
+
+Whatever our account is, it \textit{shouldn't} apply to presupposed content.
+
+\subsubsection{Objection from anaphora}
+
+Guerts (1996); attributed to van der Sandt:
+
+\pex
+\a\label{one}John has a wife; she is a lawyer.
+\a\label{one2}??John is married; she is a lawyer.
+\xe
+
+Proviso cases pattern with (\ref{one}) not (\ref{one2}):
+
+\ex
+If Theo hates sonnets, his wife does too. She definitely likes elegies though.
+\xe
+
+\subsubsection{Objection from factives}
+
+\ex
+Walter knows that if Theo hates sonnets, he has a wife.\\
+\phantom{,}\hfill\textit{presupposes: if Theo hates sonnets, then he has a wife}
+\xe
+
+Since this presupposition is identical to that of \enquote{If Theo hates sonnets, then his wife does too}, why is the latter strengthened and this one not?
+
+\subsubsection{Objection from cancellation}
+
+If strengthening is pragmatic, it should be cancellable.
+
+\ex
+If the problem was difficult, then it wasn't Morton who solved it. But as a matter of fact the problem wasn't solved at all.
+\xe
+
+\pex~
+\textit{We don't know whether Jimbo was murdered or has run away from home. We need to examine his room.}
+\a If there are bloodstains in the room, then Jimbo was murdered, and Jimbo's murderer did a sloppy job
+\a\ljudge{\#}If there are bloodstains in the room, then Susie's murderer's did a sloppy job.
+\xe
+
+\subsection{Mandelkern's dissatisfaction theory}
+
+\begin{tcolorbox}
+  Core idea
+  \tcblower
+  Presuppositions project \textit{unless locally entailed}.
+  \end{tcolorbox}
+
+  \ex
+  \textit{Local Dissatisfaction:}\\
+  If \(p\) presupposes \(\pi\) in \(c\) and \(q\)  embeds \(p\), then \(q\) presupposes \(\pi\) in \(c\) unless \(r\) is locally entailed at any node in \(q\) which dominates \(p\).
+  \xe
+
+  \ex
+  If \(p\), the \(q_{\pi}\)\\
+  \textit{predicted to presuppose \(r\) in \(c\) unless \(c ∩ p ⊆ π\)}
+  \xe
+
+  Preserves satisfaction theory's good predictions for cases of local satisfaction:
+
+  \ex
+  If John has a sister, he'll pick his sister up at the airport.
+  \xe
+
+  BUT, to make this work, we have to do away with our implicit assumption that if a CCP \(p\) is not defined in \(c\) they instead update \(c\) with \(\ml{Acc} p\). To avoid this problem, Mandelkern suggests we should go back to a multidimensional theory of presupposition:
+
+  \ex
+  \textit{Backgrounded contents:}\\
+  Presuppositions are backgrounded entailments, not constraints on input contexts.
+  \xe
+
+  \subsection{A sketched implementation: multi-dymensional semantics}
+
+  A core part of Mandelkern's proposal is that \textit{presuppositions are backgrounded entailments}, not pre-conditions imposed on the input context.
+
+  We already have the machinery to cash out this idea compositionally (see the first class handout). Nevertheless, we want to preserve the predictions of our dynamic account wrt local satisfaction.
+
+  Here I sketch an implementation of Mandelkern's dissatisfaction theory by treating \textit{contexts} as multi-dimensional. To simplify, I'll ignore assignments at this point.
+
+
+  \pex \textit{Multi-dimensional contexts}\\
+  A context is a \textit{pair} of sets of possible worlds \(\displaystyle{π}{c}\), s.t.
+  \a \(c\) is the Stalnakerian context set.
+  \a \(\pi\) is a \textit{backgrounded entailment} that is yet to be accepted by the agents of \(c\).
+  \xe
+
+  Presuppositional meanings are \textit{updates} on multidimensional meanings, of type \(\type{\left\langle\frac{st}{st},\frac{st}{st}\right\rangle}\).
+
+  A presuppositional sentence such as \enquote{Paul stopped vaping} takes a multi-dimensional context \(c\), and if the presupposition \(p\) is entailed by \(𝔸 c\) (the Stalnakerian common-ground), then \(p\) is eliminated. If it's \textit{not} however, \(p\) is added to \(ℙ c\) -- the grand conjunction of backgrounded entailments.
+ 
+  \ex
+  \(\begin{aligned}[t]
+    &\eval{Paul stopped vaping}\\
+    &= λ c . \begin{cases}
+    \frac{ℙ c}{𝔸 c ∩ \set{w|¬ \ml{paul vapes now}_{w}}}& 𝔸 c \subseteq \set{w|\ml{paul used to vape in }w}\\
+    \frac{ℙ c ∩ \ml{paul used to vape}}{𝔸 c ∩ \set{w|¬ \ml{paul vapes now}_{w}}}&\text{else}
+  \end{cases}
+  \end{aligned}\)
+  \xe
+
+  When a sentence is uttered, it is simply applied to the common ground. The proposition on the presupposed tier must be accommodated for the discourse to proceed. \(\ml{acc}_{g}\) is an operation performed on the context.
+
+  \ex
+  \(\ml{acc}_{g} \displaystyle\frac{p}{q} = \displaystyle\frac{⊤}{p ∩ q}\)
+  \xe
+
+  We adopt the following pragmatic principle to explain why the stronger presupposition gets accommodated, thus resolving the proviso problem. Note that this is a pragmatic constraint on the discourse -- it doesn't apply at the subsentential level.
+
+  \ex
+  \textit{Principle of global accommodation}\\
+  For a \textit{discourse} to proceed, all backgrounded entailments must be \textit{accommodated} (or rejected, in which case the discourse crashes).
+  \xe
+
+  Now, consider the predictions for \textit{Paul used to vape and Paul stopped vaping}.
+
+  \ex
+  \(\eval{Paul used to vape} = λ c . \displaystyle{\frac{ℙ c}{𝔸 c ∩ \ml{p used to vape}}}\)
+  \xe
+
+   \ex~
+  \(\begin{aligned}[t]
+    &\eval{Paul stopped vaping}\\
+    &= λ c . \begin{cases}
+    \frac{ℙ c}{𝔸 c ∩ \set{w|¬ \ml{paul vapes now}_{w}}}& 𝔸 c \subseteq \set{w|\ml{paul used to vape in }w}\\
+    \frac{ℙ c ∩ \ml{paul used to vape}}{𝔸 c ∩ \set{w|¬ \ml{paul vapes now}_{w}}}&\text{else}
+  \end{cases}
+  \end{aligned}\)
+  \xe
+
+  We maintain our standard dynamic entries for the connectives, therefore \(p \ml{and} q\) is interpreted as \(q ∘ p\). The result is that the presupposition of the second conjunct gets eliminated; nothing needs to be accommodated.
+
+     \ex~
+  \(
+    = λ c . \begin{cases}
+      \frac{ℙ c}{(𝔸 c ∩ \ml{p used to vape}) ∩ ¬ \ml{paul vapes now}}& \begin{aligned}[t]
+        &(𝔸 c ∩ \ml{p used to vape})\\
+        &\subseteq \set{w|\ml{paul used to vape in }w}\end{aligned}\\
+    \frac{ℙ c ∩ \ml{paul used to vape}}{(𝔸 c ∩ \ml{p used to vape}) ∩ \set{w|¬ \ml{paul vapes now}_{w}}}&\text{else}
+  \end{cases}
+  \)
+  \xe
+
+  \ex~
+  \(= λ c . \displaystyle\frac{ℙ c}{(𝔸 c ∩ \ml{p used to vape}) ∩ ¬ \ml{paul vapes now}}\)
+  \xe
+
+  Now let's consider the predictions for \textit{Frank has children and Paul stopped vaping}:
+
+  \ex
+  \(
+    = λ c . \begin{cases}
+      \frac{ℙ c}{(𝔸 c ∩ \ml{h has children}) ∩ ¬ \ml{paul vapes now}}& \begin{aligned}[t]
+        &(𝔸 c ∩ \ml{h has children})\\
+        &\subseteq \set{w|\ml{paul used to vape in }w}\end{aligned}\\
+    \frac{ℙ c ∩ \ml{p used to vape}}{(𝔸 c ∩ \ml{h has children}) ∩ \set{w|¬ \ml{paul vapes now}_{w}}}&\text{else}
+  \end{cases}
+  \)
+  \xe
+
+  Since entailment \textit{doesn't go through} in this case, \textit{Paul used to vape} is added to the grand conjunction of the backgrounded entailments:
+
+  \ex
+  \(= λ c . \displaystyle\frac{ℙ c ∩ \ml{p used to vape}}{(𝔸 c ∩ \ml{h has children}) ∩ \set{w|¬ \ml{paul vapes now}_{w}}}\)
+  \xe
+
+  Upon uttering \enquote{Hank has children and Paul stopped vaping}, the prediction now is that the backgrounded entailment \textit{Paul used to vape} must be accommodated before the discourse can proceed. This is guaranteed by the principle of accommodation.
+
+  \begin{tcolorbox}
+    Still to do...
+    \tcblower
+    \begin{itemize}
+        \item Confirm that this works for the other connectives (it should).
+        \item Extend the fragment to sentences with indefinites and pronouns; relatedly, ensure that this approach doesn't face the \textit{binding problem}; the approach in \citet{elliott-fuck} might work.
+        \item Compare to Mandelkern's existing formalism. An advantage of this approach is that it can very straightforwardly be made subsententially compositional.
+    \end{itemize}
+  \end{tcolorbox}
+
+
+
+
+
+
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

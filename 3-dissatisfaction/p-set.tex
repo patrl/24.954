@@ -1,0 +1,84 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{fontawesome,calc,enumitem,parskip}
+
+\lingset{
+    aboveglftskip=0pt,
+    belowglpreambleskip=0pt,
+    belowpreambleskip=0pt,
+    extraglskip=0pt,
+    Everyex={\parskip=0pt},
+}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Anaphora P-Set}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{20 September 2019}
+
+\author{Patrick~D. Elliott}
+
+\begin{document}
+
+\maketitle
+
+Compute the CCP of the following sentence, using our dynamic fragment extended to account for anaphora. You can ignore gender.
+
+\ex
+A\(^{1}\) son of some\(^{2}\) famous actress came and he\(_{1}\) told us about her\(_{2}\).
+\xe
+
+In dynamic semantics, we can define a universal quantifier as follows (where \(p\) and \(q\) are CCPs):
+
+\ex
+\(\ml{every}^{n} p q ≔ λ c: i ∉ \ml{dom} c . \Set{⟨g,w⟩ ∈ c| \begin{aligned}[c]
+    &\set{g'_{n} | ⟨g',w⟩ ∈ p (\ml{a}^{n} c) ∧ g ≤ g'}\\
+    &⊆ \set{g''_{n}|⟨g'',w⟩ ∈ q (p (\ml{a}^{n} c)) ∧ g ≤ g''}
+  \end{aligned}}\)
+\xe
+
+\ex~
+\(g ≤ g'\) iff for each \(i ∈ dom g, g_{i} = g'_{i}\)
+\xe
+
+Compute the CCPs of the following sentences, step by step:
+
+\ex
+Every linguist cried.\\
+LF: Every\(^{3}\) [\(t_{3}\) linguist] [\(t_{3}\) cried]
+\xe
+
+\ex~
+Every\(^{4}\) farmer who owns a\(^{7}\) donkey cares from it\(_{7}\).\\
+LF: Every\(^{4}\) [a\(^{7}\) [\(t_{7}\) donkey] [\(t_{4}\) owns \(t_{7}\)]] [\(t_{4}\) cares for \(t_{7}\)].
+\xe
+
+What do we now predict that the following sentence should presuppose?
+
+\ex
+Every fat man pushed his bike.
+\xe
+
+What about the following:
+
+\ex
+Every fat man who stopped smoking was healthier.
+\xe
+
+\textbf{Bonus: }what is the general schema for going from a static generalised quantifier to a dynamic generalised quantifier?
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: default
+%%% TeX-master: t
+%%% End:
