@@ -1,0 +1,1280 @@
+\documentclass[landscape,twocolumn,cronos,paper=letter]{ling-handout}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fontawesome,calc,enumitem,parskip,tcolorbox}
+
+\usepackage[normalem]{ulem}
+
+\lingset{
+  belowexskip=0pt,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt},
+}
+
+
+\usepackage{float,soul}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Multiplicity}
+\subtitle{Plurality at the semantics-pragmatics interface}
+
+\date{November 8, 2019}
+
+\author{Patrick~D. Elliott
+  \and
+Roger Schwarzchild}
+
+\begin{document}
+
+\maketitle
+
+\section{The weak theory of plurality}
+
+\begin{itemize}
+
+  \item What does plural marking on nouns contribute to meaning? Naively:
+    \enquote{[Plurality] just means \enquote{more than one}} (\citealt[ix]{lasersohn_plurality_1995})
+
+  \item We'll refer to this view as the \textbf{strong theory of plurality}.
+
+  \item The strong theory still has many
+    champions; see e.g., \citet{harbour_paucity_2014}.\footnote{\citeauthor{harbour_paucity_2014}'s work is a
+    particularly interesting example (see, e.g.,
+    \citealt{harbour_paucity_2014}). In order to account for generalisations
+    concerning possible number systems cross-linguistically, it is crucial for
+    Harbour that the plural is semantically strong.}
+
+  \item As has been noticed by numerous researchers
+    (\citealt{sauerlandAnderssenYatsushiro2005} cite Hoeksema 1983, van Eijck
+    1983, Schwarzchild 1996, and Beck \& Sauerland 2000) this seems to get the facts
+    right in simple cases, but faces problems in negative contexts.
+
+    \ex
+    Some chairs are available.\\
+    \(⇝ \ml{there exist chairs } X\ml{ s.t. }X\ml{ are available and }♯X ≥ 2\)
+    \xe
+
+    \pex\label{st}No chairs are available.
+    \a\label{st1}\(⇝ \ml{there are no chairs }X\ml{ s.t. }X\ml{ are available}\)
+    \a \(\not\rightsquigarrow \ml{there are no chairs }X\ml{ s.t. }X\ml{ are available and }♯X≥2\)
+    \xe
+
+    \item Taken at face value, the strong theory predicts that if
+    \textit{exactly one chair is available}, then (\ref{st}) is true.
+
+    \item The weak theory takes as its starting point sentences such as
+    (\ref{st}).
+
+    \item In order to account for the truth-conditions of (\ref{st}), it must be
+    the case that plurality doesn't necessarily exclude the atoms.
+
+    \item This leaves positive sentences as the residue. By far and away the
+    most well-represented approach in the literature is to derive the
+    \textit{more than one} interpretation somehow via competition with the singular.
+
+\end{itemize}
+
+\subsection{Implementing the weak theory}
+
+\begin{itemize}
+
+    \item Perhaps the most influential implementation of the weak theory is
+    \cite{sauerland2003}.
+
+  \item \citeauthor{sauerland2003} assumes that number features are of type
+    \(\type{e → e}\).
+
+    \item The feature \textsc{plur} is semantically vacuous (i.e., the identity
+    function), whereas the feature \textsc{sing} is a \textit{partial} identity
+    function, that is defined iff its input has a cardinality of \textit{one}.
+
+    \ex
+    \(\eval{\textsc{plur}} ≔ \ml{id}\)\hfill\(\type{e → e}\)
+    \xe
+
+    \ex~
+    \(\eval{\textsc{sing}} ≔ λ x:♯x = 1 . x\)\hfill\(\type{e → e}\)
+    \xe
+
+    \item This gets the facts right for \textit{no chairs are available}.
+
+    \item But hang on a sec, doesn't that mean we lose an account of why, from
+    an utterance of the following, we can infer that \textit{more than one
+    chair} is available?
+
+    \ex
+    (Some) chairs are still available.
+    \xe
+
+    \item Apparently, according to the weak theory, this should just mean that
+    \textit{one or more} chairs are available.
+
+    \item Even worse, we predict the following to be
+    fine.
+
+    \ex\ljudge{*}John are here.
+    \xe
+
+    \item The plural morphology on the
+    predicate is licensed by the plural $ϕP$.
+
+    \item Since \texsc{plur} is semantically vacuous -- i.e., an
+    \textit{identity function} -- compositionally nothing goes wrong.
+
+    \ex
+    \begin{forest}
+      [{$\ml{isHere j}$}
+      [{$ϕP$}
+        [{$ϕ$\\\textsc{plur}}]
+        [{John}]
+      ]
+        [{$λx . \ml{isHere} x$} [{are here},roof]]
+      ]
+    \end{forest}
+    \xe
+
+    \end{itemize}
+
+    \subsection{\textit{Maximize Presupposition} to the rescue}
+
+    \begin{itemize}
+
+        \item Over the last couple of weeks, we've discussed mechanisms for
+        strengthening the \textit{at-issue} part of a sentence's meaning,
+        through the lens of the exhaustivity operator $\ml{exh}$.
+
+        \item In the basic case, the logic was as follows: for an expression
+        $\alpha$, the strengthened meaning (the \enquote{implicature}) can be derived by negating each
+        alternative $\psi$ to $\alpha$, s.t., $\psi$ is $\alpha$-\textit{excludable}.
+
+        \item We defined our notion of \textit{excludable} relative to logical
+        relations between the at-issue meaning components of $\alpha$ and
+        $\psi$.
+
+        \item We began by considering a version of the exhaustivity operator
+        according to which the \textit{logically non-weaker} alternatives are
+        excludable; in order to derive free choice inferences, we shifted to a
+        more refined version of excludability -- \textit{innocent
+        excludability}.
+
+        \item We handily abstracted away from any cases involving sentences with
+        \textit{presuppositions} (the other half of this course).
+
+        \item Relevant to this point, there are a number of expressions which seem to have equivalent
+        at-issue meanings, but which differ in the logical strength of their
+        presuppositional component:
+
+        \begin{table}[h!]
+        \begin{center}
+\begin{tabular}{lll}
+ weaker item & stronger item  & differential presupposition  \\
+  \hline
+ a & the  & uniqueness  \\
+  all/every & both  & domain contains exactly two elements\\
+  believe & know & complement is true
+\end{tabular}
+\end{center}
+\end{table}
+
+        \item For such pairs, two kinds of interpretive effects have been observed.
+
+        \begin{itemize}
+
+            \item The use of a presuppositionally weaker form in a context that
+            does not satisfy the presupposition of its stronger complement tends
+            to implicate that this presupposition is false. In the literature,
+            these are commonly referred to as
+            \textit{anti-presuppositions}.\footnote{A term coined by Kai von
+            Fintel; introduced in \cite{percus2006antipresuppositions}.}
+
+        \end{itemize}
+
+        \item The following examples are taken from \citet[p.,14]{marty2017}:
+
+        \item $\langle \text{a}, \text{the}\rangle$
+
+        \item Anti-presupposition for (\ref{ap1}): $¬ [\ml{J has exactly one brother}]$
+
+        \pex
+        John lives with a brother of his.
+        \a\label{ap1}Presupposition: $∅$
+        \a Assertion: $\ml{J lives with a brother of his}$
+        \xe
+
+        \pex~
+        John lives with his brother.
+        \a Presupposition: $\ml{John has exactly one brother}$
+        \a Assertion: $\ml{J lives with a brother of his}$
+        \xe
+
+        \item $\langle\text{all},\text{both}\rangle$
+
+        \item Anti presupposition for (\ref{ap2}): $¬ [\ml{J has exactly two children}]$
+
+        \pex
+        John brought all his children.
+        \a\label{ap2}Presupposition: $∅$
+        \a Assertion: John brought all his children.
+        \xe
+
+        \pex~
+        John brought both his children.
+        \a Presupposition: $\ml{John has exactly two children.}$
+        \a Assertion: $\ml{John brought all of his children}$
+        \xe
+
+        \item $\langle\text{believe},\text{know}\rangle$
+
+        \item Anti-presupposition for (\ref{ap3}): $¬ [\ml{spkr is 6ft tall}]$
+
+        \pex
+        John believes that I am six feet tall.
+        \a\label{ap3}Presupposition: $∅$
+        \a Assertion: $\ml{J believes that spkr is 6ft tall}$.
+        \xe
+
+        \pex~
+        John knows that I am six feet tall.
+        \a Presupposition: $\ml{spkr is 6ft tall}$
+        \a Assertion: $\ml{J believes that spkr is 6ft tall}$
+        \xe
+
+        \item Note that these effects don't go through when it is clearly not
+        the case that the speaker is opinionated:
+
+        \pex
+        \a I have no idea whether John has only one or two brothers; however, I
+        know for sure that he lives with a brother of his.
+        \a I don't know how many children John has, but he will bring them all.
+        \a I don't know how tall I am. John believes I am 6 feet tall.
+        \xe
+
+
+        \item Second, use of the presuppositionally weaker item is perceived as
+        \enquote{odd} when the presupposition of the stronger alternative is
+        entailed by the common ground (\citealt{heim1991}).
+
+        \pex
+        $C ⊆ \ml{there is exactly one sun}$\hfill $\langle \text{a}, \text{the}\rangle$
+        \a\ljudge{\#}A sun is shining.
+        \a The sun is shining.
+        \xe
+
+        \pex~
+        $C ⊆ \ml{John has exactly two parents}$\hfill$\langle\text{all},\text{both}\rangle$
+        \a\ljudge{\#}John talked to all his parents.
+        \a John talked to both his parents.
+        \xe
+
+        \pex
+        $C ⊆ \ml{2+2 equals 4, and John just proved it}$\hfill$\langle\text{believe},\text{know}\rangle$
+        \a\ljudge{\#}John believes that 2+2 equals 4.
+        \a John knows that 2+2 equals 4.
+        \xe
+
+        \item Intuitively, this oddness obtains because the speaker does not
+        take for granted the truth of the presuppositions of their (b)
+        alternatives. \citet{marty2017} refers to these phenomena as
+        \textit{anti-presuppositional effects}.
+
+        \item In order to capture these effects, \citet{heim1991} proposed an
+        independent pragmatic principle, which has come to be known as
+        \textit{Maximize Presupposition!} (after \citealt{sauerland_2008}).
+
+        \begin{tcolorbox}
+          \textsc{Maximize Presupposition} (MP)
+          \tcblower
+          If the following is true for any $\psi \in \ml{alt} ϕ$, then the
+          sentence $ϕ$ cannot be felicitously uttered in context $C$:
+          \begin{itemize}
+          \item $ψ$'s presupposition \textit{asymmetrically entails} $ϕ$'s
+          presupposition, and
+          \item $ϕ$ and $ψ$ are contextually equivalent.
+              \end{itemize}
+        \end{tcolorbox}
+
+        \item Informally, if there is an alternative $\psi$ to a sentence $\phi$
+        that makes the same assertive contribution but has a stronger
+        presupposition, then $\psi$ should be preferred.
+
+        \item If $\psi$ is not used, then MP triggers the inference that $\psi$
+        \textit{could not have been used}.
+
+      \item An example of MP-style reasoning:
+
+        \begin{itemize}
+
+            \item Let $ϕ$ and $\phi_{\pi}$ be two sentences with the same
+            assertive content, which minimally differ in that $\phi_{\pi}$
+            carries an additional semantic presupposition $\pi$.
+
+            \item Suppose that a cooperative speaker chooses to utter $\phi$
+            instead of $\phi_{\pi}$ in a conversation.
+
+            \item Since the speaker did not presuppose $\pi$, MP predicts that
+            the speaker shall not be in a position to presuppose $\pi$, e.g.,
+            because the speaker does not believe that $\pi$ holds.
+
+        \end{itemize}
+
+     \item This general reasoning process correctly accounts for
+        \textit{anti-presuppositional effects} discussed aboce.
+
+      \item Furthermore, if one assumes that the speaker is opinionated about
+        the truth of $\phi_{\pi}$, this derives the anti-presuppositions
+        initially discussed.
+
+    \end{itemize}
+
+    \subsection{MP-effects as a reflex of grammatical exhaustification}
+
+\begin{itemize}
+
+    \item It has long been observed that anti-presuppositions are very similar
+    to classical cases of scalar implicatures; the use of an
+    \textit{assertively} weaker sentence entails that the non-weaker alternatives
+    are false.
+
+    \item Furthermore, as observed by \citet{magri2009}, the use of an
+    assertively weaker sentence is perceived as odd in contexts where this
+    sentence is contextually equivalent to an assertively stronger alternative.
+
+    \pex
+    \(C ⊆ \ml{the prof gave the same grade to every student}\)\hfill\(\langle\text{some},\text{all}\rangle\)
+    \a\ljudge{\#}The professor gave an A to some students.
+    \a The professor gave an A to all students.
+    \xe
+
+    \pex~
+    \(C ⊆ \ml{John has three children of the same gender}\)\hfill\(\langle\text{two},\text{three}\rangle\)
+    \a\ljudge{\#}John has two sons.
+    \a John has three sons.
+    \xe
+
+    \item \citet{magri2009} proposes that antipresuppositions are simply
+    implicatures computed in the presuppositional dimension (he adopts a
+    multi-dimensional approach to presupposition).
+
+    \ex
+    \(\eval{[\(\ml{exh}_{M}\) ϕ]} ≔ \displaystyle\frac{\ml{exh}_P (ℙ ϕ)}{\ml{exh}_A (𝔸 ϕ)}\)
+    \xe
+
+    \pex \textbf{Strengthened presupposition}
+    \a \(\ml{excl}_{P} ϕ ≔ \set{ψ ∈ \ml{alt} ϕ|ℙ ϕ ↛ ℙ ψ}\)
+    \a \(\ml{exh}_{P} ϕ ≔ ℙ ϕ ∧ ∀ ψ ∈ \ml{excl}_{P} ϕ[¬ ℙ ψ]\)
+    \xe
+
+    \pex \textbf{Strengthened assertion}
+    \a \(\ml{excl}_{A} ϕ ≔ \set{ψ ∈ \ml{alt} ϕ|𝔸 ϕ ↛ 𝔸 ψ}\)
+    \a \(\ml{exh}_{A} ϕ ≔ 𝔸 ϕ ∧ ∀ ψ ∈ \ml{excl}_{P} ϕ[¬ 𝔸 ψ]\)
+    \xe
+
+    \item In order to capture both anti-presuppositional effects and oddness
+    effects in the domain of implicature, \citeauthor{magri2009} proposed two
+    highly influential principles of implicature computation:
+
+    \begin{itemize}
+
+      \item \textit{Blindness}
+
+      \item \textit{Mandatoriness}
+
+    \end{itemize}
+
+    \begin{tcolorbox}
+      Blindness
+      \tcblower
+      The notion of entailment relevant for the computation of excludable
+      alternatives is \textit{logical entailment} (rather than entailment
+      relative to common knowledge).
+    \end{tcolorbox}
+
+    \begin{tcolorbox}
+      Mandatoriness (Condition on Prunability)
+      \tcblower
+      Whenever an excludable alternative $ψ$ to a sentence $ϕ$ is
+      contextually-equivalent to $ϕ$, the computation of the implicature
+      associated with $ψ$ is mandatory.
+    \end{tcolorbox}
+
+\end{itemize}
+
+    \subsection{Back to the weak theory of plurality}
+
+    \begin{itemize}
+
+        \item \citet{sauerland2003} claims that MP predicts the following
+        contraint on the distribution of the singular vs. plural:
+
+        \ex
+        Use the most specific agreement feature possible whose presupposition is satisfied.
+        \xe
+
+        \item This captures the following contrast:
+
+        \pex
+        \a\ljudge{*}John are here.
+        \a John is here.
+        \xe
+
+        \item We'll come back to how to derive the multiplicity inference for
+        plural indefinites. In the meantime, both \citet{sauerland2003} and
+        \citet{sauerlandAnderssenYatsushiro2005} present a raft of additional
+        arguments for the weak theory of plurality, and
+        \citeauthor{sauerland2003l}'s particular implementation.
+
+        \end{itemize}
+
+        \subsubsection{Coordinations and Pronouns}
+
+        \begin{itemize}
+
+            \item \citet{sauerland2003} argues that his proposal is
+            independently necessary in order to account for environments in
+            which number agreement is found.
+
+            \pex
+            \a Kai and Lina are playing.
+            \a\ljudge{*}Kai and Lina is playing.
+            \xe
+
+            \begin{forest}
+              [{...}
+              [{$\phi$P}
+                [{$\phi$\\\textsc{plur}}]
+                [{andP}
+                [{$\phi$P}
+                  [{$\phi$\\\textsc{sing}}]
+                  [{DP} [{Kai},roof]]
+                ]
+                [{and'}
+                  [{and}]
+                  [{$\phi$P}
+                    [{$\phi$\\\textsc{sing}}]
+                    [{DP} [{Lina},roof]]
+                  ]
+                ]
+                ]
+              ]
+                [{...} [{are playing},roof]]
+              ]
+            \end{forest}
+
+           \item An alternative analysis would be to say that conjunction is
+            inherently plural (Sauerland cites Vanek 1977), but notes that this
+            proposal faces a problem with examples such as the following.
+
+            \pex
+            \a Strawberries and cream is on the menu.
+            \a Beans and rice is a basic staple around here.
+            \xe
+
+            \item Sauerland claims that singular agreement is possible just in
+            case the denotation of the conjunction can be viewed as an atomic individual.
+
+          \item Sauerland gives two more examples involving
+            names:\footnote{\citet{winter_flexibility_2001} already discussed
+            cases such as these in order to argue for a distinction between
+            genuine pluralities and \enquote{impure atoms}. This is consistent
+            with Sauerland's proposal.}
+
+            \pex
+            \a Kai and Lina makes a good combination.
+            \a Tim and Sarah is a nice couple.
+            \xe
+
+        \end{itemize}
+
+        \subsubsection{Pronouns}
+
+        \begin{itemize}
+
+            \item The second argument that Sauerland gives for his theory comes
+            from pronouns.
+
+            \item The structure Sauerland assumes for, e.g., (plural)
+            \textit{they} is as follows:
+
+            \ex
+            \begin{forest}
+              [{$\phi$P}
+                [{$\phi$\\\textsc{plur}}]
+                [{DP\\$i$}]
+              ]
+            \end{forest}
+            \xe
+
+          \item According to Sauerland's approach, the exclusivity inference
+            associated with \textit{they} is derived via MP style reasoning,
+            from competition with the singular pronouns.
+
+            \item The prediction is, that is alternatives involving singular
+            pronouns are independently unusable, then the exclusivity inference
+            should no longer obtain.
+
+            \item This accounts for uses of singular \textit{they} when the
+            speaker is ignorant of the gender of the referent (note that
+            Sauerland does not consider the possibility of singular
+            \textit{they} used to refer to a non-binary individual -- this will
+            complicate the analysis).
+
+            \ex
+            Some student left their umbrella.
+            \xe
+
+            \item Singular forms can also be blocked by politeness
+            considerations, in which case the plural form is used. This can be
+            observed in, e.g., German.
+
+            \pex
+            \a
+            \begingl
+            \gla Können Sie bitte etwas rücken!//
+            \glb could they please a-little move//
+            \glft \enquote{Could you please move a little} (formal)//
+            \endgl
+            \a
+            \begingl
+            \gla Eure Majestät haben euren Silberlöffel geschluckt//
+            \glb you majesty have your silver spoon swallowed.//
+            \glft \enquote{Our majesty has swallowed our silver spoon}//
+            \endgl
+            \xe
+
+        \end{itemize}
+
+        \subsubsection{Definites}
+
+        \begin{itemize}
+
+            \item One unusual feature of Sauerland's analysis is that number
+            features are only interpreted at the DP level -- not on the noun itself.
+
+            \item Sauerland explicitly argues for this on the basis of definites.
+
+            \ex
+            The students wrote a paper.
+            \xe
+
+          \item The \textbf{distributivity operator} $*$:
+
+            \ex
+            $* P ≔ λ X . ∃C[\ml{cover} C X ∧ ∀ x ∈ C[P x]]$
+            \xe
+
+            \ex~
+            \(\ml{cover} C X = 1\text{ iff }⊕ C = X\)
+            \xe
+
+          \item The distributivity operator can apply to nominal and verbal
+            predicates equally.
+
+            \ex
+            \(\eval{student} ≔ \set{\ml{Tom},\ml{Tina},\ml{Tanya}}\)
+            \xe
+
+            \ex~
+            \(\eval{\(*\) student} = \Set{\begin{array}{c}
+                \ml{Tom},\ml{Tina},\ml{Tanya}\\
+                \ml{Tom}\oplus\ml{Tina},\ml{Tom}\oplus\ml{Tanya},\ml{Tina}\oplus\ml{Tanya}\\
+                \ml{Tom}\oplus\ml{Tina}\oplus\ml{Tanya}
+              \end{array}}\)
+            \xe
+
+            \ex~
+            \(\eval{wrote a paper} = \Set{\begin{array}{c}
+                                            \ml{Tom},\ml{Tanja},\\
+                                            \ml{Tom}\oplus\ml{Tina}
+                                            \end{array}}\)
+            \xe
+
+            \ex~
+            \(\eval{\(*\) wrote a paper} = \Set{\begin{array}{c}
+                                                  \ml{Tom},\ml{Tanya},\\
+                                                  \ml{Tom}\oplus\ml{Tina},\ml{Tom}\oplus\ml{Tanya},\\
+                                                  \ml{Tom}\oplus\ml{Tina}\oplus\ml{Tanya}
+                                                  \end{array}}\)
+            \xe
+
+            \item According to the standard view (e.g.,
+            \citealt{bennett1974,Link1983-LINTLA-2}, etc.) number on an NP is
+            interpreted as $*$.
+
+            \item According to such theories, what the definite article does is
+            (a) presuppose that its complement has a unique maximal element $X$,
+            and, if defined, returns $X$.
+
+            \item The $*$-operator has no morphological reflex on the VP. The LF
+            of \textit{the students wrote the paper} is given below. It is
+            predicted, on the standard theory, to be defined and true in a
+            scenario where \textit{Tom and Tanya wrote papers by themselves, and
+            Tom and Tina collaborated on a paper}.
+
+            \ex
+            \begin{forest}
+              [{$\ml{true}$}
+              [{$\ml{Tom}\oplus\ml{Tina}\oplus\ml{Tanya}$}
+                [{\(σ\)\\the}]
+                [{$\Set{\begin{array}{c}
+                \ml{Tom},\ml{Tina},\ml{Tanya}\\
+                \ml{Tom}\oplus\ml{Tina}\oplus\ml{Tanya}
+              \end{array}}$}
+                  [{$*$}]
+                  [{$\set{\ml{Tom},\ml{Tina},\ml{Tanya}}$\\student}]
+                ]
+              ]
+              [{$\Set{\begin{array}{c}
+                                                  \ml{Tom},\ml{Tanya},\\
+                                                  \ml{Tom}\oplus\ml{Tina},\ml{Tom}\oplus\ml{Tanya},\\
+                                                  \ml{Tom}\oplus\ml{Tina}\oplus\ml{Tanya}
+                                                  \end{array}}$}
+                [{$*$}]
+                [{$\Set{\begin{array}{c}
+                                            \ml{Tom},\ml{Tanja},\\
+                                            \ml{Tom}\oplus\ml{Tina}
+                                            \end{array}}$} [{wrote a paper},roof]]
+              ]
+              ]
+            \end{forest}
+            \xe
+
+            \item The standard theory furthermore predicts that a singular noun
+            can't be used in this scenario, since it has no unique maximum.
+
+            \item Why can't \textit{The students wrote a paper} be used in a
+            scenario where exactly one student wrote a paper?
+
+            \item Nothing goes wrong
+            semantically. The standard theory must appeal to pragmatic factors
+            similar to the ones that Sauerland appeals to -- namely, don't use
+            the plural if using the singular would result in an equivalent
+            meaning.\footnote{Unlike MP however, arguably this follows directly
+            from existing Gricean principles, such as \textit{brevity}.}
+
+            \item Contrast now Sauerland's semantics for number, according to
+            which $*$ can be applied to any predicate, and is \textit{never} pronounced.
+
+            \item Sauerland observes that, in order to account for the cases
+            below, the standard theory must say that plural marking is
+            \textit{ambiguous} between $*$ and the cumulativity operator $**$ (\citealt{beck_cumulation_2000}).
+
+            \pex
+            \a The daughters of the defense players/Bill and James...
+            \a The residents of these cities...
+            \a The winners of a gold medal at the 1992 and 1996 olympics...
+            \xe
+
+            \pex~
+            $** \ml{daughter} X Y$ iff there are both:\\
+            \a a cover $C_{X}$ of $X$, s.t. $∀x∈C_{X}∃y ≤ Y[\ml{daughter} x y]$
+            \a a cover $C_{Y}$ of $Y$, s.t. $∀y∈C_{Y}∃x ≤ X[\ml{daughter} x y]$
+            \xe
+
+            \pex~
+            \a \(\ml{daughter} = \set{\langle\ml{DB},\ml{Bill}\rangle,\langle\ml{DJ},\ml{James}\rangle}\)
+            \a \(** \ml{daughter} =
+            \set{\langle\ml{DB},\ml{Bill}\rangle,\langle\ml{DJ},\ml{James}\rangle,\langle\ml{DB}\oplus\ml{DJ},\ml{Bill}\oplus\ml{James}\rangle}\)
+            \xe
+
+          \item Singular nouns allow cumulative readings too:
+
+            \pex
+            \a Every daughter of the defense players is watching the game.
+            \a Every winner of a gold medal at these events can be proud.
+            \a Every resident of these cities has a bicycle.
+            \xe
+
+         \item Sauerland concludes that plural marking cannot be consistently
+            interpreted as either $*$ or $**$; the standard theory does not have
+            an account of why a cumulated noun in a definite description must be
+            plural.
+
+            \item However, according to Sauerland's theory, this
+            straightforwardly follows -- the number head above the DP must
+            contain the [\textsc{plur}] feature, since [\textsc{sing}] is ruled
+            out here.
+
+            \ex
+            \textsc{plur} the ([$**$ daughter] of Bill and James)
+            \xe
+
+        \end{itemize}
+
+        \subsection{Evidence for the weak theory}
+
+        \begin{itemize}
+
+            \item The data in this section is from \citet{sauerlandAnderssenYatsushiro2005}.
+
+        \end{itemize}
+
+        \subsubsection{Mixed reference}
+
+        \pex
+        \a You are welcome to bring your children.
+        \a\ljudge{\#}You are welcome to bring your child.
+        \a You are welcome to bring your child or your children.
+        \xe
+
+        \pex
+        \a Every boy should invite his sister to the party.
+        \a\ljudge{\#}Every boy should invite his sister to the party.
+        \xe
+
+        \subsubsection{Indefinites in DE contexts}
+
+        \begin{itemize}
+
+        \item Number marking in a DE context doesn't affect truth-conditions:
+
+        \pex
+        \a Kai hasn't found any eggs.
+        \a Kai has found no eggs.
+        \xe
+
+        \pex
+        \a Without artificial ingredients.
+        \a If John had eaten any apples from the basket, there would be at least
+        one/\#two less in the basket.
+        \xe
+
+        \item In a UE context, number marking on an indefinite \textit{does}
+            affect truth-conditions.
+
+            \pex
+            \a Some eggs are still hidden.
+            \a Some egg is still hidden.
+            \xe
+
+            \pex
+            Kai couldn't find certain/some eggs.
+            \xe
+
+          \item The analysis:
+
+            \ex
+            \begin{forest}
+              [{...}
+                [{...} [{some egg},roof]]
+                [{...}
+                  [{$λ x$}]
+                  [{...}
+                  [{$ϕ$P}
+                    [{$ϕ$\\\textsc{sing}}]
+                    [{$x$}]
+                  ]
+                    [{...} [{is still hidden},roof]]
+                  ]
+                ]
+              ]
+            \end{forest}
+            \xe
+
+           \item The presupposition introduced by \textsc{sing} is
+            \textit{locally accommodated} in the nuclear scope of the GQ. 
+
+            \item What about the plural feature?
+
+            \ex
+            \begin{forest}
+              [{...}
+                [{...} [{some egg},roof]]
+                [{...}
+                  [{$λ x$}]
+                  [{...}
+                  [{MP}]
+                  [{...}
+                  [{$ϕ$P}
+                    [{$ϕ$\\\textsc{sing}}]
+                    [{$x$}]
+                  ]
+                    [{...} [{is still hidden},roof]]
+                  ]]
+                ]
+              ]
+            \end{forest}
+            \xe
+
+            \begin{tcolorbox}
+              Local \textit{Maximize Presupposition}
+              \tcblower
+              MP applies to the scope of an existential if this strengthens the
+              entire utterance.
+            \end{tcolorbox}
+
+            \item Evidence for local maximise presupposition (based on
+            \citealt{percus2006antipresuppositions}):
+
+            \pex
+            \a Every professor with exactly two students told \textbf{both} of his
+            students to quit.
+            \a\ljudge{\#}Every professor with exactly two students told \textbf{all} of
+            his students to quit.
+            \xe
+
+          \item We see further parallels with scalar implicature:
+
+            \pex
+            \a After every one of the professor's students had arrived, the
+            professor asked all of them to leave again.
+            \a After every one of the professor's students had arrived, the
+            professor asked some of them to leave again.\\
+            (\# if the professor asked all the students to leave)
+            \xe
+
+        \end{itemize}
+
+
+
+
+
+    % \item We can also implement the strong theory within
+    % \citeauthor{sauerand2003}'s framework:
+
+    % \ex
+    % \(\eval{\textsc{plur}\(^{*}\)} ≔ λ x:♯x > 1 . x\)\hfill\(\type{e → e}\)
+    % \xe
+
+    % \ex
+    % \(\eval{\textsc{sing}\(^{*}\)} ≔ \ml{id}\)\hfill\(\type{e → e}\)
+    % \xe
+
+    % \begin{forest}
+    %   [{\(ϕ\)P}
+    %     [{$ϕ$\\{[\textsc{sg}/\textsc{pl}]}}]
+    %     [{DP}
+    %       [{D\\the}]
+    %       [{NP} [{boy$^{*}$},roof]]
+    %     ]
+    %   ]
+    % \end{forest}
+
+
+\section{\citeauthor{spector2007}'s puzzle}
+
+\begin{itemize}
+
+    \item \citeauthor{spector2007} is largely concerned with accounting for
+    inferences associated with plural indefinites.
+
+    \item We won't focus on all of the details of \citeauthor{spector2007}'s
+    theory, but its flaws will be instructive.
+
+    \item Like previous authors, \citeauthor{spector2007} observes that the
+    exclusivity inference obtains in a UE environment, and disappears in a DE environment.
+
+    \item But further to this, \citet{spector2007} observes that when a plural
+    indefinite appears in the scope of some \textit{non-monotonic operator} such
+    as \textit{exactly one of my students}, we find something unexpected.
+
+\pex
+\a\label{spector}Exactly one of my students has solved difficult problems.
+\a Exactly one of my students has solved some difficult problems.
+\xe
+
+  \item (\ref{spector}) is equivalent to none of the following sentences:
+
+    \pex
+    \a\label{spectora}Exactly one of my students has solved at least one difficult problem.
+    \a\label{spectorb}Exactly one of my students has solved two, or more than two, difficult problems.
+    \xe
+
+  \item (\ref{spectora}) is true (taking the scope of \textit{at least one} to be
+    fixed below \textit{exactly one}) in a situation where one student, say
+    Jack, has solved exactly one difficult problem, and no other student solved
+    any problem.
+
+  \item (\ref{spector}) however, suggests that the only student who has solved a
+    problem has solved more than one problems.
+
+  \item (\ref{spectorb}) on the other hand, is true where one student, say Jack,
+    has solved exactly two problems, and all other students have solved exactly
+    one problem; but intuitively, (\ref{spector}) entails that no student, apart
+    from the unique one who solved problems, solved any problem.
+
+  \item On the face of it then, (\ref{spector}) is a probelm for both strong AND
+    weak theories of plurality.
+
+  \item The attested interpretation is as follows:
+
+    \ex
+    One of my students has solved several difficult problems, and all other
+    students have solved no difficult problems at all.
+    \xe
+
+  \item Spector's account: recursive exhaustification.
+
+  \item Spector assumes a so-called \enquote{minimal worlds} formulation of the
+    exhaustivity operator, defined below:
+
+    \ex
+    \(\ml{exh}_{mw} ϕ ≔ \set{w| ϕ w ∧ ¬∃w'[ϕ w' ∧ w' <_{S} w]}\)
+    \xe
+
+    \ex~
+    \(w' <_{S} w\) iff the members of \(\ml{alt} ϕ\) true in \(w'\) are a proper
+    subset of the members of \(\ml{alt} ϕ\) true in \(w\).
+    \xe
+
+    \item Let's apply this exhaustivity operator to a concrete case: the
+    exclusivity inference associated with disjunction.
+
+    \ex
+    \(ϕ = p ∨ q\)
+    \xe
+
+    \ex~
+    \(\ml{alt} ϕ = \set{p,q,p∧q,p∨q}\)
+    \xe
+
+  \item Let's gather up the members of \(\ml{alt} ϕ\) true in each world:
+
+    \begin{itemize}
+
+      \item \(w_{∅} = ∅\)
+      \item \(w_{p¬q} = \set{p,p∨q}\)
+      \item \(w_{¬pq} = \set{q,p∨q}\)
+      \item \(w_{pq} = \set{p,q,p∨q,p∧q}\)
+
+    \end{itemize}
+
+  \item This gives us the following ordering on worlds.
+
+    \[
+    w_{∅} <_{S} w_{p¬q} ; w_{¬pq} <_{S} w_{p∧q}
+    \]
+
+  \item \(\ml{exh}_{mw} ϕ\) gathers up the set of \(\phi\)-worlds which make as
+    few of the alternatives true as possible without contradicting the
+    prejacent. In this scenario this delivers the following set:
+
+    \[
+    \set{w_{p¬q},w_{¬pq}} = p ∨ q ∧ ¬ (p ∧ q)
+    \]
+
+  \item Note that the minimal worlds formulation of the exhaustivity operator,
+    like \(\ml{exh}_{ie}\) is \textit{contradiction free}, and consistent with
+    considering the individual disjuncts as alternatives.
+
+  \item In fact, Spector (2016) demonstrates that whenever the set of
+    alternatives is semantically closed under conjunction, innocent exclusion
+    and the minimal worlds formulation are \textit{equivalent}.
+
+  \item \textbf{Assumptions regarding plurality}: Spector assumes that singular
+    NPs denote sets of atoms, and plural marking is interpreted as
+    \citeauthor{landman_events_2000}'s $*$-operator.
+
+    \ex
+    \(* P ≔ λ X . ∀x[(\ml{atom} x ∧ x ≤ X) → P x]\)
+    \xe
+
+    \item The singular, on the other hand, is assumed to be semantically
+    vacuous.
+
+  \item This directly accounts for the interpretation of indefinite plurals in
+    DE contexts, but doesn't account for the exclusivity inference in UE
+    contexts, or Spector's central puzzle.
+
+  \item This proposal renders singular and plural indefinites
+    \textit{equivalent} (at least for distributive predictates).
+
+    \ex
+    Jack saw a horse.\\
+    \(∃ x ∈ \ml{horse}[\ml{j saw }x]\)
+    \xe
+
+    \ex~
+    Jack saw horses.\\
+    \(∃ X[∀x[(\ml{atom} x ∧ x ≤ X) → x ∈ \eval{horse}] ∧ \ml{j saw }X]\)
+    \xe
+
+    \item Since \(λ X . \ml{j saw }X\) is distributive, the following
+    equivalence holds for any \(X\):
+
+    \[\ml{j saw }X ⇔ ∀ x[(\ml{atom} x ∧ x ≤ X) → \ml{j saw }x]\]
+
+    \item The puzzle then, is how to derive a multiplicitly inference for the
+    plural via competition with the singular. Since the two are equivalent, this
+    shouldn't be possible.
+
+    \item Spector suggests that the plural doesn't compete with the literal
+    meaning of the singular alternative, but rather the pragmatically
+    strengthened meaning. The pragmatically strengthened meaning of the singular
+    alternative is taken to convey an \textit{exactly one} inference.
+
+ \end{itemize}
+
+ \subsection{Spector's assumptions regarding alternatives}
+
+ \begin{itemize}
+
+   \item Spector makes the following assumptions regarding alternatives:
+
+     \pex
+     \a\label{sp1}Jack saw horses.
+     \a\label{sp2}Jack saw a horse.
+     \a\label{sp3}Jack saw several horses.
+     \xe
+
+     \pex
+     \a \(\ml{alt (\ref{sp1})} = \set{\text{Jack saw horses, Jack saw a horse}}\)
+     \a \(\ml{alt (\ref{sp2})} = \set{\text{Jack saw a horse, Jack saw horses,
+     Jack saw several horses}}\)
+     \a \(\ml{alt (\ref{sp3})} = \set{\text{Jack saw several horses}}\)
+     \xe
+
+     \begin{tcolorbox}
+       Question
+       \tcblower
+       What assumptions is Spector making regarding the relation of
+       \textit{alternativehood}? Can you spot anything problematic.
+     \end{tcolorbox}
+
+   \item We begin by computing the strengthened meaning of each sentence:
+
+     \item The only alternative to the bare plural is the (equivalent) singular,
+     which is of course not excludable, so exhaustification is vacuous.
+
+     \ex
+     \(\ml{exh}_{mw} (\text{Jack saw horses}) = \text{Jack saw horses}\)
+     \xe
+
+     \item The singular indefinite can be exhaustified relative to \textit{Jack
+     saw several horses} -- the minimal set of worlds consistent with the
+     prejacent that make as many of the alternatives false as possible, are the
+     ones in which Jack saw exactly one horse.
+
+     \ex
+     \(\ml{exh}_{mw} (\text{Jack saw a horse}) = \text{Jack saw exactly one horse}\)
+     \xe
+
+     \item Exhaustification of (\ref{sp3}) is vacuous, since there are no
+     non-equivalent alternatives.
+
+     \item Now let's consider the alternatives to the exhaustification of the
+     bare plural.
+
+     \ex
+     \label{spp}\(\ml{exh}_{mw} \text{Jack saw horses}\)
+     \xe
+
+     \ex
+     \(\ml{alt (\ref{spp})} = \Set{\begin{aligned}[c]
+         \ml{exh}_{mw} (\text{Jack saw horses})\\
+         \ml{exh}_{mw} (\text{Jack saw a horse})\\
+         \ml{exh}_{mw} (\text{Jack saw several horse})
+       \end{aligned}} = \Set{\begin{aligned}[c]
+         \text{Jack saw horses}\\
+         \text{Jack saw exactly one horse}\\
+         \text{Jack saw several horse}
+       \end{aligned}}\)
+     \xe
+
+     \item What is set of worlds which makes as many of the exhaustified
+     alternatives false, without contradicting the prejacent? The worlds in
+     which Jack saw more than one horse, of course.
+
+     \item Spector thereby derives the exclusivity inference.
+
+\end{itemize}
+
+\subsection{Back to Spector's puzzle}
+
+\begin{itemize}
+
+    \item Recall:
+
+\ex
+\label{puzzle}Exactly one of my students has solved difficult problems.
+\xe
+
+  \item The only alternative to (\ref{puzzle}) involves a singular indefinite:
+
+    \ex
+    \(\ml{alt (\ref{puzzle})} = \set{\text{Exactly one of my students solved a
+    difficult problem}}\)
+    \xe
+
+ \item First, let's compute the strengthened meaning of the alternative. It
+    competes with the following, which is logically non-weaker:
+
+    \ex
+   Exactly one of my students has solved several difficult problems.
+    \xe
+
+    \ex
+    \(\begin{aligned}[t]
+      &\ml{exh}_{mw} \text{Exactly one of my students has solved a difficult
+        problem}\\
+      &= \begin{aligned}[t]
+        &\text{exactly one of my students has solved a difficult problem}\\
+        &\wedge \neg (\text{exactly one of my students has solved several
+          difficult problems})
+        \end{aligned}\end{aligned}\)
+    \xe
+
+  \item This is equivalent to:
+
+    \ex
+    Exactly one of my students has solved exactly one difficult problem, and no
+    other student has solved any problem at all.
+    \xe
+
+    \item We now compute the meaning of (\ref{puzzle}) relative to its
+    strengthened alternative, just like last time. The result is:
+
+    \ex\label{lessbrief}
+    Exactly one of my students solved at least one difficult problem, and its
+    not the case that exactly one of my students has solved exactly one
+    difficult problem and no other student has solved any difficult problem at all.
+    \xe
+
+  \item This is equivalent to:
+
+    \ex\label{brief}
+    Exactly one of my students has solved at least two difficult problems, and
+    all other students have solved no difficult problem at all.
+    \xe
+
+  \item Informal proof:
+
+    \begin{itemize}
+
+        \item  Suppose (\ref{lessbrief}) is true: then there is a student, say
+        Jack, who solved a difficult problem, and is such that all other
+        students have solved no difficult problem.
+
+      \item Suppose Jack solved exactly one difficult problem.
+
+        \item Since the following is false -- \textit{exactly one student has
+        solved exactly one difficult problem, and no other students has solved
+        any difficult problem} -- it follows that a student distinct from Jack
+        has solved exactly one difficult problem, or Jack is the only one who
+        has solved exactly one difficult problem but there are other students
+        who have solved difficult problems.
+
+      \item In both cases, there must be students different from Jack who have
+        solved a difficult problem. This is a contradiction.
+
+      \item Therefore, Jack has solved several difficult problems; no other
+        student solved any difficult problem -- it follows that a student
+        distinct from Jack has solved exactly one difficult problem, or Jack is
+        the only one who has solved exactly one difficult problem but there are
+        other students who have solved difficult problems.
+
+      \item In both cases, there must be students different from Jack who have
+        solved a difficult problem. This is a contradiction.
+
+      \item Therefore, Jack has solved several difficult problem; no other
+        student solved any difficult problem.
+
+     \end{itemize}
+
+\end{itemize}
+
+\subsection{Towards an account of Spector's puzzle}
+
+\begin{itemize}
+
+    \begin{tcolorbox}
+    \item Note that the results reported here are the result of ongoing joint
+    work with Paul Marty.
+    \end{tcolorbox}
+
+  \item Recall:
+
+    \pex
+    Exactly one of my students has solved difficult problems.\label{elliott1}
+    \a one of my students has solved \textit{more than one} difficult problem\label{elliott1a}
+    \a none of my other students have solved \textit{one or more} difficult problems\label{elliott1b}
+    \xe
+
+    \item \textbf{Ingredient 1:} following \citet{sauerland2013}, we treat
+    \textit{exactly} as a focus-sensitive operator.
+
+    \item \text{Exactly}, much like, e.g., \textit{only}, takes a proposition
+    $p$ that contains a focused element (such as a numeral), and returns (i)
+    that $p$ is true, and (ii) for every $q ∈ \ml{alt} p$ that is not entailed
+    by $p$, $¬ q$ is true.
+
+    \pex
+    Exactly/only [\textsc{one}$_{F}$ students came to the meetings].
+    \a One student came to the meeting.
+    \a \(¬\) [$n$ students came to the meeting], for any numeral $n > 1$
+    \xe
+
+    \item \textbf{Ingredient 2:} a number of researchers have noted that, in the
+    scope of \textit{only}:
+
+    \begin{itemize}
+
+        \item implicatures \textit{are} generated in the upward-entailing
+        (UE) component (i.e., the prejacent).
+
+        \item implicatures \textit{disappear} in the
+    downward-entailing (DE) component (i.e., the negated alternatives).
+
+        \end{itemize}
+
+    \item See, e.g., \citet{gajewski2012defense,alxatib2014,bar2018free}.
+    \citeauthor{bar2018free} describes this as a \enquote{two-sided inference}.
+
+    \item We illustrate this phenomena here with a scalar expression
+    \textit{some} in the scope of \textit{exactly/only}:
+
+    \pex
+    Exactly/Only [\textsc{one}$_F$ student ate some of the cookies]\label{builder3}
+    \a \ul{UE component: implicature}\\
+    one student ate some \textit{but not all} of the cookies
+    \a \ul{DE component: no implicature}\\
+    $\neg$[$n$ students ate some of the cookies], for any numeral \(n > \textit{one}\)
+    \xe
+
+    \item We propose that the case in (\ref{elliott1}) is another instance of
+    the above phenomenon.
+
+    \item \textbf{Ingredient 3:} following \citet{mayr2015}, we assume
+    \textit{predicate-level exhaustification}.
+
+    \ex
+    \(\ml{exh} f ≔ λ X . f X ∧ ∀ g ∈ \ml{alt} f[f \not\subseteq g → ¬ g X]\)
+    \xe
+
+    \item a multiplicity implicature is generated in the UE-prejacent of
+    \textit{exactly}, delivering (\ref{elliott1a}), but not in its
+    DE-alternatives, hence (\ref{elliott1b}).
+
+    \item The intuition here is that \textsf{exh} can be rendered vacuous in
+    these DE-alternatives as its working would otherwise weaken their meaning,
+    (\ref{builder4}).
+
+    \item This should ultimately follow from the Economy condition constraining
+    the distribution of \textsf{exh} (see \citealt{foxSpector2018} and others).
+
+    \pex
+    Exactly [\textsc{one}$_F$ student solved \textsf{exh} [difficult problems]]\label{builder4}
+    \a one student solved \textsf{exh} [difficult problems]\\
+    $\Rightarrow$ one student solved \textit{more than one} difficult problems
+    \a $\neg$[$n$ student solved \sout{\textsf{exh}} [difficult problems]], for any numeral \(n > \textit{one}\)\\
+    $\Rightarrow$ none of the other students have solved \textit{one or more} difficult problems
+    \xe
+
+\end{itemize}
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,245 @@
+\documentclass[cronos,landscape,paper=letter]{ling-handout}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{fontawesome,calc,enumitem,parskip}
+
+\lingset{
+    aboveglftskip=0pt,
+    belowglpreambleskip=0pt,
+    belowpreambleskip=0pt,
+    extraglskip=0pt,
+    Everyex={\parskip=0pt},
+}
+
+\usepackage{tcolorbox}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Anaphora P-Set}
+\subtitle{\texttt{24.954:} Pragmatics in Linguistic Theory}
+
+\date{\today}
+
+\author{Patrick~D. Elliott}
+
+\begin{document}
+
+\maketitle
+
+\begin{tcolorbox}
+  Questions
+  \tcblower
+
+Compute the CCP of the following sentence, using our dynamic fragment extended to account for anaphora. You can ignore gender.
+
+\ex
+A\(^{1}\) son of some\(^{2}\) famous actress came and he\(_{1}\) told us about her\(_{2}\).
+\xe
+
+\end{tcolorbox}
+
+In our system, we have special (syncategorematic) interpretation rules for sentences of the form \enquote{P and Q}, and sentences of the form \enquote{a\(^{n}\) \(ϕ ψ\)}. This isn't a \textit{necessary} feature of FCS (i.e., we can make things more compositional, if we like) but it did simplify the exposition. Let's remind ourselves of these rules:
+
+\ex
+\(\text{a}^{n} ϕ ψ ≔ \eval{a\(^{n}\)};\eval{\(ϕ\)};\eval{\(ψ\)}\)
+\xe
+
+\ex~
+\(\text{P and Q} ≔ \eval{P};\eval{Q}\)
+\xe
+
+
+We'll assume the following LF for the sentence we're interested in. Since our interpretation rules are syncategorematic, the syntactic structure doesn't make a large difference, so to simplify, let's assume that both coordinated sentences and quantificational structures are ternary.
+
+  \ex
+  \begin{forest}
+    [{\(④\)}
+    [{\(②\)}
+      [{a\(^{1}\)}]
+      [{\(①\)}
+        [{some\(^{2}\)}]
+        [{\(t_{2}\) famous actress}]
+        [{\(t_{1}\) son of \(t_{2}\)}]
+      ]
+      [{\(t_{1}\) came}]
+    ]
+      [{and}]
+      [{\(③\)} [{he\(_{1}\) told us about her\(_{2}\)},roof]]
+    ]
+  \end{forest}
+  \xe
+
+  Let's start by stating the interpretation of each of the daughters of \(①\):
+
+  \ex
+  \(\eval{some\(^{2}\)} ≔ λ c:2 ∉ \ml{dom} c . \set{⟨g'[2 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ x ∈ D_{\ml{e}}}\)
+  \xe
+
+  \ex~
+  \(\eval{\(t_{2}\) famous actress} = λ c:2 ∈ \ml{dom} c . \set{⟨g,w⟩ ∈ c|\ml{famous-actress}_w g_2}\)
+  \xe
+
+  \ex~
+  \(\eval{\(t_{1}\) son of \(t_{2}\)} = λ c:1,2 ∈ \ml{dom} c . \set{⟨g,w⟩ ∈ c|g_1 \ml{son-of} g_2}\)
+  \xe
+
+  Now we can compute the meaning of \(①\) using the special rule for sentences of the form \enquote{a\(^{n} ϕ ψ\)}:
+
+  \pex
+  \a \(\eval{\(①\)} = \eval{some\(^{n}\)};\eval{\(t_{2}\) famous actress};\eval{\(t_{1}\) son of \(t_{2}\)}\)
+  \a \(= λ c:\begin{aligned}[t]
+    &1 ∈ \ml{dom} c\\
+    &∧ 2 ∉ \ml{dom} c
+  \end{aligned} . \Set{⟨g'[2 ↦ x],w⟩|\begin{aligned}[c]
+      &⟨g,w⟩ ∈ c\\
+      &∧ \ml{famous-acress} x\\
+      &∧ g_{1} \ml{son-of} g_{2}
+    \end{aligned}}\)
+  \xe
+
+  Now let's compute the interpretation of the two remaining daughters of \(②\):
+
+  \ex
+  \(\eval{a\(^{1}\)} ≔ λ c:1 ∉ \ml{dom} c . \set{⟨g'[1 ↦ x],w⟩|⟨g,w⟩ ∈ c ∧ x ∈ D_{\ml{e}}}\)
+  \xe
+
+  \ex~
+  \(\eval{\(t_{1}\) came} = λ c:1 ∈ \ml{dom} c . \set{⟨g,w⟩ ∈ c|\ml{came} g_1}\)
+  \xe
+
+  Again, based on our interpretation rule for a sentence with an indefinite, we sequence the three daughters of \( ②\). We get:
+
+  \ex
+  \(λ c:2,1 ∉ \ml{dom} c . \Set{\left\langle g'\left[\begin{aligned}[c]
+        &1 ↦ y\\
+        &2 ↦ x
+      \end{aligned} \right],w \right \rangle |\begin{aligned}[c]
+    &⟨g,w⟩ ∈ c\\
+    &∧ \ml{famous-actress} x\\
+    &∧ y \ml{son-of} x\\
+    &∧ \ml{came} y
+  \end{aligned}}\)
+  \xe
+
+  Now, the interpretation of \(③\) is easy.
+
+  \ex
+  \(③ = \eval{\(t_{1}\) told us about \(t_{2}\)} = λ c:1,2 ∈ \ml{dom} c . \set{⟨g,w⟩|g_1 \ml{told-about} g_2}\)
+  \xe
+
+  FINALLY, we compute the meaning of \( ④\) by sequencing \( ②\) and \( ③\), which we already computed:
+
+  \ex
+  \(④ = λ c:2,1 ∉ \ml{dom} c . \Set{\left\langle g'\left[\begin{aligned}[c]
+        &1 ↦ y\\
+        &2 ↦ x
+      \end{aligned} \right],w \right \rangle |\begin{aligned}[c]
+    &⟨g,w⟩ ∈ c\\
+    &∧ \ml{famous-actress} x\\
+    &∧ y \ml{son-of} x\\
+    &∧ \ml{came} y\\
+    &∧ y \ml{told-about} x
+  \end{aligned}}\)\)
+  \xe
+
+  \hline
+
+  \begin{tcolorbox}
+    Question
+    \tcblower
+In dynamic semantics, we can define a universal quantifier as follows (where \(p\) and \(q\) are CCPs):
+
+\ex
+\(\ml{every}^{n} p q ≔ λ c\begin{aligned}[t]
+  &: i ∉ \ml{dom} c\\
+  &. \Set{⟨g,w⟩ ∈ c| \begin{aligned}[c]
+    &\set{g'_{n} | ⟨g',w⟩ ∈ p (\ml{a}^{n} c) ∧ g ≤ g'}\\
+    &⊆ \set{g''_{n}|⟨g'',w⟩ ∈ q (p (\ml{a}^{n} c)) ∧ g ≤ g''}
+  \end{aligned}}
+\end{aligned}\)
+\xe
+
+\ex~
+\(g ≤ g'\) iff for each \(i ∈ dom g, g_{i} = g'_{i}\)
+\xe
+
+Compute the CCPs of the following sentences, step by step:
+
+\ex
+Every linguist cried.\\
+LF: Every\(^{3}\) [\(t_{3}\) linguist] [\(t_{3}\) cried]
+\xe
+
+\ex~
+Every\(^{4}\) farmer who owns a\(^{7}\) donkey cares from it\(_{7}\).\\
+LF: Every\(^{4}\) [a\(^{7}\) [\(t_{7}\) donkey] [\(t_{4}\) owns \(t_{7}\)]] [\(t_{4}\) cares for \(t_{7}\)].
+\xe
+
+
+\end{tcolorbox}
+
+Let's start with \enquote{Every linguist cried}:
+
+
+\ex
+\(\eval{t\(_{3}\) linguist} = λ c:3 ∈ \ml{dom} c . \set{⟨w,g⟩ ∈ c|\ml{linguist} g_3}\)
+\xe
+
+\ex~
+\(\eval{t\(_{3}\) cried} = λ c:3 ∈ \ml{dom} c . \set{⟨w,g⟩ ∈ c|\ml{cried} g_3}\)
+\xe
+
+Now we can simply apply our syncategorematic rule for \enquote{every\(^{n}\) \(p q\)}:
+
+\ex
+\(\begin{aligned}[t]
+  &\eval{every linguist cried}\\
+  &= λ c\begin{aligned}[t]
+    &:3 ∉ \ml{dom} c\\
+    &. \Set{⟨g,w⟩ ∈ c | \begin{aligned}[c]
+        &\set{g'_{3}|⟨g',w⟩ ∈ \set{⟨g''[3 ↦ x],w⟩|⟨g'',w⟩ ∈ c ∧ \ml{linguist} x} ∧ g ≤ g'}\\
+        & ⊆ \set{h_{3}|⟨h,w⟩ ∈ \set{⟨h'[3 ↦ x],w⟩|⟨h',w⟩ ∈ c ∧ \ml{cried} x} ∧ g ≤ h}
+      \end{aligned}}
+    \end{aligned}
+  \end{aligned}\)
+\xe
+
+Note importantly that this sentence doesn't result in an updated context with an extended domain, capturing the fact that \textit{every}, unlike \textit{some} doesn't license cross-sentential anaphora.
+
+% Now let's move onto the donkey sentence. Here is the LF, again we're just going to make it ternary branching to more easily see what's going on:
+
+% \ex
+% \begin{forest}
+
+% \end{forest}
+% \xe
+
+% \hline
+
+% What do we now predict that the following sentence should presuppose?
+
+% \ex
+% Every fat man pushed his bike.
+% \xe
+
+% What about the following:
+
+% \ex
+% Every fat man who stopped smoking was healthier.
+% \xe
+
+% \textbf{Bonus: }what is the general schema for going from a static generalised quantifier to a dynamic generalised quantifier?
+
+% \printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-engine: default
+%%% TeX-master: t
+%%% End:

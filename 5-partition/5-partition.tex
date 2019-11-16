@@ -1,0 +1,1169 @@
+\documentclass[portrait,cronos,paper=letter]{ling-handout}
+
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fontawesome,calc,enumitem,parskip,tcolorbox}
+
+\lingset{
+  belowexskip=0pt,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt},
+}
+
+
+\usepackage{float,soul}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/elliott_mybib.bib}
+
+% \renewcommand*{\sectionformat}{}
+% \renewcommand*{\subsectionformat}{}
+% \renewcommand*{\subsubsectionformat}{}
+
+\title{Partition by Exhaustification}
+\subtitle{Question semantics and the logic of scalar strengthening}
+
+\date{November 1, 2019}
+
+\author{Patrick~D. Elliott
+  \and
+Roger Schwarzchild}
+
+\begin{document}
+
+\maketitle
+
+\begin{tcolorbox}
+  Squib deadline
+  \tcblower
+  For those of you registered for this class, the first squib (on
+  presupposition) is due in today.
+\end{tcolorbox}
+
+\section*{Homework}
+
+\begin{itemize}
+
+    \item Next week we'll be talking about plurality, and, specifically,
+    \textit{multiplicity inferences}.
+
+    \item \textbf{Presupposition and implicature will collide}.
+
+    \item You're required to read either of the following papers (free choice
+    inference!). Send me at least one question via email by next Wednesday.
+
+    \begin{itemize}
+
+        \item \fullcite{spector2007}
+
+        \item \fullcite{sauerlandAnderssenYatsushiro2005}
+
+    \end{itemize}
+
+    \item I'll upload both papers to stellar later today.
+
+\end{itemize}
+
+\section{Introduction to Partition semantics}
+
+
+\begin{itemize}
+
+  \item \citet{groenendijk_studies_1984} capture the difference between
+    \textit{indicatives} and \textit{interrogatives} by treating the latter as
+    partitions/propositional concepts.
+
+    \ex
+    \(\eval{it's raining} ≔ \set{w| \ml{raining}_{w}}\)
+    \xe
+
+    \ex~
+    \(\eval{is it raining?} ≔ λ w . \set{w'|\ml{raining}_{w} = \ml{raining}_{w'}}\)
+    \xe
+
+    \item A partition divides up the logical space (i.e., the set of
+    possible worlds) into mutually exclusive possibilities: \enquote{cells}.
+
+  \item Consider the following illustration:
+
+  \begin{table}[H]
+\begin{tabular}{llllll}
+ & $w_{r,s}$ & $w_{r,¬s}$ & $w_{¬r,s}$ & $w_{¬r,¬s}$ &  \\
+  \hline
+\ml{raining} & 1 & 1 & 0 & 0 &  \\
+\ml{sunny} & 1 & 0 & 1 & 0 &
+\end{tabular}
+\end{table}
+
+    \item The meaning of the interrogative tells us, for any evaluation world, which
+    cell in the partition it belongs to.
+
+    \[\eval{is it raining?} = \left[\begin{aligned}[c]
+          &w_{r,s} &↦ &\set{w_{r,s},w_{r,¬s}}\\
+          &w_{r,¬s} &↦ &\set{w_{r,s},w_{r,¬s}}\\
+          &w_{¬r,s} &↦ &\set{w_{¬r,s},w_{¬r,¬s}}\\
+          &w_{¬r,¬s} &↦ &\set{w_{¬r,s},w_{¬r,¬s}}
+        \end{aligned}\right]\]
+
+    \item The interrogative \textit{is it sunny?} of course delivers a distinct
+    partition:
+
+    \[\eval{is it raining?} = \left[\begin{aligned}[c]
+          &w_{r,s} &↦ &\set{w_{r,s},w_{¬r,s}}\\
+          &w_{r,¬s} &↦ &\set{w_{r,¬s},w_{¬r,¬s}}\\
+          &w_{¬r,s} &↦ &\set{w_{r,s},w_{¬r,s}}\\
+          &w_{¬r,¬s} &↦ &\set{w_{r,¬s},w_{¬r,¬s}}
+        \end{aligned}\right]\]
+
+    \item G\&S's partition semantics extends straightforwardly to constituent
+    questions:
+
+    \ex
+    \(\eval{who arrived} = λ w . \set{w'|\set{x|\ml{arrived}_{w} x} = \set{x'|\ml{arrived}_{w'}}}\)
+    \xe
+
+    \item The G\&S meaning for \textit{who arrived} partitions the logical space
+    according to the person(s) who arrived. Assume that the domain of
+    individuals is \(\ml{Paul, Sophie}\).
+
+    \[\begin{aligned}[c]
+&\set{w| \set{x|\ml{arrived}_{w} x} = \set{\ml{Paul,Sophie}}}\\
+&\set{w| \set{x|\ml{arrived}_{w} x} = \set{\ml{Paul}}}\\
+&\set{w| \set{x|\ml{arrived}_{w} x} = \set{\ml{Sophie}}}\\
+&\set{w| \set{x|\ml{arrived}_{w} x} = ∅}
+      \end{aligned}\]
+
+        \[\begin{aligned}[c]
+&\set{w| \ml{Paul and Sophie arrived in }w}\\
+&\set{w| \ml{only Paul arrived in }w}\\
+&\set{w| \ml{only Sophie arrived in }w}\\
+&\set{w| \ml{nobody arrived in }w}
+\end{aligned}\]
+
+    \end{itemize}
+
+    \subsection{Exhaustivity}
+
+    \begin{itemize}
+
+      \item Two forms of exhaustivity (discussed by G\&S):
+
+        \pex
+        Dani knows who came.
+        \a If $x$ came, Dani believes that $x$ came.\hfill \textit{weak exhaustivity}
+        \a If $x$ came, Dani believes that $x$ came; if $x$ didn't come, then
+        Dani believes that $x$ didn't come.\hfill \textit{strong exhaustivity}
+        \xe
+
+      \item A partition semantics for questions directly captures the strongly
+        exhaustive interpretation; the partition denoted by a question is a
+        function from a world $w$ to the \textit{strongly exhaustive} answer to the
+        question in $w$.
+
+        \pex\label{ex:part}Dani knows who came.\\
+        $λ w . \ml{d} \ml{know}_{w} \set{w'|\set{x|\ml{came}_{w} x} =
+        \set{x|\ml{came}_{w'} x}}$
+        \a If only Yasu came in $w$, then:\\
+        $\eval{\ref{ex:part}} w = \ml{d
+        know}_{w} \set{w'|\set{x|\ml{came}_{w'} x} = \set{\ml{y}}}$
+        \a If only Andy came in $w$, then:\\
+        $\eval{\ref{ex:part}} w = \ml{d
+        know}_{w} \set{w'|\set{x|\ml{came}_{w'} x} = \set{\ml{a}}}$
+        \a If only Yasu and Andy came in $w$, then:\\
+        $\eval{\ref{ex:part}} w = \ml{d
+        know}_{w} \set{w'|\set{x|\ml{came}_{w'} x} = \set{\ml{y},\ml{a},\ml{y}⊕\ml{a}}}$
+        \a If nobody came in $w$, then:\\
+        $\eval{\ref{ex:part}} w = \ml{d
+        know}_{w} \set{w'|\set{x|\ml{came}_{w'} x} = ∅}$
+        \xe
+
+        \item A strongly exhaustive interpretation seems to be motivated, at
+        least for the interpretation of \textit{know}, as noted by G\&S:
+
+        \pex
+        \a Dani believes that Yasu and Andy are here.
+        \a Only Andy is here.
+        \a $⇏$ Dani knows who is here.
+        \xe
+
+        \item As famously observed by \citet{heim1994}, there are certain
+        predicates for which this doesn't seem right.
+
+        \pex
+        Dani is surprised by who came.
+        \a \cmark\,If $x$ came, Dani is surprised that $x$ came.
+        \a ???\,If $x$ came, Dani is surprised that $x$ came; if $x$ didn't
+        come, then Dani is surprised that $x$ didn't come.
+        \xe
+
+        \pex Context: \textit{only Andy came, and Dani is surprised that Andy came. Yasu
+        didn't come, and this doesn't surprise Dani one bit}.\\
+        \a Dani is surprised by who came.
+        \a\ljudge{\#}Dani isn't surprised by who came.
+        \xe
+
+\end{itemize}
+
+\subsection{From Hamblin sets to partitions}
+
+\subsubsection{Background on equivalence classes}
+
+\begin{itemize}
+
+\item For any set, $X$, if we have some notion of equivalence (called
+      an \textit{equivalence relation} ($\sim$)) for the members $x ∈ X$, then we may
+      divide up $X$ into equivalence classes -- subsets of $X$. Two elements $x$
+      and $x'$ belong to the same equivalence class only if they satisfy the
+      equivalence relation.
+
+     \item Let's say that we have a set of individuals, and our equivalence relation
+      is \textit{eye color}. In other words:
+
+      \[x ∼ x' \text{iff} \ml{eye-color} x = \ml{eye-color} x'\]
+
+      \item For each individual $y$, their equivalence class is the following set:
+
+      \[\set{x ∈ X|x \sim y}\]
+
+      \item This maps, e.g., Britta to the set of blue-eyed individuals, if she has
+      blue eyes, and Jeff to the set of brown-eyed individuals, if he has brown eyes.
+
+      \item The set of equivalence classes is therefore the following set
+
+      \[\bigcup\limits_{y∈X}\set{X'|X' = \set{x ∈ X|x ∼ y}}\]
+
+      \item It can be shown that the set of equivalence classes on $X$, relative to
+      some equivalence relation, is always a \textit{partition} of $X$. For
+      example, \textit{eye color} partitions $D_{\type{e}}$ into cells where
+      everyone has the same eye color.
+
+    \end{itemize}
+
+\subsubsection{Hamblin sets provide equivalence relations}
+
+\begin{itemize}
+
+    \item As pointed out by Fox, and many others, it's easy to retrieve a
+    \textit{partition of the logical space (i.e., the set of possible worlds
+    $W$)} from a Hamblin set $Q$, by taking the Hamblin set to provide an
+    equivalence relation on $W$.
+
+    \item The idea, informally, is that two worlds $w$ and $w'$ are equivalent
+    wrt a question $Q$, iff, each answer in $Q$ is mapped to the same
+    truth-value in both worlds.
+
+    \ex
+    $w \sim w'\text{ iff }∀p∈Q[p w = p w']$
+    \xe
+
+    \item Once we have an equivalence relation, we can compute the set of
+    equivalence classes of $W$. For each world in $w$, its equivalence class is
+    the set of worlds which map each answer in $Q$ to the same truth-value.
+
+    \item Gathering together the resulting equivalence classes is guaranteed to
+    partition the logical space (the set of equivalence classes is always a partition).
+
+    \ex
+    \(\ml{PART}_{Q} W ≔ \bigcup\limits_{w'∈ W}\set{w ∈ W|∀p∈Q[p w = p w']}\)
+    \xe
+
+    \item Fox gives a simple example of how this works, when the Hamblin set
+    simply contains two logically independent propositions:
+
+    \[Q = \set{p,q}\]
+
+    \item \(\ml{PART}_{Q} W\) will map the logical space to the set of
+    equivalence classes under the equivalence relation: $w ∼ w'\text{ iff }p w =
+    p w' ∧ q w = q w'$. This results in the following partition:
+
+    \[
+    \Set{p ∧ ¬q, q ∧ ¬p, p ∧ q, ¬p ∧ ¬q}
+    \]
+
+    \item Let's see how this works in a slightly more involved case, by applying this reasoning
+    to the Hamblin denotation of a constituent question:
+
+        \[\eval{who arrived} = \set{p|∃ x[p = \set{w|\ml{arrived}_{w} x}]}\]
+
+    \[= \Set{
+    \begin{aligned}[c]
+      &\set{w|\ml{arrived}_{w} \ml{p}}\\
+      &\set{w|\ml{arrived}_{w} \ml{s}}\\
+      &\set{w|\ml{arrived}_{w} \ml{p}⊕\ml{s}}
+      \end{aligned}
+    }\]
+
+    \item The Hamblin set $Q$ provides an equivalence relation -- $w \sim w'$
+    iff every proposition of the form $x \ml{arrived}$, maps $w$ and $w'$ to the
+    same truth-value.
+
+    \[w \sim w' \text{ iff }∀p ∈ \eval{who arrived}[p w = p w']\]
+
+    \item This equivalence relation can be used to divide up the logical space
+    $W$ into equivalence classes/cells, i.e., just those worlds that
+    \enquote{agree on} exactly who arrived.
+
+    \[\bigcup_{w' ∈ W}\set{p|p = \set{w ∈ W|∀ p ∈ \eval{who arrived}[p w = p w']}}\]
+
+  \item This gives us the following set:
+
+    \[
+    \Set{
+    \begin{aligned}[c]
+    &\Set{w|\begin{aligned}[c]
+         &\ml{arrived}_{w} \ml{p} = 1\\
+      &\ml{arrived}_{w} \ml{s} = 0\\
+      &\ml{arrived}_{w} \ml{p}⊕\ml{s} = 0
+    \end{aligned}},
+&\Set{w|\begin{aligned}[c]
+         &\ml{arrived}_{w} \ml{p} = 0\\
+      &\ml{arrived}_{w} \ml{s} = 1\\
+      &\ml{arrived}_{w} \ml{p}⊕\ml{s} = 0
+      \end{aligned}}\\
+&\Set{w|\begin{aligned}[c]
+         &\ml{arrived}_{w} \ml{p} = 1\\
+      &\ml{arrived}_{w} \ml{s} = 1\\
+      &\ml{arrived}_{w} \ml{p}⊕\ml{s} = 1
+      \end{aligned}},
+&\Set{w|\begin{aligned}[c]
+         &\ml{arrived}_{w} \ml{p} = 0\\
+      &\ml{arrived}_{w} \ml{s} = 0\\
+      &\ml{arrived}_{w} \ml{p}⊕\ml{s} = 0
+      \end{aligned}}
+    \end{aligned}
+    }
+    \]
+
+    \[
+    = \Set{\begin{aligned}[c]
+        &\ml{only Paul arrived}\\
+        &\ml{only Sophie arrived}\\
+        &\ml{Paul and Sophie arrived}\\
+        &\ml{Nobody arrived}
+      \end{aligned}}
+    \]
+
+\end{itemize}
+
+\section{Partition by exhaustification}
+
+\subsection{An arithmetic problem arising from question-partition mismatch}
+
+\begin{itemize}
+
+    \item Fox's insight is that, questions are typically answered by uttering a
+    proposition in the Hamblin set.
+
+    \item Propositions in the Hamblin set are nevertheless too weak to identify a cell in the
+    corresponding partition.
+
+    \pex
+    \a Question: Who (of Yasu, Andy, Daniele) is here?
+    \a Answer: Andy is here.
+    \xe
+
+    \item The proposition \textit{Andy is here} is consistent with multiple cells in
+    the corresponding logical partition: (i) \textit{only Andy is here}, (ii) \textit{only
+    Andy and Yasu are here}, (iii) \textit{only Andy and Daniele are here}, and (iv)
+    \textit{everyone is here}.
+
+    \item However, if we \textit{exhaustify} the proposition \enquote{Andy is
+    here}, relative to the alternatives provided by the Hamblin set, then the
+    result is the (strengthened) proposition \textit{only Andy is here}.
+
+    \item Fox points out that this gives rise to what he calls an
+    \enquote{arithmetic problem} -- since the number of cells in the
+    logical partition often outstrips the number of propositions in the answer
+    set, then there will often be cells which simply \textit{can't} be
+    identified by exhaustifying a member of the Hamblin set.
+
+    \item For example, in the context just given, there is no member in the
+    Hamblin set, which, once strengthened, picks out the cell where
+    \textit{nobody is here}.
+
+\end{itemize}
+
+\subsection{Dayal's presupposition}
+
+\begin{itemize}
+
+    \item In an extremely influential book, \citet{Dayal} proposed that
+    interrogatives carry a particular kind of presupposition -- Fox demonstrates
+    that, once this presupposition is adopted, the arithmetic problem no longer
+    arises.
+
+    \item contexts which satisfy Dayal's presupposition are exactly those
+    where each member of the Hamblin set can pick out a cell of the (contextual)
+    partition via exhaustification.
+
+    \item Let's see how this works.
+
+    \pex\textbf{Dayal's presupposition}
+    \a \(\ml{Ans}_{D} Q ≔ λ w:∃p∈ Q[p = \ml{MaxInf} Q w] . \ml{MaxInf} Q w\)
+    \a \(\ml{MaxInf} Q w ≔ \begin{cases}
+      p & p w ∧ ∀q ∈ Q[q w → p ⊆ q]\\
+      ♯&\text{else}
+      \end{cases}\)
+    \xe
+
+    \item If the presupposition of $\ml{Ans}_{D}$ is met, then, given a
+    Stalnakerian context set $C$ (representing the common ground), every world
+    $w ∈ C$ will be such that $\ml{MaxInf} Q w = p$, for some $p ∈ Q$.
+
+    \item The flip side of the presupposition being satisfied, will be that
+    every cell in the partition of $C$ will be identifiable via (the
+    strengthened meaning of) each member of the Hamblin set.
+
+    \item Imagine that we have a Hamblin set consisting of two logically
+    independent propositions $Q = \set{p,q}$
+
+    \item And, let's say that $C$ initially consists of the following worlds.
+    For Dayal's presupposition to be satisfied in the context set, for every
+    world, there must be a unique maximally informative element of $Q$.
+
+      \begin{table}[H]
+\begin{tabular}{llllll}
+ & $w_{p,q}$ & $w_{p,¬q}$ & $w_{¬p,q}$ & $w_{¬p,¬q}$ &  \\
+  \hline
+$p$ & 1 & 1 & 0 & 0 &  \\
+$q$ & 1 & 0 & 1 & 0 &
+\end{tabular}
+\end{table}
+
+    \begin{itemize}
+
+    \item \xmark\,In $w_{p,q}$, there is no such proposition; $p$ and $q$ are equally informative.
+
+    \item \cmark\,In $w_{p,¬q}$, there is such a proposition: $p$.
+
+    \item \cmark\,In $w_{¬p,q}$, there is such a proposition: $q$.
+
+    \item \xmark\,In $w_{¬p,¬q}$, there is no such proposition; both $p$ and $q$
+    are false.
+
+    \end{itemize}
+
+    \item Since Dayal's presupposition isn't met in this context, we must
+    \textit{accommodate}, i.e., minimally shrink $C$ such that Dayal's
+    presupposition is satisfied.
+
+    \item What is left is the revised context set $C' = \set{w_{p,¬q},w_{¬p,q}}$.
+
+    \item Now, if we partition this revised context set relative to $Q$, the
+    result is simply $\set{\set{w_{p,¬q}},\set{w_{¬q,p}}}$. This corresponds
+    exactly to what we get if we \textit{exhaustify} each proposition in the
+    Hamblin set.
+
+    \item Fox suggests that this provides a more general solution to the
+    arithmetic problem raised earlier.
+
+    \ex
+    \textbf{Dayal's presupposition as an answer to the arithmetic challenge}\\
+    If A is a context set that satisfies the presupposition of $\ml{Ans}_{D} Q$,
+    then every cell in $\ml{Part}_{C} Q A$ is identifiable by (the
+    exhaustification of) a member of $Q$:\\
+   $∀ C ∈ \ml{Part}_{C} Q A[∃p ∈ Q[[\ml{Exh} Q p = C]]]$
+    \xe
+
+    \end{itemize}
+
+    \section{Evidence for Dayal's presupposition}
+
+    \subsection{Existence, uniqueness, and maximality}
+
+    \begin{itemize}
+
+        \item Assumption: \textit{wh-}expressions with singular restrictors
+        range over atomic individuals \textit{only}.
+
+        \item Consequence: the Hamblin-set denoted by a singular
+        \textit{which-}question, such as \enquote{which linguist is here?} will
+        be the set of propositions of the form $x$ \textit{is here}, where $x$
+        is a linguist.
+
+        \item The propositions in the resulting Hamblin set are logically independent:
+
+        \[
+        \eval{which linguist is here?} = \Set{\begin{aligned}[c]
+            &\ml{Yasu is here}\\
+            &\ml{Dani is here}\\
+            &\ml{Andy is here}
+          \end{aligned}}
+        \]
+
+        \item For Dayal's presupposition to be true in a context set $C$, it
+        must be the case that for every world $w ∈ C$, there is some member of
+        the Hamblin set that is a unique, maximally informative true answer.
+
+        \item This is equivalent to the requirement that every cell in the
+        partition induced by the question by identifiable by an exhaustified
+        member of the Hamblin set.
+
+        \item The exhaustified answers -- which correspond to the contextual
+        partition, if Dayal's presupposition is met -- are given below:
+
+        \[
+        \Set{
+        \begin{aligned}[c]
+          &\ml{only Yasu is here}&(= \ml{Exh} Q (\ml{Yasu is here}))\\
+          &\ml{only Dani is here}&(= \ml{Exh} Q (\ml{Dani is here}))\\
+          &\ml{only Andy is here}&(= \ml{Exh} Q (\ml{Andy is here}))
+        \end{aligned}
+        }
+        \]
+
+        \item This means that the presupposition imposed by \(\ml{Ans}_{d}\)
+        will only be satisfied in a context where \textit{there exists a unique
+        linguist who is here}.
+
+      \item Let's now move on to consider plural and simplex \textit{wh-}expressions.
+
+        \item Assumption: the domain of simplex and plural
+        \textit{wh-}expressions is \textit{closed under sum formation}.
+
+        \item Consequence: the Hamblin set denoted by a question such as
+        \enquote{which linguists are here} no longer consists of a set of
+        logically independent propositions.
+
+        \[
+        \eval{which linguists are here} = \Set{\begin{array}{c}
+            \ml{here y},\ml{here d},\ml{here a}\\
+            \ml{here y}⊕\ml{a},\ml{here y}⊕\ml{d},\ml{here d}⊕\ml{a}\\
+            \ml{here }\ml{y}⊕\ml{d}⊕\ml{a}
+          \end{aligned}}
+        \]
+
+        \item Since \textit{to be here} is a distributive predicate, the answer
+        set is, in fact, closed under conjunction:
+
+        \[
+        = \Set{\begin{array}{c}
+                 \ml{Yasu is here},\ml{Dani is here},\ml{Andy is here}\\
+                 \ml{Yasu and Dani are here},\ml{Yasu and Andy are
+                 here},\ml{Dani and Andy are here}\\
+                 \ml{everyone is here}
+                 \end{array}}
+        \]
+
+        \item Applying \(λp . \m{Exh} Q p\) to each member of the set results in
+        the following set. Note that exhaustification of the answer
+        $\ml{everyone is here}$ is vacuous, since there are no excludable alternatives.
+
+                \[
+        = \Set{\begin{array}{c}
+                 \ml{only Yasu is here},\ml{only Dani is here},\ml{only Andy is here}\\
+                 \ml{only Yasu and Dani are here},\\
+                 \ml{only Yasu and Andy are
+                 here},\\
+                 \ml{only Dani and Andy are here}\\
+                 \ml{everyone is here}
+                 \end{array}}
+        \]
+
+        \item The prediction of Dayal's presupposition is that the
+        presupposition of this question will only be satisfied in a context
+        where either: (i) there is a unique linguist who is here, or (ii) there
+        is a unique, maximal group of linguists who are here.
+
+        \item The (accurate) prediction then, is that the following answer
+        should convey a maximality inference:
+
+        \pex
+        \a Question: Which linguists (out of Yasu, Dani, and Andy) are here?
+        \a Answer: Yasu and Andy.\hfill $⇝$ \textit{Dani isn't here}
+        \xe
+
+        \item Fox suggests that the same reasoning applies to simplex
+        \textit{wh-}questions -- essentially, the suggestion is to treat
+        \textit{who} as meaning the same thing as \textit{which people}.
+
+        \item The prediction, then, is that Dayal's presupposition should \enquote{knock
+        out} the cell in the logical partition where nobody is here, just as
+        with the plural \textit{which-}question.
+
+        \item \citet{elliottNicolaeSauerlandMs} observe that this would
+        (erroneously) predict that the question \enquote{who is here?} should be
+        a presupposition failure in a context compatible with nobody being here.
+
+        \pex
+        \a Question: Who is here?
+        \a Answer: Nobody.
+        \xe
+
+      \item It's even easier to see this in an embedded context.
+
+        \ex\label{pre}For each day of the week, David knows who was here.
+        \xe
+
+        \item If we assume universal projection from out of the scope of
+        \textit{each day of the week}, Fox (and Dayal) predict that this should presuppose that, on each
+        day of the week, at least
+        one person was here.
+
+        \item Our judgement is that (\ref{pre}) is judged felicitous in a
+        context where, on, e.g. Tuesday, nobody was here, and David knows that
+        nobody was here on Tuesday.
+
+        \item We'll come back to this in our discussion of higher-order readings.
+
+    \end{itemize}
+
+    \subsection{Weak islands}
+
+    \begin{itemize}
+
+        \item The argument from weak islands is based on the observation that,
+        depending on the logical properties of the domain that the
+        \textit{wh}-expression ranges over, there are certain environments in
+        which a question cannot have a maximally informative true answer. In
+        such environments, the question is judged to be unacceptable.
+
+        \pex
+        \a Tell me how fast you drove?
+        \a\ljudge{*}Tell me how fast you didn't drive?
+        \xe
+
+       \item Fox's discussion of this contrast is based on \citet{foxHackl2007}.
+
+        \item F\&H assume that the domain of degrees is \textit{densely
+        ordered}; consequently degree questions denote infinite sets of
+        propositions, densely ordered by entailment.
+
+        \pex
+        \a\label{max1}$\eval{how fast did you drive?} = \set{p|∃d∈ D[p = \set{w|\ml{yourSpeed}_{w} ≥ d}]}$
+        \a\label{max2}$\eval{how fast didn't you drive?} = \set{p|∃d∈ D[p = \set{w|\ml{yourSpeed}_{w} < d}]}$
+        \xe
+
+        \item We won't go into the details here, but the observation is that
+        (\ref{max1}) \textit{can} have a unique maximally informative true
+        answer, namely the proposition: $\set{w|\ml{yourSpeed}_{w} ≥ d^{*}}$, where
+        $d*$ is the addressee's actual driving speed.
+
+        \item (\ref{max2}) can \textit{never} have a maximally informative true
+        answer, since, assuming that the domain of degrees is densely ordered,
+        there is no smallest degreegreater than $d^{*}$.
+
+    \end{itemize}
+
+        \subsection{Cell Identification}
+
+        \begin{itemize}
+
+            \item Fox note that, if Dayal's presupposition is met, so is the
+            constraint \textbf{Cell Identification (CI)}:
+
+            \begin{tcolorbox}
+            \textbf{Cell Identification}
+            \tcblower
+            A question $Q$ and a context-set $A$ meet CI if\\
+            $∀C ∈ \ml{Part}_{C} Q A[∃ p ∈ Q[[\ml{Exh} Q p]_{A} = C]]$
+            \end{tcolorbox}
+
+         \end{itemize}
+
+         \section{Challenges for Dayal's presupposition}
+
+         \subsection{\textit{Mention some}}
+
+         \begin{itemize}
+
+             \item Not every question presupposes the existence of a
+             \textit{unique} maximally-informative true answer.
+
+             \item A notable exception to this is \textit{mention some} (MS)
+             questions.
+
+             \pex
+             Mary knows where we can get gas in Cambridge.
+             \a Mary knows one location where we can get the gas.\hfill
+             \textit{mention some}
+             \a Mary knows all locations where we can get the gas.\hfill
+             \textit{mention all}
+             \xe
+
+             \item Dayal's presupposition here seems to demand \textit{too much}
+             of the question denotation.
+
+         \end{itemize}
+
+         \subsection{Higher order readings}
+
+         \begin{itemize}
+
+             \item Assumption: \textit{wh-}expressions range over the domain of
+             individuals (perhaps closed under sum-formation).
+
+             \item Now, consider the Hamblin set predicted for the following
+             modalised question.
+
+             \ex
+             \label{spector1}What are we required to read for this class?
+             \xe
+
+             \[
+             \Set{\begin{aligned}[c]
+                 &□ \ml{we read War and Peace}\\
+                 &□ \ml{we read Brothers Karamazov}\\
+                 &□ \ml{we read War and Peace and Brothers Karamazov}\\
+               \end{aligned}}
+             \]
+
+             \item Dayal's presupposition predicts that, if there is nothing in
+             particular that we are required to read, the question should be undefined.
+
+             \item \citet{spector2007salt} asks us to imagine a context such as
+             the following:
+
+             \item \textit{There is no particular thing $x$ s.t. we are required
+             to read $x$, but there are still requirements pertaining to
+             reading. For example, imagine that it would be sufficient to read
+             all the French books or all the Russian books in order to satisfy
+             the requirement, but it is up to us which ones we choose}.
+
+             \item He observes that, in such a context, (\ref{spector1}) is askable.
+
+             \item Consider a modalised question under an embedding predicate in
+             this context:
+
+             \ex
+             Mary knows what we are required to read.
+             \xe
+
+             \item Intuitively, this can be true if we are subject to the
+             following reading requirement: \textit{we must read all the French
+             books, or all the Russian books}, and Mary knows this.
+
+             \item Our standard assumptions -- i.e., quantification over plural
+             individuals, plus Dayal's presupposition -- can't derive this.
+
+         \end{itemize}
+
+             \subsubsection{The shift to higher-order quantification}
+
+             \begin{itemize}
+
+                 \item In order to reconcile this reading with Dayal's
+                 presupposition, Spector suggests that we allow
+                 \textit{wh-}expressions to range over upward-entailing GQs.
+
+                 \item This would result in the following
+                 Hamblin-set:\footnote{The set of all upward entailing
+                 quantifiers living on $D_{\type{e}}$}
+
+                 \[
+                 \Set{
+                 \begin{aligned}[c]
+                   &□ (\set{\set{w},\set{w,b}} (λx . \ml{we read }x)) & (= w^{↑})\\
+                   &□ (\set{\set{w},\set{w,b}} (λx . \ml{we read }x))& (= b^{↑})\\
+                   &□ (\set{\set{w,b}} (λx . \ml{we read }x))& (= w^{↑} ∧ b^{↑})\\
+                   &□ (\set{\set{w},\set{b},\set{w,b}} (λx . \ml{we read }x))&(=
+                   w^{↑} ∨ b^{↑})\\
+                   &\textcolor{gray}{□ (\set{∅,\set{w},\set{b},\set{w,b}} (λx . \ml{we read }x))}&\textcolor{gray}{(=
+                   ⊤)}
+                 \end{aligned}
+                 }
+                 \]
+
+                 \item Why just the UE generalised quantifiers? If we dispense
+                 with this restriction, we'd expect that a modalised question should be
+                 felicitous in a context where: \textit{we're not subject to any
+                 particular reading requirements, but we're forbidden from
+                 reading the German books}:
+
+                 \pex
+                 \a Question: What are we required to read?
+                 \a Answer: \# We're required to read none of the German books.
+                 \xe
+
+                 \item There is a DE quantifier which corresponds to a maximally
+                 informative true answer in this context, namely: \textit{none
+                 of the German books} (extensionally, the set of sets that
+                 contain no German books).
+
+             \end{itemize}
+
+                 \subsubsection{Sensitivity to negative islands}
+
+                 \begin{itemize}
+
+                     \item In a positive context, modalised questions are
+                     ambiguous between an (ordinary) reading about individuals,
+                     and a higher-order reading.
+
+                     \pex
+                     \a What are you required to read for this class?
+                     \a War and Peace or Brothers Karamazov.\hfill $□>∨;∨>□$
+                     \xe
+
+                     \item Assuming that \textit{wh-}expressions have the
+                     capacity to range over GQs, it's surprising that, in a
+                     negative question, we don't find a corresponding ambiguity:
+
+                     \pex
+                     \a What did you not read for this class?
+                     \a\label{ans}War and Peace or Brothers Karamazov.\hfill$*¬>∨;∨>¬$
+                     \xe
+
+                     \item Fox notes that, if the unattested reading were
+                     available, the answer in (\ref{ans}) should convey no
+                     speaker ignorance about what was read. However, (\ref{ans})
+                     obligatorily conveys that the speaker doesn't know if they
+                     didn't read War and Peace, and doesn't know if they didn't
+                     read Brothers Karamazov.
+
+                     \item The answer therefore sounds somewhat odd, or biases
+                     an interpretation according to which the speaker has
+                     additional information, but doesn't want to share it.
+
+                     \item Much like with degree questions, the presence of a
+                     higher modal makes the higher order reading available again
+                     -- this parallels the obviation effect we observe in the
+                     domain of degree questions.
+
+                     \pex
+                     \a What are you not allowed to read for this class?
+                     \a War and Peace or Brothers Karamazov.\hfill $¬ > ∨;∨>¬$
+                     \xe
+
+                     \ex~
+                     How fast are we not allowed to drive?
+                     \xe
+
+                     \item Dayal's presupposition however doesn't predict the
+                     \textit{un}availability of a higher-order question in a
+                     negative context. To see why consider the predicted Hamblin set.
+
+                     \ex
+                     What didn't you read?
+                     \xe
+
+                     \[
+                 \Set{
+                 = \begin{aligned}[c]
+                   &¬ \ml{you read w}\\
+                   &¬ \ml{you read b}\\
+                   &¬ \ml{you read w}∧\ml{b}\\
+                   &¬ \ml{you read w}∨\ml{b}
+                 \end{aligned}
+                 }
+                 \]
+
+                     \item In a context in which you read neither book, there is
+                     a unique, maximally-informative true answer to the question
+                     -- namely \textit{you read neither w nor b}. Dayal's
+                     presupposition is satisfied.
+
+                     \item If we want a uniform explanation for negative
+                     islands, we'd like to extend our explanation to these cases
+                     too. The current formulation of Dayal's presupposition
+                     doesn't do that.
+
+                 \end{itemize}
+
+                 \begin{tcolorbox}
+                   Interim summary
+                   \tcblower
+                   \begin{itemize}
+
+                       \item Mention some interpretations of questions show that
+                       there are cases in which Dayal's presupposition
+                       \textit{demands too much}.
+
+                       \item The negative-island sensitivity of higher-order
+                       questions shows that there are cases in which Dayal's
+                       presupposition \textit{demands too little}.
+
+                    \end{itemize}
+                 \end{tcolorbox}
+
+\section{Question-Partition Matching}
+
+\begin{itemize}
+
+    \item Fox notes that we can rule out the unattested higher-order reading in
+    a negative context by strengthening Dayal's presupposition. The new
+    constraint (which subsumes Dayal's presupposition) is called
+    \textbf{Question Partition Matching} (QPM).
+
+    \begin{tcolorbox}
+      Question Partition Matching (QPM)
+      \tcblower
+      A question $Q$ and a context-set $A$ meet QPM if they meet \textbf{Cell
+        Identification} (CI) and \textbf{Non-Vacuity} (NV):
+
+      \begin{itemize}
+
+          \item CI: $∀ C ∈ \ml{Part}_{C} Q A[∃p ∈ Q[[\ml{Exh} Q p]_{A} = C]]$
+          \item NV: $∀ p ∈ Q[∃C ∈ \ml{Part}_{C} Q A[[\ml{Exh} Q p]_{A} = C]]$
+
+      \end{itemize}
+
+      Informally, this says that: (i) the exhaustification of each answer in the
+      Hamblin set must correspond to a cell in the contextual partition, and
+      furthermore (ii) each cell in the contextual partition must correspond to
+      the exhaustification of an answer in the Hamblin set.
+    \end{tcolorbox}
+
+\end{itemize}
+
+\subsection{Addressing undergeneration}
+
+\begin{itemize}
+
+    \item To see how QPM rules out higher-order questions in a negative context,
+    consider again the denotation of a negative higher-order question:
+
+    \ex
+    What didn't you read?
+    \xe
+
+    \[\Set{
+                 \begin{aligned}[c]
+                   &¬ \ml{you read w}\\
+                   &¬ \ml{you read b}\\
+                   &¬ \ml{you read w}∧\ml{b}\\
+                   &¬ \ml{you read w}∨\ml{b}
+                 \end{aligned}
+                 }
+                 \]
+
+  \item The result of exhaustification is as follows:
+
+     \[\Set{
+                 \begin{aligned}[c]
+                   &\text{\cmark} (¬ \ml{you read w}) ∧ \ml{you read b}\\
+                   &\text{\cmark} (¬ \ml{you read b}) ∧ \ml{you read w}\\
+                   &\text{\xmark} (¬ \ml{you read w}∧\ml{b}) ∧ (\ml{you read w} ∨ \ml{b})\\
+                   &\text{\cmark} ¬ (\ml{you read w}∨\ml{b})
+                 \end{aligned}
+                 }
+                 \]
+
+    \item The exhaustification of the negative conjunctive answer gives back the
+    proposition \textit{that you read War and Peace or Brothers Karamazov, but
+    not both}. This can never pick out a cell in a contextual partition -- it
+    overlaps with both the first and the second exhaustified answer.
+
+\end{itemize}
+
+    \subsection{Addressing overgeneration}
+
+
+    \begin{itemize}
+
+        \item Recall that \textit{mention some} interpretations suggested that
+        the requirements imposed by Dayal's presupposition were \textit{too
+        strong}. Now, we've strengthened Dayal's presupposition to QPM, so the
+        problem should be even worse.
+
+        \item Fox suggests that we can address this worry if, rather, then
+        formulating $\ml{Exh}$ in terms of \textit{maximal informativity}, we
+        use the \textit{innocent inclusion} formulation of $\ml{Exh}$ due to \citet{barLevFox2017}.
+
+
+    \end{itemize}
+
+
+    \subsubsection{Background on Innocent Inclusion}
+
+    \begin{itemize}
+
+      \item \textit{Innocent Inclusion} is basically a refinement of Fox's
+      innocent exclusion algorithm (which we discussed last week). It has two
+      primary virtues:
+
+      \begin{itemize}
+
+      \item it can derive free choice inferences without using
+      recursive exhaustification; only one layer of $\ml{Exh}$ is required.
+
+      \item it can derive universal free choice inferences, as in (\Next).
+
+      \end{itemize}
+
+    \pex
+Every boy is allowed to eat ice cream or cake.
+\a $⇝$ every boy is allowed to eat ice cream.
+\a $⇝$ every boy is allowed to eat cake.
+    \xe
+
+    \pex~
+    No student is required to solve problem A and problem B.
+\a $⇝$ No student is required to solve problem A.
+    \a $⇝$ No student is required to solve problem B:w
+    \xe
+
+ \item Procedure for applying \(\ml{Exh}^{II+IE}\) to a proposition \(p\):
+
+\begin{itemize}
+\tightlist
+\item
+  Negate the set of \emph{innocently excludable} members of
+  \(\ml{Alt}(p)\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    To get the \emph{innocently excludable} members of
+    \(\ml{Alt}(p)\), we gather the maximal members of
+    \(𝓟(\ml{Alt}(p))\) that can be negated consistently with \(p\),
+    and intersect them.
+  \end{itemize}
+\item
+  Assert the set of \emph{innocently includable} members of
+  \(\ml{Alt}(p)\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    To get the \emph{innocently includable} members of
+    \(\ml{Alt}(p)\), we gather the maximal members of
+    \(𝓟(\ml{Alt}(p))\) that can be asserted consistently with \(p\)
+    and the negation of the innocently excludable alternatives, and
+    intersect them.
+  \end{itemize}
+\end{itemize}
+
+    \pex\label{universalFC} Every boy is allowed to eat ice cream or cake.
+\hfill \(∀ x ◇(Px ∨ Qx)\)
+\a \textit{Every boy is allowed to eat ice cream}. \hfill \(∀ x ◇ Px\)
+\a \textit{Every boy is allowed to eat cake}. \hfill \(∀ x ◇ Qx\) \xe
+
+\item First, let's compute the set of alternatives:
+
+\[\begin{aligned}[t]
+&\ml{Alt}(∀ x ◇ (Px ∨ Qx))\\
+&= \Set{\begin{array}{c}
+\overbrace{① ∀ x ◇ (Px ∨ Qx)}^{\text{prejacent}}, \overbrace{② ∀ x ◇ Px,③ ∀ x ◇ Qx}^{\text{universal disjunctive alts}}, \overbrace{④ ∀ x ◇ (Px ∧ Qx)}^{\text{universal conjunctive alt}}\\
+\underbrace{⑤ ∃ x ◇ (Px ∨ Qx)}_{\text{existential alt}}, \underbrace{⑥ ∃ x ◇ Px,⑦ ∃ x ◇ Qx}_{\text{existential disjunctive alts}}, \underbrace{⑧ ∃ x ◇ (Px ∧ Qx) }_{\text{existential conjunctive alt}}
+\end{array}}
+\end{aligned}\]
+
+\item Let's gather together the maximal subsets of
+\(\ml{Alt}(∀ x ◇ (Px ∨ Qx))\) that can be negated consistently with
+\(∀ x ◇ (Px ∨ Qx))\).
+
+\[\Set{② ∀ x ◇ Px,③ ∀ x ◇ Qx, \alert{④ ∀ x ◇ (Px ∧ Qx)}, \alert{⑧ ∃ x ◇ (Px ∧ Qx) }}\]
+
+\[\Set{② ∀ x ◇ Px,⑥ ∃ x ◇ Px, \alert{④ ∀ x ◇ (Px ∧ Qx)}, \alert{⑧ ∃ x ◇ (Px ∧ Qx)}}\]
+
+\[\Set{③ ∀ x ◇ Qx,⑦ ∃ x ◇ Qx, \alert{④ ∀ x ◇ (Px ∧ qx)}, \alert{⑧ ∃ x ◇ (px ∧ qx)}}\]
+
+    \[
+\mathrm{IE}(∀ x ◇ (Px ∨ Qx)) = \Set{{④ ∀ x ◇ (Px ∧ Qx)}, {⑧ ∃ x ◇ (Px ∧ Qx)}}
+\]
+
+\item If we take the prejacent together with the negation of the IE
+alternatives, we end up in a world where, either all boys are allowed to
+P and not Q, all boys are allowed to Q and not P, or some boys are
+allowed to P and not Q and some boys are allowed to Q and not P (no boys
+are allowed to P and Q), i.e.
+
+\[
+∀ x ◇ (Px ∨ Qx) ∧ ¬ ∃ x ◇ (Px ∧ Qx)
+\]
+
+\item Let's gather together the maximal subsets of
+\(\ml{Alt}(∀ x ◇ (Px ∨ Qx))\) that can be asserted consistently with
+\(∀ x ◇ (Px ∨ Qx)) ∧ ¬ ∃ x ◇ (Px ∧ Qx)\).
+
+\item It turns out there is only one such set, consisting of all the non-IE
+alts:
+
+\[
+\Set{
+\begin{array}{c}
+① ∀ x ◇ (Px ∨ Qx), ② ∀ x ◇ Px,③ ∀ x ◇ Qx,\\
+⑤ ∃ x ◇ (Px ∨ Qx), ⑥ ∃ x ◇ Px,⑦ ∃ x ◇ Qx
+\end{array}
+}
+\]
+
+\item Asserting the II alts together with the prejacent and negation of the IE
+alts results in the following enriched meaning:
+
+\[
+∀ x ◇ (Px ∨ Qx) \alert{∧ ¬ ∃ x ◇ (Px ∧ Qx) ∧ ∀ x ◇ Px ∧ ∀ x ◇ Qx}
+\]
+
+
+\end{itemize}
+
+\subsubsection{Accounting for \textit{mention some}}
+
+\begin{itemize}
+
+    \item \textbf{Modification 1:} Answers in the Hamblin set are exhaustified via $\ml{Exh}^{IE+II}$.
+
+    \item \textbf{Modification 2:} The answerhood operator returns a set of propositions, rather than a
+    unique proposition.
+
+    \item Allowing for the possibility of the \textit{wh-}expression ranging
+    over higher order GQs, we get the following denotation for the mention some
+    question below:
+
+    \ex
+    Where can we buy gas?
+    \xe
+
+    \ex
+    $= \set{p|∃Q ∈ \ml{UGQ} L[p = ◇ (Q (λ i . \ml{we get gas at }i))]}$
+    \xe
+
+    \item Assume that there are three locations $l_{1},l_{2},$ and $l_{3}$.
+
+    \item The result is the following Hamblin set (Fox notes we must assume that
+    the conjunctive alternatives are pruned).
+
+    \[= \Set{\begin{array}{c}
+               ◇ l_{1}, ◇ l_{2}, ◇ l_{3}\\
+               ◇ (l_{1} ∨ l_{2}), ◇ (l_{1} ∨ l_{3}), ◇ (l_{2} ∨ l_{3})\\
+               ◇ (l_{1} ∨ l_{2} ∨ l_{3})\\
+               \end{array}}\]
+
+    \item Now we exhaustify each member of the set via $\ml{Exh}^{IE+II}$
+
+    \[=\Set{\begin{aligned}[c]
+          &◇ l_{1} ∧ ¬ ◇ l_{2} ∧ ¬ ◇ l_{3} &= (\ml{Exh} ◇ Q l_{1})\\
+          &◇ l_{2} ∧ ¬ ◇ l_{1} ∧ ¬ ◇ l_{3}&= (\ml{Exh} ◇ Q l_{2})\\
+          &◇ l_{3} ∧ ¬ ◇ l_{1} ∧ ¬ ◇ l_{2}&= (\ml{Exh} ◇ Q l_{3})\\
+          &◇ l_{1} ∧ ◇ l_{2} ∧ ¬ ◇ l_{3}&=(\ml{Exh} ◇ (l_{1} ∨ l_{2}))\\
+          &◇ l_{1} ∧ ◇ l_{3} ∧ ¬ ◇ l_{2}&=(\ml{Exh} ◇ (l_{1} ∨ l_{3}))\\
+          &◇ l_{2} ∧ ◇ l_{3} ∧ ¬ ◇ l_{1}&=(\ml{Exh} ◇ (l_{2} ∨ l_{3}))\\
+          &◇ l_{2} ∧ ◇ l_{3} ∧ ◇ l_{1}&=(\ml{Exh} ◇ (l_{1} ∨ l_{2} ∨ l_{3}))\\
+        \end{aligned}}\]
+
+    \item Note that the exhaustification of each proposition identifies a cell.
+   If there is more than one location where one can get gas, the proposition
+    that identifies the cell does not mention all the locations.
+
+    \item The final step in accounting for mention-some is to allow the
+    answerhood operator to return the set of propositions that entail the
+    cell-identifier.
+
+    \ex
+    $\ml{Ans} Q = λ w\begin{aligned}[t]
+      &:∃p ∈ Q[\ml{Exh} Q p w = 1]\\
+      &. \set{q ∈ Q|q w ∧ q ⊆ (ιp ∈
+        Q[\ml{Exh} Q p w = 1])}
+      \end{aligned}$
+    \xe
+
+    \item If there are two locations where we can gas, $l_{1}$ and $l_{2}$, the
+    cell-identifier is $◇ (l_{1} ∨ l_{2})$. Applying the reformulated
+    answer-hood operator returns the set $\set{◇ l_{1},◇ l_{2}, ◇ (l_{1}∨ l_{2})$
+
+\end{itemize}
+
+
+\printbibliography
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

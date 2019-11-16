@@ -1,0 +1,17 @@
+% colors stolen from classicthesis:
+%
+% colors stolen from classicthesis:
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\RequirePackage{xcolor}
+
+\definecolor{ling-cite}{rgb}{0,0.5,0} % WebGreen
+\definecolor{ling-url}{named}{Maroon} % Maroon
+\definecolor{ling-link}{named}{RoyalBlue} % RoyalBlue {cmyk}{1, 0.50, 0, 0}
+
+% hyperref setup
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true,breaklinks=true,urlcolor=ling-url,linkcolor=ling-link,citecolor=ling-cite}
+
+%%% Local Variables:
+%%% mode: latex
+%%% End:

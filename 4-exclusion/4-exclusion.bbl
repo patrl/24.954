@@ -1,0 +1,476 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{barLevFox2017}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=2073dd95e94c7ca9da691b60ab8cd6eb}{%
+           family={Bar-Lev},
+           familyi={B\bibinithyphendelim L\bibinitperiod},
+           given={Moshe\bibnamedelima E.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=07e13302540da458a575f00c26a09f7a}{%
+           family={Fox},
+           familyi={F\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {{L}inguistic {S}ociety of {A}merica}%
+      }
+      \strng{namehash}{eeb4daf4de7a271c1da787d0d1581a9b}
+      \strng{fullhash}{eeb4daf4de7a271c1da787d0d1581a9b}
+      \strng{bibnamehash}{eeb4daf4de7a271c1da787d0d1581a9b}
+      \strng{authorbibnamehash}{eeb4daf4de7a271c1da787d0d1581a9b}
+      \strng{authornamehash}{eeb4daf4de7a271c1da787d0d1581a9b}
+      \strng{authorfullhash}{eeb4daf4de7a271c1da787d0d1581a9b}
+      \field{sortinit}{B}
+      \field{sortinithash}{8de16967003c7207dae369d874f1456e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of {SALT} 27}
+      \field{title}{Universal free choice and innocent inclusion}
+      \field{year}{2017}
+    \endentry
+    \entry{chierchia2004}{incollection}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=36f119f7eb58f15c6421bda15adde193}{%
+           family={Chierchia},
+           familyi={C\bibinitperiod},
+           given={Gennaro},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {{O}xford {U}niversity {P}ress}%
+      }
+      \strng{namehash}{36f119f7eb58f15c6421bda15adde193}
+      \strng{fullhash}{36f119f7eb58f15c6421bda15adde193}
+      \strng{bibnamehash}{36f119f7eb58f15c6421bda15adde193}
+      \strng{authorbibnamehash}{36f119f7eb58f15c6421bda15adde193}
+      \strng{authornamehash}{36f119f7eb58f15c6421bda15adde193}
+      \strng{authorfullhash}{36f119f7eb58f15c6421bda15adde193}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Structures and Beyond}
+      \field{title}{Scalar implicatures, polarity phenomena and the syntax/pragmatics interface}
+      \field{year}{2004}
+      \field{dateera}{ce}
+      \field{pages}{39\bibrangedash 103}
+      \range{pages}{65}
+    \endentry
+    \entry{Dayal}{book}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=d1c50e5a2e1f5d9fd714b6eadf9ab34a}{%
+           family={Dayal},
+           familyi={D\bibinitperiod},
+           given={Veneeta},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editorb}{3}{}{%
+        {{hash=36f119f7eb58f15c6421bda15adde193}{%
+           family={Chierchia},
+           familyi={C\bibinitperiod},
+           given={Gennaro},
+           giveni={G\bibinitperiod}}}%
+        {{hash=1647d4d3a47510b27f8335c7381e95aa}{%
+           family={Jacobson},
+           familyi={J\bibinitperiod},
+           given={Pauline},
+           giveni={P\bibinitperiod}}}%
+        {{hash=ce02a455abf7c54890d16dca507385c2}{%
+           family={Pelletier},
+           familyi={P\bibinitperiod},
+           given={Francis\bibnamedelima J.},
+           giveni={F\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Dordrecht}%
+      }
+      \list{publisher}{1}{%
+        {Springer Netherlands}%
+      }
+      \strng{namehash}{d1c50e5a2e1f5d9fd714b6eadf9ab34a}
+      \strng{fullhash}{d1c50e5a2e1f5d9fd714b6eadf9ab34a}
+      \strng{bibnamehash}{d1c50e5a2e1f5d9fd714b6eadf9ab34a}
+      \strng{authorbibnamehash}{d1c50e5a2e1f5d9fd714b6eadf9ab34a}
+      \strng{authornamehash}{d1c50e5a2e1f5d9fd714b6eadf9ab34a}
+      \strng{authorfullhash}{d1c50e5a2e1f5d9fd714b6eadf9ab34a}
+      \strng{editorbbibnamehash}{adc3aac3195dba32dcbca369997638dc}
+      \strng{editorbnamehash}{adc3aac3195dba32dcbca369997638dc}
+      \strng{editorbfullhash}{adc3aac3195dba32dcbca369997638dc}
+      \field{sortinit}{D}
+      \field{sortinithash}{c438b3d5d027251ba63f5ed538d98af5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{editorbtype}{redactor}
+      \field{series}{Studies in Linguistics and Philosophy}
+      \field{title}{Locality in {WH} Quantification}
+      \field{volume}{62}
+      \field{year}{1996}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb http://link.springer.com/10.1007/978-94-011-4808-5
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/978-94-011-4808-5
+      \endverb
+    \endentry
+    \entry{fox2007}{incollection}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=07e13302540da458a575f00c26a09f7a}{%
+           family={Fox},
+           familyi={F\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=ce0324512aa63e86ee41e7d50119f292}{%
+           family={Sauerland},
+           familyi={S\bibinitperiod},
+           given={Uli},
+           giveni={U\bibinitperiod}}}%
+        {{hash=d9633f99e75346f95c68e9f36cd5aaed}{%
+           family={Stateva},
+           familyi={S\bibinitperiod},
+           given={Penka},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {London}%
+      }
+      \list{publisher}{1}{%
+        {Palgrave Macmillan UK}%
+      }
+      \strng{namehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{fullhash}{07e13302540da458a575f00c26a09f7a}
+      \strng{bibnamehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{authorbibnamehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{authornamehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{authorfullhash}{07e13302540da458a575f00c26a09f7a}
+      \strng{editorbibnamehash}{f6b38499104aef7d35c506067db83a4d}
+      \strng{editornamehash}{f6b38499104aef7d35c506067db83a4d}
+      \strng{editorfullhash}{f6b38499104aef7d35c506067db83a4d}
+      \field{extraname}{1}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Presupposition and Implicature in Compositional Semantics}
+      \field{title}{Free choice and the theory of scalar implicatures}
+      \field{year}{2007}
+      \field{pages}{71\bibrangedash 120}
+      \range{pages}{50}
+    \endentry
+    \entry{fox-sub22}{incollection}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=07e13302540da458a575f00c26a09f7a}{%
+           family={Fox},
+           familyi={F\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=ce0324512aa63e86ee41e7d50119f292}{%
+           family={Sauerland},
+           familyi={S\bibinitperiod},
+           given={Uli},
+           giveni={U\bibinitperiod}}}%
+        {{hash=1b260e872ff199521e6b83ec84fcd6a5}{%
+           family={Solt},
+           familyi={S\bibinitperiod},
+           given={Stephanie},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin}%
+      }
+      \list{publisher}{1}{%
+        {Leibniz-Centre General Linguistics}%
+      }
+      \strng{namehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{fullhash}{07e13302540da458a575f00c26a09f7a}
+      \strng{bibnamehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{authorbibnamehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{authornamehash}{07e13302540da458a575f00c26a09f7a}
+      \strng{authorfullhash}{07e13302540da458a575f00c26a09f7a}
+      \strng{editorbibnamehash}{4c33fdf3735427cb35ed2b98460943d6}
+      \strng{editornamehash}{4c33fdf3735427cb35ed2b98460943d6}
+      \strng{editorfullhash}{4c33fdf3735427cb35ed2b98460943d6}
+      \field{extraname}{2}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of Sinn und Bedeutung 16}
+      \field{series}{ZASPiL 60}
+      \field{title}{Partition by exhaustification: Comments on {D}ayal 1996}
+      \field{year}{2018}
+      \field{pages}{403\bibrangedash 434}
+      \range{pages}{32}
+    \endentry
+    \entry{foxKatzir2011}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=07e13302540da458a575f00c26a09f7a}{%
+           family={Fox},
+           familyi={F\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=55ac76c0fa16b367f047b1b481b9be73}{%
+           family={Katzir},
+           familyi={K\bibinitperiod},
+           given={Roni},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6eaddc60247d5e8d013b1286e8023bba}
+      \strng{fullhash}{6eaddc60247d5e8d013b1286e8023bba}
+      \strng{bibnamehash}{6eaddc60247d5e8d013b1286e8023bba}
+      \strng{authorbibnamehash}{6eaddc60247d5e8d013b1286e8023bba}
+      \strng{authornamehash}{6eaddc60247d5e8d013b1286e8023bba}
+      \strng{authorfullhash}{6eaddc60247d5e8d013b1286e8023bba}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{26}
+      \field{issn}{0925-854X, 1572-865X}
+      \field{journaltitle}{{N}atural {L}anguage {S}emantics}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{1}
+      \field{shortjournal}{{NLS}}
+      \field{title}{On the characterization of alternatives}
+      \field{volume}{19}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{pages}{87\bibrangedash 107}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1007/s11050-010-9065-3
+      \endverb
+      \verb{urlraw}
+      \verb http://link.springer.com/article/10.1007/s11050-010-9065-3
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/article/10.1007/s11050-010-9065-3
+      \endverb
+      \keyw{ellipsis,structural alternatives}
+    \endentry
+    \entry{fox_economy_2018}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=07e13302540da458a575f00c26a09f7a}{%
+           family={Fox},
+           familyi={F\bibinitperiod},
+           given={Danny},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=b6e93da760aa0f33eddf455adecfac53}{%
+           family={Spector},
+           familyi={S\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{691fe1e6390fbe49865e68afb359ef48}
+      \strng{fullhash}{691fe1e6390fbe49865e68afb359ef48}
+      \strng{bibnamehash}{691fe1e6390fbe49865e68afb359ef48}
+      \strng{authorbibnamehash}{691fe1e6390fbe49865e68afb359ef48}
+      \strng{authornamehash}{691fe1e6390fbe49865e68afb359ef48}
+      \strng{authorfullhash}{691fe1e6390fbe49865e68afb359ef48}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{N}atural {L}anguage {S}emantics}
+      \field{month}{3}
+      \field{number}{1}
+      \field{shortjournal}{{NLS}}
+      \field{title}{Economy and embedded exhaustification}
+      \field{volume}{26}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{pages}{1\bibrangedash 50}
+      \range{pages}{50}
+      \verb{doi}
+      \verb 10.1007/s11050-017-9139-6
+      \endverb
+      \verb{urlraw}
+      \verb http://link.springer.com/10.1007/s11050-017-9139-6
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/s11050-017-9139-6
+      \endverb
+    \endentry
+    \entry{groenendijk_studies_1984}{thesis}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=ce6c73d107140b566b1b97a5863b4a52}{%
+           family={Groenendijk},
+           familyi={G\bibinitperiod},
+           given={Jeroen\bibnamedelima a.\bibnamedelimi G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8f689455475b2aa11f388f8ef76382f0}{%
+           family={Stokhof},
+           familyi={S\bibinitperiod},
+           given={Martin\bibnamedelima J.\bibnamedelimi B.},
+           giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{2}{%
+        {Institute for Logic, Language}%
+        {Computation (ILLC)}%
+      }
+      \strng{namehash}{d2a0008b2a1f308a1ffa6a1a37635994}
+      \strng{fullhash}{d2a0008b2a1f308a1ffa6a1a37635994}
+      \strng{bibnamehash}{d2a0008b2a1f308a1ffa6a1a37635994}
+      \strng{authorbibnamehash}{d2a0008b2a1f308a1ffa6a1a37635994}
+      \strng{authornamehash}{d2a0008b2a1f308a1ffa6a1a37635994}
+      \strng{authorfullhash}{d2a0008b2a1f308a1ffa6a1a37635994}
+      \field{sortinit}{G}
+      \field{sortinithash}{62eb2aa29549e4fdbd3cb154ec5711cb}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Studies on the semantics of questions and the pragmatics of answers}
+      \field{type}{phdthesis}
+      \field{year}{1984}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb http://dare.uva.nl/record/1/392528
+      \endverb
+      \verb{url}
+      \verb http://dare.uva.nl/record/1/392528
+      \endverb
+      \keyw{questionSemantics}
+    \endentry
+    \entry{katzir2008}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=55ac76c0fa16b367f047b1b481b9be73}{%
+           family={Katzir},
+           familyi={K\bibinitperiod},
+           given={Roni},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{55ac76c0fa16b367f047b1b481b9be73}
+      \strng{fullhash}{55ac76c0fa16b367f047b1b481b9be73}
+      \strng{bibnamehash}{55ac76c0fa16b367f047b1b481b9be73}
+      \strng{authorbibnamehash}{55ac76c0fa16b367f047b1b481b9be73}
+      \strng{authornamehash}{55ac76c0fa16b367f047b1b481b9be73}
+      \strng{authorfullhash}{55ac76c0fa16b367f047b1b481b9be73}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{5}
+      \field{issn}{0165-0157, 1573-0549}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{6}
+      \field{title}{Structurally-defined alternatives}
+      \field{volume}{30}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{pages}{669\bibrangedash 690}
+      \range{pages}{22}
+      \verb{doi}
+      \verb 10.1007/s10988-008-9029-y
+      \endverb
+      \verb{urlraw}
+      \verb http://link.springer.com/article/10.1007/s10988-008-9029-y
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/article/10.1007/s10988-008-9029-y
+      \endverb
+      \keyw{ellipsis,structural alternatives}
+    \endentry
+    \entry{sauerland2004scalar}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=ce0324512aa63e86ee41e7d50119f292}{%
+           family={Sauerland},
+           familyi={S\bibinitperiod},
+           given={Uli},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ce0324512aa63e86ee41e7d50119f292}
+      \strng{fullhash}{ce0324512aa63e86ee41e7d50119f292}
+      \strng{bibnamehash}{ce0324512aa63e86ee41e7d50119f292}
+      \strng{authorbibnamehash}{ce0324512aa63e86ee41e7d50119f292}
+      \strng{authornamehash}{ce0324512aa63e86ee41e7d50119f292}
+      \strng{authorfullhash}{ce0324512aa63e86ee41e7d50119f292}
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{day}{1}
+      \field{issn}{1573-0549}
+      \field{journaltitle}{{L}inguistics and {P}hilosophy}
+      \field{month}{6}
+      \field{number}{3}
+      \field{shorttitle}{{L}inguistics and {P}hilosophy}
+      \field{title}{Scalar Implicatures in Complex Sentences}
+      \field{volume}{27}
+      \field{year}{2004}
+      \field{dateera}{ce}
+      \field{pages}{367\bibrangedash 391}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1023/B:LING.0000023378.71748.db
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1023/B:LING.0000023378.71748.db
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1023/B:LING.0000023378.71748.db
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

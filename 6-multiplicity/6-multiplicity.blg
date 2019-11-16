@@ -1,0 +1,17 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '6-multiplicity.blg'
+[51] biber:315> INFO - === Fri Nov  8, 2019, 09:00:22
+[114] Biber.pm:371> INFO - Reading '6-multiplicity.bcf'
+[304] Biber.pm:889> INFO - Found 22 citekeys in bib section 0
+[338] Biber.pm:4093> INFO - Processing section 0
+[395] Biber.pm:4254> INFO - Looking for bibtex format file '/home/patrl/repos/bibliography/elliott_mybib.bib' for section 0
+[455] bibtex.pm:1523> INFO - LaTeX decoding ...
+[1911] bibtex.pm:1340> INFO - Found BibTeX data source '/home/patrl/repos/bibliography/elliott_mybib.bib'
+[2111] Utils.pm:193> WARN - I didn't find a database entry for 'sauerland2003l' (section 0)
+[2269] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[2269] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[2269] Biber.pm:3921> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[2269] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[2298] bbl.pm:636> INFO - Writing '6-multiplicity.bbl' with encoding 'UTF-8'
+[2322] bbl.pm:739> INFO - Output to 6-multiplicity.bbl
+[2323] Biber.pm:110> INFO - WARNINGS: 1

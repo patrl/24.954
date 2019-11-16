@@ -1,0 +1,15 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '5-partition.blg'
+[25] biber:315> INFO - === Fri Nov  1, 2019, 09:33:28
+[54] Biber.pm:371> INFO - Reading '5-partition.bcf'
+[166] Biber.pm:889> INFO - Found 9 citekeys in bib section 0
+[182] Biber.pm:4093> INFO - Processing section 0
+[198] Biber.pm:4254> INFO - Looking for bibtex format file '/home/patrl/repos/bibliography/elliott_mybib.bib' for section 0
+[217] bibtex.pm:1523> INFO - LaTeX decoding ...
+[1142] bibtex.pm:1340> INFO - Found BibTeX data source '/home/patrl/repos/bibliography/elliott_mybib.bib'
+[1312] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1312] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1312] Biber.pm:3921> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[1312] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[1328] bbl.pm:636> INFO - Writing '5-partition.bbl' with encoding 'UTF-8'
+[1339] bbl.pm:739> INFO - Output to 5-partition.bbl
