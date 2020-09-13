@@ -1,0 +1,33 @@
+(TeX-add-style-hook
+ "tufte-book-local"
+ (lambda ()
+   (TeX-run-style-hooks
+    "inputenc"
+    "fontenc"
+    "xcolor"
+    "hyperref"
+    "ifthen"
+    "ifxetex"
+    "ifluatex"
+    "forest"
+    "biblatex"
+    "braket"
+    "stmaryrd"
+    "amsmath"
+    "acronym"
+    "multicol"
+    "todonotes"
+    "csquotes"
+    "xparse"
+    "booktabs"
+    "pifont"
+    "microtype"
+    "fontspec"
+    "unicode-math"
+    "leipzig"
+    "expex")
+   (TeX-add-symbols
+    "expexgla"
+    "gla"))
+ :latex)
+
