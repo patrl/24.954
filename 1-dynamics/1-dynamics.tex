@@ -83,9 +83,88 @@
 
 \maketitle% this prints the handout title, author, and date
 
-\section{This is a section header}
+\section{Recap: Stalnakerian pragmatics}
 
-This is a test.
+\subsection{Trivalence}
+
+A sentential meaning is a function $p:W ↦ \set{1,0,\#}$. Here's a simple example:
+
+\ex
+$\eval{Sarah's corgi is sleepy} = \begin{cases}
+  1&\textsf{Sarah has a corgi} \& \textsf{Sarah's corgi is sleepy}\\
+  0&\textsf{Sarah has a corgi} \& \textsf{Sarah's corgi isn't sleepy}\\
+  \#&\textsf{otherwise}
+  \end{cases}$
+\xe
+
+In trivalent semantics, the \textit{semantic presupposition of a sentence $S$} is the set of worlds $w$, such that $\eval{S} w$ is either true or false.
+
+\ex
+The semantic presupposition of $S$ (def.),\\
+$S^{π} ≔ \set{w | \eval*{S} w = 1 ∨ \eval*{S} w = 0}$
+\xe
+
+\subsection{Update and Stalnaker's bridge}
+
+The \textit{update} induced by a a sentence $S$, written as $c[S]$ is a partial function $u:W ↦ W$.
+
+\ex Stalnakerian update (def.)\\
+$c[S] ≔ \begin{cases}
+  \set{w | w ∈ c ∧ \eval*{S} w}&c ⊆ S^{π}\\
+  \textsf{undefined}&\textsf{otherwise}
+  \end{cases}$
+\xe
+
+A (bivalent) proposition $p$ is \textit{redundant} wrt a context set $c$ if $c ⊆ \set{w | p w}$.
+
+Stalnaker's bridge places a precondition on an update of $c$ by $S$ --- $S^{\pi}$ must be \textit{redundant} wrt $C$.
+
+\subsection{Successive update}
+
+A (trivial?) observation: updating $c$ with a sentence $S$ can make the presupposition of a sentence $S'$ redundant, thus ensuring that $c[S']$ is guaranteed to be defined.
+
+\ex
+Sarah has a corgi. Sarah's corgi is sleepy.
+\xe
+
+Stalnakerian pragmatics directly captures this, since successive assertion gives rise to a successive update.
+
+We can write a successive update of $c$ with $S$ followed by $S'$ as $c[S][S']$.
+
+\ex
+$c[S][S'] ≔ (c[S])[S']$
+\xe
+
+$$
+c[\text{Sarah has a corgi}] = \overbrace{\set{w | w ∈ c ∧ \ml{Sarah has a corgi in }w}}^{c'}
+$$
+
+$$
+c'[\text{Sarah's corgi is sleepy}] = \begin{cases}
+  \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleep in }w}&\begin{aligned}[t]
+    &c ∩ \set{w | \ml{Sarah has a corgi in }w}\\
+    &⊆ \set{w | \ml{Sarah has a corgi in }w}
+  \end{aligned}\\
+  \ml{undefined}&\ml{otherwise}
+  \end{cases}
+$$
+
+$$
+c'[\text{Sarah's corgi is sleepy}] =
+  \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleep in }w}
+$$
+
+\subsection{Towards an update semantics}
+
+Successive assertion patterns with \textit{conjunction} wrt presupposition projection (Danny's handout from last week; Karttunen's generalization).
+
+A natural way of cashing this out: a conjunctive sentence induces successive update.
+
+\ex Conjunctive sentences in update semantics (def.)\\
+$c[S\text{ and }S'] ≔ c[S][S']$
+\xe
+
+What kind of rule is this? It looks very much like a \textit{construction-specific} update rule.
 
 \printbibliography
 
