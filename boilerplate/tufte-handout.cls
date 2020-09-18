@@ -251,7 +251,7 @@
   \PassOptionsToPackage{math-style=ISO}{unicode-math}
   \RequirePackage{unicode-math}
   \setmathfont{XITS Math}%[range={\lBrace,\rBrace}]
-  \setmonofont{SFMono-Regular.otf}
+  \setmonofont{SF Mono}
 
   % example sentences:
 \RequirePackage{leipzig}
