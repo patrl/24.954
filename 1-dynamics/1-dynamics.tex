@@ -50,7 +50,7 @@
 \newtheorem{definition}{Definition}[section]
 
 \title{The dynamic turn I:\\
-Updates, satisfaction, and coherence}
+Update semantics}
 
 \author[Patrick D. Elliott \& Danny Fox]{Patrick~D. Elliott \& Danny Fox}
 
@@ -111,12 +111,12 @@ There are two supplementary readings: (i) \cite{Heim1983}, and (ii) \cite{Veltma
   \end{itemize}
 \end{tcolorbox}
 
-\section{Recap: Stalnakerian pragmatics}
+\section{Recap: partial semantics, Stalnakerian pragmatics}
 
-The account of presupposition we've been developing has the following basic ingredients.
+The account of presupposition Danny has been outlining has the following basic ingredients.
 
 \begin{itemize}
-    \item A trivalent semantics for sentences; this gives rise to the notion of the \textit{semantic presupposition} of a sentence.\sidenote{There are various points at which Stalnaker sounds skeptical that we need a semantic notion of presupposition at all; we won't discuss this point today.}
+    \item A \enquote{gappy} semantics for sentences; this gives rise to the notion of the \textit{semantic presupposition} of a sentence.
     \item A notion of \textit{assertion}, which tells us how to update a context $c$ with the information conveyed by a sentence $ϕ$.
     \item The conditions under which update of a context $c$ with $ϕ$ is defined (\textit{Stalnaker's bridge}).
 \end{itemize}
@@ -145,9 +145,12 @@ In trivalent semantics, the \textit{semantic presupposition of a sentence $S$} i
 $(\text{Sarah's corgi is sleepy})^{π} = \set{w | \ml{Sarah has a corgi in }w}$
 \xe
 
+
+At the end of the previous handout, Danny alludes to the possibility of a principled trivalent semantics for generalized quantifiers and other expressions. We'll get back to this eventually (but not today).
+
 \subsection{Update and Stalnaker's bridge}
 
-The \textit{update} induced by a a sentence $ϕ$ is a partial function $c[ϕ]:\mathscr{P}(W) ↦ \mathscr{P}(W)$.
+The \textit{update} induced by a a sentence $ϕ$ is a partial function $c[ϕ]:\mathscr{P}(W) ↦ \mathscr{P}(W)$.\sidenote{Note, this formulation of \textit{bridge} is equivalent to the requirement that the sentence be defined at every point in $c$.}
 
 \ex Stalnakerian update (def.)\\
 $c[ϕ] ≔ \begin{cases}
@@ -170,11 +173,9 @@ Sarah has a corgi. Sarah's corgi is sleepy.
 
 Stalnakerian pragmatics directly captures this, since successive assertion gives rise to a successive update.
 
-We can write a successive update of $c$ with $S$ followed by $S'$ as $c[S][S']$.
+We can write a successive update of $c$ with $ϕ$ followed by $ϕ'$ as $c[ϕ][\psi]$.
 
-\ex
-$c[S][S'] ≔ (c[S])[S']$
-\xe
+$$c[ϕ][ψ] ≔ (c[ϕ])[ψ]$$
 
 $$
 c[\text{Sarah has a corgi}] = \overbrace{\set{w | w ∈ c ∧ \ml{Sarah has a corgi in }w}}^{c'}
@@ -182,7 +183,7 @@ $$
 
 $$
 c'[\text{Sarah's corgi is sleepy}] = \begin{cases}
-  \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleep in }w}&\begin{aligned}[t]
+  \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleepy in }w}&\begin{aligned}[t]
     &c ∩ \set{w | \ml{Sarah has a corgi in }w}\\
     &⊆ \set{w | \ml{Sarah has a corgi in }w}
   \end{aligned}\\
@@ -194,6 +195,22 @@ $$
 c'[\text{Sarah's corgi is sleepy}] =
   \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleep in }w}
 $$
+
+Now, note that the conjunctive sentence has the same projection properties, and exhibits \textit{the same asymmetries}:
+
+\pex
+\a Sarah has a corgi and her corgi is sleepy.
+\a\ljudge{\#}Sarah's corgi is sleepy and she has a corgi.
+\xe
+
+\pex~
+\a Sarah has a corgi. Her corgi is sleepy.
+\a\ljudge{\#} Her corgi is sleepy. Sarah has a corgi.
+\xe
+
+In dynamic semantics, we'll take this intuition seriously --- the \textit{meaning} of $ϕ ∧ ψ$ will be successive assertion of $ϕ$ and $ψ$, in that order.
+
+First, a historical note...
 
 \section{Dynamic semantics}
 
@@ -224,6 +241,18 @@ cf. Josie has a$^{1}$ husband. He$_{1}$'s annoying.
 
 We'll discuss the dynamic approach to anaphora in more depth in a couple of weeks time.
 
+Broadly, there are two approaches to dynamics, distinguished by \citet{Yalcin2013} as follows:
+
+\begin{description}
+
+    \item[Dynamic representation] Sentences denote instructions for updating a particular kind of representation, which is subsequently interpreted compositionally (the DRT tradition; \citealt{Kamp1981}).
+
+    \item[Dynamic interpretation] The compositional value of a sentence is an instruction for updating a body of information (the Heimian tradition; \citealt{Heim1982}).
+
+\end{description}
+
+In this class, I'll take the latter view as a given. As shown by \citet{GroenendijkStokhof1991}, the Heimian approach is in fact equivalent to the DRT approach, and \enquote{cuts out the middle man}, so to speak.
+
 Subsequently, the remit of dynamic semantics was expanded to encompass theories of an extremely broad range of phenomena, including amongst others:
 
 \begin{itemize}
@@ -248,12 +277,14 @@ Successive assertion patterns with \textit{conjunction} wrt presupposition proje
 A natural way of cashing this out: a conjunctive sentence induces successive update.
 
 \ex Conjunctive sentences in update semantics (def.)\\
-$c[S\text{ and }S'] ≔ c[S][S']$
+$c[ϕ\text{ and }ψ] ≔ c[ϕ][ψ]$
 \xe
 
 \begin{displayquote}[\cite{Veltman1996}]
 \enquote{The slogan `You know the meaning of a sentence if you know the conditions under which it is true', is replaced by this one: `You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it'.}
 \end{displayquote}
+
+We'll formalize this idea and extend it to the other connectives here.
 
 A (non-presuppositional) update semantics for a simple propositional language (after \citealt{Veltman1996} and \citealt{Heim1983}).\sidenote{Strangely, \citeauthor{Veltman1996} gives a symmetric semantics for conjunction his his original paper. We'll need the Heimian connectives to account for the data of interest to us here --- this was later rectified in \citet{GroenendijkEtAl1996}.}
 
@@ -268,7 +299,7 @@ A (non-presuppositional) update semantics for a simple propositional language (a
 
 
 \begin{definition}[Model]
-A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ \mathscr{P}(W)$ from atomic sentences of the language to subsets of $W$.
+A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ \mathscr{P}(W)$ from atomic sentences of the language to subsets of $W$ (i.e., bivalent propositions/information states).
 \end{definition}
 
 \begin{definition}[Information state]
@@ -279,7 +310,7 @@ A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worl
   \end{itemize}
 \end{definition}
 
-Providing a dynamic semantics consists of recursively defining an \textit{update function} $.[.]:\mathscr{L} ↦ \mathscr{P}(W) ↦ \mathscr{P}(W)$\sidenote{In fact, we only need to give a semantics for conjunctive and negated formulas. Disjunction and material implication can be defined in terms of conjunction and negation under classical equivalence:
+Providing a dynamic semantics consists of recursively defining an \textit{update function} $.[.]:\mathscr{L} ↦ \mathscr{P}(W) ↦ \mathscr{P}(W)$ which maps sentences of our language to functions from information states to information states.\sidenote[][-4\baselineskip]{In fact, we only need to give a semantics for conjunctive and negated formulas. Disjunction and material implication can be defined in terms of conjunction and negation under classical equivalence:
 
   \begin{itemize}
       \item $ϕ ∨ ψ ≔ ¬ (¬ ϕ ∧ ¬ ψ)$
@@ -336,13 +367,18 @@ As \citet{Veltman1996} remarks, since \textit{updates} are functions from inform
 
 $$
 \begin{aligned}[l]
-    &\eval*{p} &&= \set{w | w ∈ W ∧ w ∈ I(p)} &= I(p)\\
-    &\eval*{¬ ϕ} &&&= W - \eval*{ϕ}\\
-    &\eval*{\phi ∧ \psi} &&= W[\phi][\psi] &= \eval*{\phi} ∩ \eval*{\psi}\\
-    &\eval*{\phi ∨ \psi} &&&= \eval*{\phi} ∪ \eval*{\psi}\\
-    &\eval*{\phi → \psi} &&&= (W - \eval*{\phi}) ∪ \eval*{\psi}
+    &\eval*{p}  &= I(p)\\
+    &\eval*{¬ ϕ} &= W - \eval*{ϕ}\\
+    &\eval*{\phi ∧ \psi}  &= \eval*{\phi} ∩ \eval*{\psi}\\
+    &\eval*{\phi ∨ \psi} &= \eval*{\phi} ∪ \eval*{\psi}\\
   \end{aligned}
 $$
+
+\begin{tcolorbox}
+  \textbf{Optional exercise}
+  \tcblower
+  Prove the equivalences above.
+\end{tcolorbox}
 
 Some important logical properties of update semantics:
 
@@ -353,7 +389,7 @@ Some important logical properties of update semantics:
 
 \begin{itemize}
 
-    \item Eliminativity says that updating a context $c$ with any sentence $ϕ$ results in an updated context $c'$, s.t. $c' ⊆ c$; updates always shrink the context.
+    \item Eliminativity says that updating a context $c$ with any sentence $ϕ$ results in an updated context $c'$, s.t. $c' ⊆ c$; updates always shrinks the context; grows information.
 
     \item Distributivity says that updating a context $c$ with $ϕ$ is equivalent to updating each world $w ∈ c$ with $ϕ$, and gathering up the results.
 
@@ -361,7 +397,7 @@ Some important logical properties of update semantics:
 
 In fact, \citet{Benthem1986} proves that any dynamic semantics that is \textit{eliminative} and \textit{distributive} admits of a static reformulation; in other words, for any sentence $ϕ$, we can model $c[ϕ]$ as $c ∩ \eval{ϕ}$.\sidenote{See \cite{RothschildYalcin2016,RothschildYalcin2017} for detailed discussion of this point.}
 
-As we modify the fragment to account for presupposition and epistemic modals, we'll see ways in which eliminativity and distributivity fail.
+As we modify the fragment to account for presupposition and epistemic modals, we'll see ways in which eliminativity and distributivity fail.\sidenote{Concretely, distributivity will fail once we discuss epistemic modals. Eliminativity will fail when we come round to discussing anaphora.}
 
 \subsection{Update semantics and presupposition projection}
 
@@ -369,7 +405,9 @@ As we modify the fragment to account for presupposition and epistemic modals, we
 
 First we need to supplement our update semantics with presuppositions.
 
-A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ F$, where $F$ is the set of total functions $f:W ↦ \set{1,0,\#}$ from worlds to (trivalent) truth-values.
+\begin{definition}[Model with trivalence]
+A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ F$, where $F$ is the set of total mappings $f:W ↦ \set{1,0,\#}$ from worlds to (trivalent) truth-values.
+\end{definition}
 
 We only need to change the definition of our basic update operation to incorporate Stalnaker's bridge.
 
@@ -396,7 +434,7 @@ Equivalently:
 \ex
 $I(p) = λ w . \begin{cases}
   \text{defined}&\text{Sarah smoked in }w\\
-  \text{true}&\text{Sarah doesn't smow in }w
+  \text{true}&\text{Sarah doesn't smoke in }w
   \end{cases}$
 \xe
 
@@ -415,7 +453,11 @@ We can use this abbreviation to simplify our update rule further:
 
 Together with our update rules, this accounts for the Karttunen-Peters projection generalizations.
 
-Let's go through a concrete concrete case, in $w_{cy}$ Sarah has a corgi and it's cute, in $w_{cn}$  Sarah has a corgi and it's not cute, and in $w_{∅}$ Sarah has no corgi.
+Let's go through a concrete concrete case, in $w_{cy}$ Sarah has a corgi and it's cute, in $w_{cn}$  Sarah has a corgi and it's not cute, and in $w_{∅}$ Sarah has no corgi. Recall also the rule for conditional statements.
+
+ $$
+  c[ϕ → ψ] ≔ c - (c[ϕ] - c[ϕ][ψ])
+  $$
 
 \ex
 If Sarah has a corgi, then Sarah's corgi is cute.\\
@@ -470,13 +512,16 @@ $p → q$
     \item $= \set{w_{hc},w_{c},w_{∅}}$
 \end{itemize}
 
-Recall, this is a problem specifically for the theory of \textit{accommodation} --- since we're just interested in presupposition projection here, we'll put this problem to one side.
+There are various ways of tweaking the theory to account for proviso cases, requiring a more or less radical departure from standard update semantics: see e.g., \cite{Mandelkern2016} and \cite{Grove2019,Grove2019a} for two recent approaches.
+
+It's worth emphasizing that this is a problem specifically for the theory of \textit{accommodation} --- since we're just interested in presupposition projection here, we'll put this problem to one side.
+
 
 \subsection{The Rooth-Soames objection}
 
 \citet{Heim1983} assumed that the classical semantics for the logical connectives \textit{fully determined} the formulation of the update rules.
 
-This was subsequently noted to be incorrect by Mats Rooth, p.c. to Irene Heim in 1987, as well as \cite{Soames1989}; a result that has motivated much recent work on presupposition projection.
+This was subsequently noted to be incorrect by Mats Rooth, p.c. to Irene Heim in 1987, as well as \cite{Soames1989}; a result that has motivated much recent work on presupposition projection.\sidenote{This relates to Danny's objection to using higher-order functions to capture presupposition projection.}
 
 The most straightforward way of demonstrating this by defining an update rule for \textit{backwards conjunction} ($⩟$).
 
@@ -534,9 +579,18 @@ A big question in the current literature on presupposition projection is how exa
 
 In future classes, we plan to discuss \citeauthor{George2007}'s \textit{middle Kleene} algorithm in this light.\sidenote{If we have time, i'll also discuss my own work on developing a predictive theory of anaphora using similar technical machinery (\citealt{Elliott2020b}), as well as \citeauthor{Mandelkern2020a}'s recent (\citeyear{Mandelkern2020a,Mandelkern2020b}) work on this topic.}
 
-For the moment, we'll put this explanatory challenge to one side, and discuss an \textit{independent} motivation for the expressive power afforded by update semantics --- epistemic modals and epistemic contradictions.
+For the moment, we'll put this explanatory challenge to one side, and discuss an \textit{independent} motivation for the expressive power afforded by update semantics --- epistemic modals and epistemic contradictions.\sidenote{In \cite{Veltman1996}, update semantics is also applied to cases of so-called \enquote{default reasoning}, i.e.:
 
-\subsection{Evidence for updates \textit{in the semantics}}
+  \pex
+\a P's are normally R.
+\a $x$ is P.
+\a Presumably, $x$ is R.
+\xe
+
+We won't cover this topic in this class, but I encourage those of you interested in reading further to do so.
+}
+
+\subsection{\citeauthor{Veltman1996}'s test semantics and epistemic contradictions}
 
 % \todo[inline]{Remember to talk about pragmatic view and Yalcin's response}
 
@@ -552,7 +606,18 @@ An initial motivation for a dynamic treatment of epistemic modality: epistemic c
 \a\ljudge{\#}It's not raining, but it might be raining.\label{moore2}
 \xe
 
-As originally demonstrated by \citet{Veltman1996}, it's possible to state an elegant semantics for epistemic modality in update semantics that captures this contrast.
+Do we need to go beyond a classical semantics for modals to explain the oddness of (\ref{moore})? Let's tentatively assume that an assertion of \enquote{it might be raining} is true if \textit{it's raining} is compatible with the speaker's knowledge.
+
+An argument against a pragmatic story: \citeauthor{Yalcin2007}'s (\citeyear{Yalcin2007}) embedded cases:
+
+\pex
+\a\ljudge{?}Suppose that [it might be raining but it's not raining].
+\a\ljudge{?}Suppose that [it's not raining but it might be raining].
+\xe
+
+Difficult to see how a pragmatic explanation might extend to such cases.
+
+As originally demonstrated by \citet{Veltman1996}, it's possible to state an elegant semantics for epistemic modality in update semantics that captures the oddness of epistemic contradictions.
 
 We'll extend our simple propositional language with an additional unary operator, standing in for \textit{might}: $◇$.
 
@@ -575,6 +640,14 @@ We'll extend our simple propositional language with an additional unary operator
   \textbf{Exercise}
   \tcblower
   What happens if we \textit{staticize} $◇ p$? What does this tell us about \citeauthor{Veltman1996}'s proposal?
+\end{tcolorbox}
+
+\begin{tcolorbox}
+  \textbf{Discussion point}
+  \tcblower
+  According to \citeauthor{Veltman1996}'s theory, when we assert a modalized sentence one of two things can happen: (i) if the test is successful, the context is unchanged. (ii) if the test is unsuccessful, we find ourselves in the absurd state.
+
+  From a pragmatic point of view, what is the utility of epistemic modals then? Ideally, we need a pragmatic theory to go alongside \citeauthor{Veltman1996}'s semantics.
 \end{tcolorbox}
 
 \begin{tcolorbox}
