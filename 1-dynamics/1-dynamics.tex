@@ -257,6 +257,14 @@ $c[S\text{ and }S'] ≔ c[S][S']$
 
 A (non-presuppositional) update semantics for a simple propositional language (after \citealt{Veltman1996} and \citealt{Heim1983}).\sidenote{Strangely, \citeauthor{Veltman1996} gives a symmetric semantics for conjunction his his original paper. We'll need the Heimian connectives to account for the data of interest to us here --- this was later rectified in \citet{GroenendijkEtAl1996}.}
 
+\begin{definition}[Syntax of a simple propositional language]
+  A language $\mathscr{L}$ is the smallest set, where:\sidenote{This is just a concise statement of the syntax of propositional logic.}
+  \begin{itemize}
+      \item $\mathscr{A} ⊆ \mathscr{L}$, where $\mathscr{A}$ is a non-empty finite set of atomic formulas $p,q,…$.
+      \item if $ϕ ∈ \mathscr{L}$, then $¬ ϕ ∈ \mathscr{L}$.
+      \item if $ϕ,ψ ∈ \mathscr{L}$, then $(ϕ ∧ ψ), (ϕ → ψ), (ϕ ∨ ψ) ∈ \mathscr{L}$.
+  \end{itemize}
+\end{definition}
 
 
 \begin{definition}[Model]
@@ -271,30 +279,55 @@ A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worl
   \end{itemize}
 \end{definition}
 
-Providing a dynamic semantics consists of recursively defining an \textit{update function} $.[.]:\mathscr{L} ↦ \mathscr{P}(W) ↦ \mathscr{P}(W)$
+Providing a dynamic semantics consists of recursively defining an \textit{update function} $.[.]:\mathscr{L} ↦ \mathscr{P}(W) ↦ \mathscr{P}(W)$\sidenote{In fact, we only need to give a semantics for conjunctive and negated formulas. Disjunction and material implication can be defined in terms of conjunction and negation under classical equivalence:
+
+  \begin{itemize}
+      \item $ϕ ∨ ψ ≔ ¬ (¬ ϕ ∧ ¬ ψ)$
+      \item $ϕ → ψ ≔ ¬ (ϕ ∧ ¬ ψ)$
+  \end{itemize}
+
+  Not all classical equivalences will work however --- this is a corollary of the Rooth/Soames objection to dynamic semantics, which we'll discuss in a later section. As an optional exercise, convince yourself that the definitions above are equivalent to the ones stated in the body of the text, and furthermore, that the following deviant definitions aren't:
+
+  \begin{itemize}
+      \item $ϕ ∨ ψ ≔ ¬ (¬ ψ ∧ ¬ ϕ)$
+      \item $ϕ → ψ ≔ ¬ (¬ ψ ∧ ϕ)$
+  \end{itemize}
+
+}
 
 \begin{definition}[Basic expressions]
   $$
   c[p] ≔ c ∩ I(p)
   $$
+  Updating a context $c$ with $p$ involves subtracting worlds from $c$ where $p$ is false.
 \end{definition}
 
 \begin{definition}[Negated formulas]
   $$
   c[¬ \phi] ≔ c - c[\phi]
   $$
+  To update a context $c$ with a negated formula $¬ ϕ$: (i) let $c' = c[ϕ]$, (ii) do $c - c'$.
 \end{definition}
 
 \begin{definition}[Conjunctive formulas]
   $$
   c[\phi ∧ \psi] ≔ c[\phi][\psi]
   $$
+  To update a context $c$ with a conjunctive formula $ϕ ∧ ψ$: (i) let $c' = c[ϕ]$, (ii) do $c'[ψ]$. This is identical to successive assertion.
 \end{definition}
 
 \begin{definition}[Disjunctive formulas]
   $$
   c[\phi ∨ \phi] ≔ c[\phi] ∪ c[¬ \phi][\phi]
   $$
+  To update a context $c$ with a disjunctive formula $ϕ ∨ ψ$: (i) let $c' = c[ϕ]$, let (ii) let $c'' = c[¬ ϕ]$, (iii) do $c''[ψ]$ and union the result with $c'$.
+\end{definition}
+
+\begin{definition}[Conditional formulas]
+  $$
+  c[ϕ → ψ] ≔ c - (c[ϕ] - c[ϕ][ψ])
+  $$
+  To update a context $c$ with a conditional formula $ϕ → ψ$: (i) let $c' = c[ϕ]$, (ii) let $c'' = c[ϕ][ψ]$, (iii) do $c - (c' - c'')$.
 \end{definition}
 
 We can \textit{staticize} \citeauthor{Veltman1996}'s fragment by taking the \textit{proposition expressed by $p$} to be $W[p]$, i.e., the logical space updated with $p$. $\eval*{p} ≔ W[p]$.\footnote{
@@ -306,7 +339,8 @@ $$
     &\eval*{p} &&= \set{w | w ∈ W ∧ w ∈ I(p)} &= I(p)\\
     &\eval*{¬ ϕ} &&&= W - \eval*{ϕ}\\
     &\eval*{\phi ∧ \psi} &&= W[\phi][\psi] &= \eval*{\phi} ∩ \eval*{\psi}\\
-    &\eval*{\phi ∨ \psi} &&= W[\phi] ∪ c[¬ \phi][\psi] &= \eval*{\phi} ∪ \eval*{\psi}
+    &\eval*{\phi ∨ \psi} &&&= \eval*{\phi} ∪ \eval*{\psi}\\
+    &\eval*{\phi → \psi} &&&= (W - \eval*{\phi}) ∪ \eval*{\psi}
   \end{aligned}
 $$
 
@@ -325,13 +359,17 @@ Some important logical properties of update semantics:
 
 \end{itemize}
 
+In fact, \citet{Benthem1986} proves that any dynamic semantics that is \textit{eliminative} and \textit{distributive} admits of a static reformulation; in other words, for any sentence $ϕ$, we can model $c[ϕ]$ as $c ∩ \eval{ϕ}$.\sidenote{See \cite{RothschildYalcin2016,RothschildYalcin2017} for detailed discussion of this point.}
+
+As we modify the fragment to account for presupposition and epistemic modals, we'll see ways in which eliminativity and distributivity fail.
+
 \subsection{Update semantics and presupposition projection}
 
 \citet{Heim1983} was the first to demonstrate that update semantics can account for the Karttunen-Peters projection generalizations.
 
 First we need to supplement our update semantics with presuppositions.
 
-A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ F$, where $F$ is the set of functions $f:W ↦ \set{1,0,\#}$ from worlds to (trivalent) truth-values.
+A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ F$, where $F$ is the set of total functions $f:W ↦ \set{1,0,\#}$ from worlds to (trivalent) truth-values.
 
 We only need to change the definition of our basic update operation to incorporate Stalnaker's bridge.
 
@@ -352,6 +390,87 @@ We only need to change the definition of our basic update operation to incorpora
   \#&\text{otherwise}
   \end{cases}$
 \xe
+
+Equivalently:
+
+\ex
+$I(p) = λ w . \begin{cases}
+  \text{defined}&\text{Sarah smoked in }w\\
+  \text{true}&\text{Sarah doesn't smow in }w
+  \end{cases}$
+\xe
+
+As before, the semantic presupposition of a sentence $p$, $p^{π}$ is the set of worlds in which $I(p)$ is defined.
+
+We can use this abbreviation to simplify our update rule further:
+
+\begin{definition}[Basic expression (revised)]
+  $$
+  c[p] ≔ \begin{cases}
+    c ∩ \set{w| I(p)(w) = 1}&c ⊆ p^{π}\\
+    \text{undefined}&\text{otherwise}
+    \end{cases}
+  $$
+\end{definition}
+
+Together with our update rules, this accounts for the Karttunen-Peters projection generalizations.
+
+Let's go through a concrete concrete case, in $w_{cy}$ Sarah has a corgi and it's cute, in $w_{cn}$  Sarah has a corgi and it's not cute, and in $w_{∅}$ Sarah has no corgi.
+
+\ex
+If Sarah has a corgi, then Sarah's corgi is cute.\\
+$p → q$, where $I(p) = q^{π}$
+\xe
+
+\begin{itemize}
+    \item $\set{w_{cy},w_{cn},w_{∅}}[p → q] = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy},w_{cn},w_{∅}}[p][q])$
+    \item $ = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy},w_{cn}}[q])$
+    \item $\set{w_{cy},w_{cn}}[q]$ is defined, since $\set{w_{cy},w_{cn}} = q^{π}$
+    \item $ = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy}})$
+    \item $ = \set{w_{cy},w_{∅}}$
+\end{itemize}
+
+Update semantics gives rise to the following generalization for presupposition:
+
+\begin{definition}[Presupposition satisfaction] The presupposition of  $ϕ$ is satisfied in $c$, if the following hold:
+
+  \begin{itemize}
+      \item $c \subseteq p^{π}$, if $ϕ = p$
+    \item The presupposition of $ψ$ is satisfied in $c$,\\
+      if $ϕ = (¬ ψ)$.
+    \item The presupposition of $ψ$ is satisfied in $c$\\
+      and the presupposition of $χ$ is satisfied in $c[ψ]$,\\
+      if $ϕ = (ψ ∧ χ)$.
+    \item The presupposition of $ψ$ is satisfied in $c$,\\
+      and the presupposition of $χ$ is satisfied in $c[¬ ψ]$\\
+      if $ϕ = (ψ ∨ χ)$.
+    \item The presupposition of $ψ$ is satisfied in $c$,\\
+      and the presupposition of $χ$ is satisfied in $c[ψ]$\\
+      if $ϕ = (ψ → χ)$.
+  \end{itemize}
+
+\end{definition}
+
+Note that the proviso problem still lurks in the background here (\citealt{Geurts1996}). Consider the following worlds: $w_{hc}$ Sarah is here and has a cute corgi, $w_{c}$ Sarah isn't here but has a cute corgi, $w_{h}$ Sarah is here but has no corgi, $w_{∅}$ Sarah isn't here and doesn't have a cute corgi.
+
+\ex
+If Sarah is here, then Sarah's corgi is cute.\\
+$p → q$
+\xe
+
+\begin{itemize}
+  \item $\set{w_{hc},w_{c},w_{h},w_{∅}}[p → q]$\\
+    $ = \set{w_{hc},w_{c},w_{h},w_{∅}} - (\set{w_{hc},w_{h}} - \set{w_{hc},w_{c},w_{h},w_{∅}}[p][q])$
+    \item $\set{w_{hc},w_{c},w_{h},w_{∅}} - (\set{w_{hc},w_{h}} - \set{w_{hc},w_{h}}[q])$
+    \item $\set{w_{hc},w_{h}}[q]$ is undefined since $\set{w_{hc},w_{h}} ⊈ q^{π}$
+    \item How could we minimally modify the context such that the presupposition is satisfied? We can simply remove the world in which Sarah is here, and doesn't have a corgi.
+    \item $\set{w_{hc},w_{c},w_{∅}}[p → q] = \set{w_{hc},w_{c},w_{∅}} - (\set{w_{hc}} - \set{w_{hc},w_{c},w_{∅}}[p][q])$
+    \item $= \set{w_{hc},w_{c},w_{∅}} - (\set{w_{hc}} - \set{w_{hc}}[q])$
+    \item $\set{w_{hc}}[q]$ is defined, since $\set{w_{wc}} \subseteq q^{π}$
+    \item $= \set{w_{hc},w_{c},w_{∅}}$
+\end{itemize}
+
+Recall, this is a problem specifically for the theory of \textit{accommodation} --- since we're just interested in presupposition projection here, we'll put this problem to one side.
 
 \subsection{The Rooth-Soames objection}
 
@@ -419,7 +538,7 @@ For the moment, we'll put this explanatory challenge to one side, and discuss an
 
 \subsection{Evidence for updates \textit{in the semantics}}
 
-\todo[inline]{Remember to talk about pragmatic view and Yalcin's response}
+% \todo[inline]{Remember to talk about pragmatic view and Yalcin's response}
 
 \begin{displayquote}[\cite{Beaver2001}]
   \enquote{I will borrow from Veltman’s work to show how the context sensitivity of [epistemic modal] words like `might' and `must' motivates a dynamic semantics. None of the alternative CCPs for connectives
@@ -461,6 +580,11 @@ We'll extend our simple propositional language with an additional unary operator
 \begin{tcolorbox}
   \textbf{Optional exercise}
   \tcblower
+  Can we state the meaning of epistemic \textit{must} as the dual of $◇$?
+  \begin{itemize}
+    \item If so, demonstrate that this delivers intuitively correct results.
+    \item If not, show why not.
+  \end{itemize}
 
 \end{tcolorbox}
 
@@ -520,8 +644,6 @@ It might be raining [...] it's not raining.
 
 We can make sense of this in update semantics by using the notion of \textit{coherence}.
 
-\todo[inline]{I probably need to introduce support when I talk about presupposition projection}
-
 \begin{definition}[Support]
   An information state $c$ \textit{supports} a sentence $ϕ$ iff:
 
@@ -566,65 +688,30 @@ Now can can ask, is (\ref{moore-rep}) \textit{coherent}? The answer is no. For t
 
 }
 
-Some interesting additional predictions made by this theory. Recall that, due to presupposition projection facts, the update rule for disjunctive sentences is as follows:
-
+\begin{tcolorbox}
+  \textbf{Optional exericse}
+  \tcblower
+Recall that, due to presupposition projection facts, the update rule for disjunctive sentences is as follows:
 $$
 c[ϕ ∨ ψ] ≔ c[ϕ] ∪ c[¬ ϕ][ψ]
 $$
+What does the theory predict for a sentence such as \enquote{either it's raining, or it might be raining}?
 
-Consider the disjunctive sentence in (\ref{mod-hurford}):
+$$
+p ∨ ◇ p
+$$
 
-\ex
-Either it's raining or it might be raining.\\
-$p ∨ ◇ p$\label{mod-hurford}
-\xe
+What about the reverse order, \enquote{it might be raining, or it's raining}?
 
-This is predicted (unfortunately) to be consistent and coherent.
-\todo[inline]{Maybe set this as a homework exercise}
+$$
+ p ∨ ◇ p
+$$
 
-\begin{itemize}
-    \item $c[p ∨ ◇ p] = c[p] ∪ c[¬ p][◇ p]$
-    \item $= (c ∩ I(p)) ∪ c[¬ p][◇ p]$
-  \item $= (c ∩ I(p)) ∪ \begin{cases}
-    c[¬ p]&c[¬ p][p] ≠ ∅\\
-    ∅&\text{otherwise}
-    \end{cases}$
-  \item $(c ∩ I(p)) ∪ ∅$
-\end{itemize}
-
-As is the following conditional sentence:
-
-\ex
-If it's not raining then it might be raining.
-\xe
-
-\todo[inline]{Say something about the pragmatics of modal assertions}
+Try to connect the results to your intuitions about what these sentences mean.
+\end{tcolorbox}
 
 \printbibliography
 
-
 \end{document}
-
-\begin{appendices}
-
-  \section{Epistemic necessity}
-
-  \todo[inline]{Define epistemic \textit{must} as a dual of \textit{might}.}
-
-  Although \citet{Veltman1996} doesn't do this explicitly, it is straightforward to define epistemic \textit{must} ($□$) as the dual of epistemic \textit{might}.
-
-\todo[inline]{This could be a nice homework}
-\begin{definition}[Test semantics for epistemic necessity]
-  $$
-  c[□ p] ≔ c - c[□ (¬ p)]
-  $$
-  $$
-  c[□ p] ≔ c - \begin{cases}
-    c&c[¬ p] ≠ ∅\\
-    ∅&\text{otherwise}
-    \end{cases}
-  $$
-\end{definition}
-
 
 \end{appendices}
