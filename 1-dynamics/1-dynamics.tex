@@ -518,8 +518,6 @@ We can use this abbreviation to simplify our update rule further:
   $$
 \end{definition}
 
-Together with our update rules, this accounts for the Karttunen-Peters projection generalizations.
-
 Let's go through a concrete concrete case, in $w_{cy}$ Sarah has a corgi and it's cute, in $w_{cn}$  Sarah has a corgi and it's not cute, and in $w_{∅}$ Sarah has no corgi. Recall also the rule for conditional statements.
 
  $$
@@ -532,11 +530,32 @@ $p → q$, where $I(p) = q^{π}$
 \xe
 
 \begin{itemize}
-    \item $\set{w_{cy},w_{cn},w_{∅}}[p → q] = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy},w_{cn},w_{∅}}[p][q])$
+    \item $\set{w_{cy},w_{cn},w_{∅}}[p → q]$\\$= \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn},w_{∅}}[p] - \set{w_{cy},w_{cn},w_{∅}}[p][q])$
+    \item $ = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy},w_{cn},w_{∅}}[p][q])$
     \item $ = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy},w_{cn}}[q])$
     \item $\set{w_{cy},w_{cn}}[q]$ is defined, since $\set{w_{cy},w_{cn}} = q^{π}$
     \item $ = \set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn}} - \set{w_{cy}})$
     \item $ = \set{w_{cy},w_{∅}}$
+\end{itemize}
+
+Anoother concrete case, this time involving disjunction, using the same set of worlds:
+
+$$
+c[ϕ ∨ ψ] ≔ c[ϕ] ∪ c[¬ ϕ][ψ]
+$$
+
+\ex
+Either Sarah has no corgi, or Sarah's corgi is cute.\\
+$¬ p ∨ q$, where $q^{π} = \set{w_{cy},w_{cn}}$
+\xe
+
+\begin{itemize}
+    \item $\set{w_{cy},w_{cn},w_{∅}}[¬ p ∨ q] = \set{w_{cy},w_{cn},w_{∅}}[¬ p] ∪ \set{w_{cy},w_{cn},w_{∅}}[¬ ¬ p][q]$
+    \item $= \set{w_{∅}} ∪ (\set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn},w_{∅}} - \set{w_{cy},w_{cn}}))[q]$
+    \item $= \set{w_{∅}} ∪ set{w_{cy},w_{cn}}[q]$\footnote{Note that double-negation elimination is valid in propositional update semantics.}
+    \item N.b. the update of $q$ is guaranteed to be defined, since $\set{w_{cy},w_{cn}} = q^{π}$
+    \item $= \set{w_{∅}} ∪ \set{w_{cy}}$
+    \item $= \set{w_{∅},c_{cy}}$
 \end{itemize}
 
 Update semantics gives rise to the following generalization for presupposition:
@@ -560,7 +579,7 @@ Update semantics gives rise to the following generalization for presupposition:
 
 \end{definition}
 
-Note that the proviso problem still lurks in the background here (\citealt{Geurts1996}). Consider the following worlds: $w_{hc}$ Sarah is here and has a cute corgi, $w_{c}$ Sarah isn't here but has a cute corgi, $w_{h}$ Sarah is here but has no corgi, $w_{∅}$ Sarah isn't here and doesn't have a cute corgi.
+Note that the proviso problem still lurks in the background here (\citealt{Geurts1996}).\sidenote{In fact, the proviso problem was originally discussed as a problem for dynamic accounts of presupposition projection specifically. It has subsequently been recognized that the proviso problem afflicts static trivalent theories too -- we'll discuss this more in future classes.} Consider the following worlds: $w_{hc}$ Sarah is here and has a cute corgi, $w_{c}$ Sarah isn't here but has a cute corgi, $w_{h}$ Sarah is here but has no corgi, $w_{∅}$ Sarah isn't here and doesn't have a cute corgi.
 
 \ex
 If Sarah is here, then Sarah's corgi is cute.\\
@@ -577,6 +596,12 @@ $p → q$
     \item $= \set{w_{hc},w_{c},w_{∅}} - (\set{w_{hc}} - \set{w_{hc}}[q])$
     \item $\set{w_{hc}}[q]$ is defined, since $\set{w_{wc}} \subseteq q^{π}$
     \item $= \set{w_{hc},w_{c},w_{∅}}$
+  \item Predicted inference:
+    \begin{itemize}
+        \item If Sarah is here, then Sarah has a corgi.
+        \item Equivalently, either Sarah isn't here, or she has a corgi.
+    \end{itemize}
+  \item The attested inference seems stronger, namely, \textit{Sarah has a corgi}.
 \end{itemize}
 
 There are various ways of tweaking the theory to account for proviso cases, requiring a more or less radical departure from standard update semantics: see e.g., \cite{Mandelkern2016} and \cite{Grove2019,Grove2019a} for two recent approaches.
@@ -585,6 +610,8 @@ It's worth emphasizing that this is a problem specifically for the theory of \te
 
 
 \subsection{The Rooth-Soames objection}
+
+We now have a theory that successfully accounts for Karttunen's projection generalizations. Should we be satisfied?
 
 \citet{Heim1983} assumed that the classical semantics for the logical connectives \textit{fully determined} the formulation of the update rules.
 
@@ -612,17 +639,9 @@ $$
 \eval*{ϕ \wedgebar ψ} ≔ W[ψ][ϕ] = \eval*{ϕ} ∩ \eval*{ψ} ≕ \eval*{ϕ ∧ ψ}
 $$
 
-What this shows is that, even though there's a unique mapping from an update semantics to the corresponding classical semantics, there are many possible mappings from classical semantics to the corresponding update semantics.
+What this shows is that, even though there's a unique mapping from an update semantics to the corresponding classical semantics (i.e., \citeauthor{Veltman1996}'s \textit{staticization}), there are many possible mappings from classical semantics to the corresponding update semantics.
 
-\begin{tcolorbox}
-  Optional exercise
-  \tcblower
-  Give a \enquote{deviant} update semantics for the following connectives. Demonstrate in each case that your entry (i) is truth-conditionally equivalent to the classical counterpart, but (ii) fails to capture the Karttunen-Peters projection generalizations.
-  \begin{itemize}
-      \item Disjunction.
-      \item Material implication.
-  \end{itemize}
-\end{tcolorbox}
+As an exercise in this weeks problem set, I've asked you to define other \enquote{deviant} connectives.
 
 What does this mean for update semantics as an \textit{explanation} for presupposition projection?
 
@@ -638,7 +657,10 @@ I think it's wrong to conclude that this makes the account \textit{completely} s
 
 The objection is narrower, but simultaneously perhaps more interesting.
 
-We have the hunch that it's no accident that the dynamic semantics of natural language conjunction is forwards conjunction $∧$ and not backwards conjunction $\wedgebar$. In theory there \textit{could} be a principled story for why we converge upon this update rule rather than some other concievable update rule that is truth-conditionally adequate.
+
+It looks like what we're doing is simply tailoring the definitions of the connectives to capture Karttunen's projection generalizations.
+
+But, we have the hunch that it's no accident that the dynamic semantics of natural language conjunction is forwards conjunction $∧$ and not backwards conjunction $\wedgebar$. One way of answering the objection would be to develop a principled story for why we converge upon this update rule rather than some other concievable update rule that is truth-conditionally adequate.
 
 In other words, if we have a predictive algorithm for update rules, or something similar, perhaps we can get away with generating the same set of predictions as \citeauthor{Heim1983}'s update semantics with fewer stipulations.
 
@@ -646,7 +668,9 @@ A big question in the current literature on presupposition projection is how exa
 
 In future classes, we plan to discuss \citeauthor{George2007}'s \textit{middle Kleene} algorithm in this light.\sidenote{If we have time, i'll also discuss my own work on developing a predictive theory of anaphora using similar technical machinery (\citealt{Elliott2020b}), as well as \citeauthor{Mandelkern2020a}'s recent (\citeyear{Mandelkern2020a,Mandelkern2020b}) work on this topic.}
 
-For the moment, we'll put this explanatory challenge to one side, and discuss an \textit{independent} motivation for the expressive power afforded by update semantics --- epistemic modals and epistemic contradictions.\sidenote{In \cite{Veltman1996}, update semantics is also applied to cases of so-called \enquote{default reasoning}, i.e.:
+Another answer to this objection is as follows: dynamic semantics, and specifically \textit{these} dynamic connectives capture other phenomena too. The most famous example of such a phenomena is \textit{anaphora}. A competing theory will only be more explanatory if it has the same empirical coverage.
+
+Here, we'll discuss another such phenomena that dynamic semantics has been used to capture: epistemic modals and epistemic contradictions.\sidenote{In \cite{Veltman1996}, update semantics is also applied to cases of so-called \enquote{default reasoning}, i.e.:
 
   \pex
 \a P's are normally R.
@@ -704,29 +728,14 @@ We'll extend our simple propositional language with an additional unary operator
 \end{tcolorbox}
 
 \begin{tcolorbox}
-  \textbf{Exercise}
-  \tcblower
-  What happens if we \textit{staticize} $◇ p$? What does this tell us about \citeauthor{Veltman1996}'s proposal?
-\end{tcolorbox}
-
-\begin{tcolorbox}
   \textbf{Discussion point}
   \tcblower
   According to \citeauthor{Veltman1996}'s theory, when we assert a modalized sentence one of two things can happen: (i) if the test is successful, the context is unchanged. (ii) if the test is unsuccessful, we find ourselves in the absurd state.
 
-  From a pragmatic point of view, what is the utility of epistemic modals then? Ideally, we need a pragmatic theory to go alongside \citeauthor{Veltman1996}'s semantics.
+  Why would we ever \textit{use} epistemic modals?
 \end{tcolorbox}
 
-\begin{tcolorbox}
-  \textbf{Optional exercise}
-  \tcblower
-  Can we state the meaning of epistemic \textit{must} as the dual of $◇$?
-  \begin{itemize}
-    \item If so, demonstrate that this delivers intuitively correct results.
-    \item If not, show why not.
-  \end{itemize}
-
-\end{tcolorbox}
+Although \citeauthor{Veltman1996} doesn't do so, it's possible to define epistemic \textit{must} ($□$) as the dual of $◇$ is propositional update semantics. One of the exercises in his week's problem set is to do just this.
 
 To show how this captures asymmetries in epistemic contradictions, first we will need some derivative notions.
 
@@ -749,6 +758,10 @@ A good result: (\ref{moore2}) is \textit{inconsistent}.
 
 Before giving an informal proof, the intuition is as follows: updating an information state with the information that it's not raining is guaranteed to make a tentative update of \enquote{it's raining} fail.
 
+\ex
+It's not raining and it might be raining.
+\xe
+
 \begin{itemize}
 
     \item $c[¬ p ∧ ◇ p] = c[¬ p][◇ p]$
@@ -764,7 +777,7 @@ Before giving an informal proof, the intuition is as follows: updating an inform
   \item $(c - s) ∩ s = ∅$, $∀s$, hence $(¬ p ∧ ◇ p)$ is \textit{inconsistent}.
 \end{itemize}
 
-What about the other ordering, repeated in (\ref{moore-rep})? Although we didn't assign this a $\#$ diacritic, arguably there is something pragmatically marked about this sentence. There's an intuition that the speaker has changed their mind after uttering the first conjunct.
+What about the other ordering, repeated in (\ref{moore-rep})? Although we didn't assign this a $\#$ diacritic, arguably there is something pragmatically marked about this sentence.
 
 \ex
 \ljudge{?}It might be raining and it's not raining.\\
@@ -782,14 +795,14 @@ B: It's not raining!
 It might be raining [...] it's not raining.
 \xe
 
-We can make sense of this in update semantics by using the notion of \textit{coherence}.
+We can make sense of this in update semantics by using the notion of \textit{coherence}, which we define in terms of a derivative notion of \textit{support}.
 
 \begin{definition}[Support]
   An information state $c$ \textit{supports} a sentence $ϕ$ iff:
 
   $$c[ϕ] = c$$
 
-  Other terms which are often used to mean the same thing: \textit{$c$ accepts $\phi$, $c$ incorporates $\phi$}.
+  Other terms which are often used to mean the same thing: \textit{$c$ accepts $\phi$, $c$ incorporates $\phi$, $ϕ$ is redundant in $c$}.
 \end{definition}
 
 \begin{definition}[Coherence]
@@ -872,7 +885,7 @@ Try to connect the results to your intuitions about what these sentences mean.
         \item $c[ϕ → ψ] ≡ c[¬ (ϕ ∧ ¬ ψ)]$
     \end{itemize}
 
-    \textbf{Part 2:} Provide formulas using only conjunction and negation that are classically equivalent to $⌜ϕ ∨ ψ⌝$, $⌜ϕ → ψ⌝$, which nevertheless aren't equivalent in propositional dynamic semantics. Demonstrate where the equivalence breaks down.
+    \textbf{Part 2:} Provide formulas using only conjunction and negation that are classically equivalent to $⌜ϕ ∨ ψ⌝$, $⌜ϕ→ψ⌝$, which nevertheless aren't equivalent in propositional dynamic semantics. Demonstrate where the equivalence breaks down.
 
     \textbf{Part 3:} Comment briefly on what this tells us about the explanatory potential of propositional dynamic semantics.
   \end{tcolorbox}
@@ -884,7 +897,7 @@ Try to connect the results to your intuitions about what these sentences mean.
   \begin{tcolorbox}
     \textbf{Exercise}
     \tcblower
-    \textbf{Part 1:} Prove the following equivalences (an informal demonstration is fine).
+    \textbf{Part 1:} Prove whether the following equivalences (an informal demonstration is fine).
 
   $$
   \begin{aligned}[l]
@@ -892,11 +905,41 @@ Try to connect the results to your intuitions about what these sentences mean.
     &\eval*{¬ ϕ} &= W - \eval*{ϕ}\\
     &\eval*{\phi ∧ \psi}  &= \eval*{\phi} ∩ \eval*{\psi}\\
     &\eval*{\phi ∨ \psi} &= \eval*{\phi} ∪ \eval*{\psi}\\
+    &\eval*{\phi → \psi} &= \eval*{\phi} ⊆ \eval*{\psi}\\
   \end{aligned}
   $$
 
   \textbf{Part 2:} What is the staticization of a modalized sentence $⌜◇ ϕ⌝$? Comment on the significance of the result.
   \end{tcolorbox}
+
+  \subsection{Backwards connectives}
+
+  \begin{tcolorbox}
+    \textbf{Exercise}
+    \tcblower
+    \textbf{Part 1:} give a dynamic semantics for \enquote{backwards disjunction} $⊻$, which (i) captures the classical contribution of disjunction (demonstrate this via staticization), and (ii) predicts the presupposition of the first disjunct to be satisfied in the following (provided without judgement).
+
+    \enquote{Either Sarah's corgi is sleepy, or Sarah has no corgi.}
+
+    Is this prediction good, in the general case? Feel free to use raw data from whichever language(s) you speak in the discussion here.
+
+    \textbf{Part 2:} do the same thing for \eqnuote{backwards implication}, $←$, with respect to the following sentence:
+
+    \enquote{If Sarah's corgi is sleepy, then Sarah has a corgi.}
+  \end{tcolorbox}
+
+  \subsection{\textit{Must}}
+
+\begin{tcolorbox}
+  \textbf{Exercise}
+  \tcblower
+  Can we state the meaning of epistemic \textit{must} ($□$) as the dual of Veltmann's $◇$?
+  \begin{itemize}
+    \item If so, demonstrate that this delivers intuitively correct results.
+    \item If not, show why not.
+  \end{itemize}
+
+\end{tcolorbox}
 
 
 \end{appendices}
