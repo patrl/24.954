@@ -92,26 +92,29 @@ Update semantics}
 \begin{tcolorbox}
 \textbf{Homework}
 \tcblower
-Since you have a presupposition p-set assigned this week, there'll be no p-set on dynamic semantics (yet). Expect a technical p-set next week! Your task for next Friday is straightforward:
 \begin{itemize}
-    \item Finish reading \citet{Yalcin2013}, if you haven't already.
+   \item If you haven't already, please submit your solutions to \textit{last week's p-set}.
+  \item You can find this week's p-set in the appendix of this handout. Please submit your work \textbf{before next week's class}. Unregistered students are also encouraged to attempt the p-set, especially since this will feed into our discussion next week.
+    \item Please email this week's p-set directly to me @ \texttt{pdell@mit.edu}.
 \end{itemize}
-There are two supplementary readings: (i) \cite{Heim1983}, and (ii) \cite{Veltman1996} (advanced). If you have any questions about the readings, I encourage you to use the slack, but you can also email (\texttt{pdell@mit.edu}) if you prefer.
 \end{tcolorbox}
 
 \begin{tcolorbox}
-  \textbf{The plan ahead}
-  \tcblower
-  Our syllabus was rather sketchy; here i'll try to be a little more concrete concerning what I tentatively plan to cover in the coming weeks (as usual, this is subject to change):
-  \begin{itemize}
-      \item Today + next week: propositional update semantics, and its applications to presupposition projection (\citealt{Heim1983}), and epistemic modality (\citealt{Veltman1996,GroenendijkEtAl1996}).
-      \item George's (\citeyear{George2007,George2008,George2014}) \textit{middle Kleene} --- a more explanatory theory of presupposition projection.
-      \item Anaphora in the dynamic tradition (\citealt{Heim1982,GroenendijkStokhof1991,Dekker1994}).
-      \item Explanatory theories of anaphora (\citealt{Rothschild2017}, \citealt{Elliott2020b,Elliott2020d} and \citealt{Mandelkern2020a,Mandelkern2020b}).
-  \end{itemize}
+\textbf{Readings}
+\tcblower
+This will depend on how much progress we make today. I'll send out an announcement after class.
 \end{tcolorbox}
 
-\section{Recap: partial semantics, Stalnakerian pragmatics}
+\section{Looking ahead}
+
+\begin{description}
+    \item[The dynamic turn pt 1] propositional update semantics, and its applications to presupposition projection (\citealt{Heim1983}), and epistemic modality (\citealt{Veltman1996,GroenendijkEtAl1996}).
+    \item[Explanatory approaches to projection] George's (\citeyear{George2007,George2008,George2014}) \textit{middle Kleene} --- a more explanatory theory of presupposition projection and \citet{Fox2013} on quantificational sentences.
+    \item[Anaphora] Anaphora in the dynamic tradition (\citealt{Heim1982,GroenendijkStokhof1991,Dekker1994}).
+      and explanatory theories of anaphora (\citealt{Rothschild2017}, \citealt{Elliott2020b,Elliott2020d} and \citealt{Mandelkern2020a,Mandelkern2020b}) (n.b. very tentative!).
+\end{description}
+
+\section{Recap: trivalent semantics and Stalnaker's bridge}
 
 The account of presupposition Danny has been outlining has the following basic ingredients.
 
@@ -123,7 +126,7 @@ The account of presupposition Danny has been outlining has the following basic i
 
 \subsection{Trivalence}
 
-A sentential meaning is a function $p:W ↦ \set{1,0,\#}$. Here's a simple example:
+Given a non-empty \textit{set of possible worlds} $W$, a sentential meaning is a function $p:W ↦ \set{1,0,\#}$. Here's a simple example:
 
 \ex
 $\eval{Sarah's corgi is sleepy} = \begin{cases}
@@ -133,11 +136,14 @@ $\eval{Sarah's corgi is sleepy} = \begin{cases}
   \end{cases}$
 \xe
 
-In trivalent semantics, the \textit{semantic presupposition of a sentence $S$} is the set of worlds $w$, such that $\eval{S} w$ is either true or false.
+In trivalent semantics, the \textit{semantic presupposition of a sentence $S$} is the set of worlds $w$, such that $\eval{S} w$ is either true or false.\sidenote[][-10\baselineskip]{At the end of the previous handout, Danny alludes to the possibility of a principled trivalent semantics for generalized quantifiers and other expressions. We'll return to questions of projection in the sub-sentential domain once we move on to discuss explanatory approaches to presupposition projection in the following weeks.
+
+  Since we'll begin our discussion of dynamic semantics by introducing a semantics for a toy propositional fragment, questions of sub-sentential compositionality will be put to one side in this week's material.
+}
 
 \begin{definition}[Semantic presupposition]
   $$
-  ϕ^{π} ≔ \set{w | \eval*{ϕ} w = 1 ∨ \eval*{ϕ} w = 0}
+  ϕ^{π} ≔ \set{w | (\eval*{ϕ} w = 1) ∨ (\eval*{ϕ} w = 0)}
   $$
 \end{definition}
 
@@ -145,23 +151,43 @@ In trivalent semantics, the \textit{semantic presupposition of a sentence $S$} i
 $(\text{Sarah's corgi is sleepy})^{π} = \set{w | \ml{Sarah has a corgi in }w}$
 \xe
 
-
-At the end of the previous handout, Danny alludes to the possibility of a principled trivalent semantics for generalized quantifiers and other expressions. We'll get back to this eventually (but not today).
-
 \subsection{Update and Stalnaker's bridge}
 
-The \textit{update} induced by a a sentence $ϕ$ is a partial function $c[ϕ]:\mathscr{P}(W) ↦ \mathscr{P}(W)$.\sidenote{Note, this formulation of \textit{bridge} is equivalent to the requirement that the sentence be defined at every point in $c$.}
+\begin{definition}[Stalnakerian update]
+The \textit{update} induced by a a sentence $ϕ$ on a context $c$ is a partial function $c[ϕ]:\mathscr{P}(W) ↦ \mathscr{P}(W)$, defined as follows:\sidenote[][-5\baselineskip]{Note, this formulation of bridge is different to the one that Danny introduced --- but equivalent. By defining the \textit{semantic presupposition} of a sentence, we can describe Stalnaker's bridge as the requirement that the context $c$ \textit{entails} the semantic presupposition of $ϕ$. Since entailment in possible world semantics amounts to subsethood, this is equivalent to the requirement that $ϕ$ is true or false (never $\#$) at every world in $c$.
 
-\ex Stalnakerian update (def.)\\
-$c[ϕ] ≔ \begin{cases}
+The advantage of this definition is that we can maintain Stalnaker's bridge irregardless of our assumptions concerning what kind of semantic objects \textit{semantic presuppositions} and \textit{contexts} are, just so long as we have a derivative notion of entailment.
+}
+
+$$
+c[ϕ] ≔ \begin{cases}
   \set{w | w ∈ c ∧ \eval*{ϕ} w}&c ⊆ ϕ^{π}\\
   \textsf{undefined}&\textsf{otherwise}
-  \end{cases}$
+\end{cases}
+$$
+\end{definition}
+
+We say that the presuppositions of a sentence $ϕ$ are \textit{satisfied} with respect to a context $c$ if $c[ϕ]$ is defined.
+
+Stalnakerian pragmatics allows us to define some potentially interesting notions, although their application will be limited to the level of the discourse. For example, \textit{redundancy}.
+
+\begin{definition}[Redundancy]
+  A sentence $ϕ$ is \textit{redundant} with respect to a context $c$ if (i) $c[ϕ]$ is \textit{defined} (i.e., $c ⊆ ϕ^{π}$), and (ii) $c ⊆ \set{w | \eval*{ϕ} w = 1}$.
+
+  I.e., $ϕ$ is redundant in $c$ if $ϕ$'s presupposition is satisfied in $c$, and $c$ entails the assertive content of $ϕ$.
+\end{definition}
+
+\pex
+\a It's raining. (In fact) it's raining heavily.
+\a It's raining heavily. \# (In fact) it's raining.
 \xe
 
-A (bivalent) proposition $p$ is \textit{redundant} wrt a context set $c$ if $c ⊆ \set{w | p w}$.
+One thing that should already give us pause is that this account of \textit{redundancy} doesn't straightforwardly generalize to conjunctive sentences (why?).
 
-Stalnaker's bridge places a precondition on an update of $c$ by $ϕ$ --- $ϕ^{\pi}$ must be \textit{redundant} wrt $c$.
+\pex
+\a It's raining and (in fact) it's raining heavily.
+\a\ljudge{\#}It's raining heavily and (in fact) it's raining.
+\xe
 
 \subsection{Successive update}
 
@@ -171,22 +197,26 @@ A (trivial?) observation: updating $c$ with a sentence $ϕ$ can make the presupp
 Sarah has a corgi. Sarah's corgi is sleepy.
 \xe
 
-Stalnakerian pragmatics directly captures this, since successive assertion gives rise to a successive update.
+Stalnakerian pragmatics directly captures this, since successive assertions, if accepted, induce successive update of the common ground.
 
 We can write a successive update of $c$ with $ϕ$ followed by $ϕ'$ as $c[ϕ][\psi]$.
 
 $$c[ϕ][ψ] ≔ (c[ϕ])[ψ]$$
+
+Note that in the following example Stalnaker's bridge is trivially satisfied here, since $P ∩ Q ⊆ Q$. More generally, if $Q' ⊆ Q$, then $P ∩ Q' ⊆ Q$.
 
 $$
 c[\text{Sarah has a corgi}] = \overbrace{\set{w | w ∈ c ∧ \ml{Sarah has a corgi in }w}}^{c'}
 $$
 
 $$
+(\text{Sarah's corgi is sleepy})^{π} = c'
+$$
+
+$$
 c'[\text{Sarah's corgi is sleepy}] = \begin{cases}
-  \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleepy in }w}&\begin{aligned}[t]
-    &c ∩ \set{w | \ml{Sarah has a corgi in }w}\\
-    &⊆ \set{w | \ml{Sarah has a corgi in }w}
-  \end{aligned}\\
+  \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleepy in }w}&
+    c ∩ c' ⊆ c'\\
   \ml{undefined}&\ml{otherwise}
   \end{cases}
 $$
@@ -196,7 +226,7 @@ c'[\text{Sarah's corgi is sleepy}] =
   \set{w | w ∈ c' ∧ \ml{Sarah's corgi is sleep in }w}
 $$
 
-Now, note that the conjunctive sentence has the same projection properties, and exhibits \textit{the same asymmetries}:
+Now, note that the conjunctive sentence has the same projection properties, and importantly exhibits \textit{linear asymmetries}:
 
 \pex
 \a Sarah has a corgi and her corgi is sleepy.
@@ -209,6 +239,8 @@ Now, note that the conjunctive sentence has the same projection properties, and 
 \xe
 
 In dynamic semantics, we'll take this intuition seriously --- the \textit{meaning} of $ϕ ∧ ψ$ will be successive assertion of $ϕ$ and $ψ$, in that order.
+
+In our first propostitional dynamic fragment, we'll extend this notion to the other connectives.
 
 First, a historical note...
 
@@ -230,16 +262,16 @@ More generally, pronouns can co-vary with indefinites, even when not in their sc
 \ex Everyone [who bought a$^{1}$ new puppy during the pandemic] treasured it$_{1}$.
 \xe
 
-This phenomena is sensitive sensitive to the \text{form} of preceding sentences; not just classical content (the famous \textit{marble} example is due to Barbara Partee).
+Both discourse and donkey anaphora are sensitive to the \text{form} of preceding sentences; not just classical content (the famous \textit{marble} example is due to Barbara Partee).
 
 \pex
 \a\ljudge{\#}I've found nine out of my ten marbles. It$_{1}$'s under the couch.\\
-cf. One out of my 10 marbles is lost. It$_{1}$'s under the couch.
+cf. One$^{1}$ out of my 10 marbles is lost. It$_{1}$'s under the couch.
 \a\ljudge{*}Josie is married. He$_{1}$'s annoying.\\
 cf. Josie has a$^{1}$ husband. He$_{1}$'s annoying.
 \xe
 
-We'll discuss the dynamic approach to anaphora in more depth in a couple of weeks time.
+We'll discuss the dynamic approach to anaphora invented by \citet{Heim1982} and subsequently put on firm logical foundations by \citet{GroenendijkStokhof1991} in a couple of weeks time. This will involve adopting a slightly richer notion of \textit{information states} than sets of possible worlds.
 
 Broadly, there are two approaches to dynamics, distinguished by \citet{Yalcin2013} as follows:
 
@@ -251,7 +283,7 @@ Broadly, there are two approaches to dynamics, distinguished by \citet{Yalcin201
 
 \end{description}
 
-In this class, I'll take the latter view as a given. As shown by \citet{GroenendijkStokhof1991}, the Heimian approach is in fact equivalent to the DRT approach, and \enquote{cuts out the middle man}, so to speak.
+In this class, I'll take the latter view as a given. As shown by \citet{GroenendijkStokhof1991}, the Heimian approach is in fact equivalent to the DRT approach, and \enquote{cuts out the middle man}, so to speak. It also makes the relationship to Stalnakerian pragmatics clearer.
 
 Subsequently, the remit of dynamic semantics was expanded to encompass theories of an extremely broad range of phenomena, including amongst others:
 
@@ -264,6 +296,7 @@ Subsequently, the remit of dynamic semantics was expanded to encompass theories 
   \item Generalized quantifiers and discourse plurals (\citealt{vandenBerg1996}, a.o.)
   \item Scalar implicature (\citealt{Sudo2019}, a.o.).
   \item Weak crossover (\citealt{Chierchia2020,Elliott2020b}).
+  \item etc.
 
 \end{itemize}
 
@@ -274,17 +307,17 @@ We'll start with presupposition projection, and subsequently, epistemic modality
 
 Successive assertion patterns with \textit{conjunction} wrt presupposition projection (Danny's handout from last week; Karttunen's generalization).
 
-A natural way of cashing this out: a conjunctive sentence induces successive update.
+A natural way of cashing this out: a conjunctive sentence, in some sense, \textit{is} a successive assertion.
 
 \ex Conjunctive sentences in update semantics (def.)\\
 $c[ϕ\text{ and }ψ] ≔ c[ϕ][ψ]$
 \xe
 
+We'll formalize this idea and extend it to the other connectives here.
+
 \begin{displayquote}[\cite{Veltman1996}]
 \enquote{The slogan `You know the meaning of a sentence if you know the conditions under which it is true', is replaced by this one: `You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it'.}
 \end{displayquote}
-
-We'll formalize this idea and extend it to the other connectives here.
 
 A (non-presuppositional) update semantics for a simple propositional language (after \citealt{Veltman1996} and \citealt{Heim1983}).\sidenote{Strangely, \citeauthor{Veltman1996} gives a symmetric semantics for conjunction his his original paper. We'll need the Heimian connectives to account for the data of interest to us here --- this was later rectified in \citet{GroenendijkEtAl1996}.}
 
@@ -299,38 +332,44 @@ A (non-presuppositional) update semantics for a simple propositional language (a
 
 
 \begin{definition}[Model]
-A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and a valuation function $I:\mathscr{A} ↦ \mathscr{P}(W)$ from atomic sentences of the language to subsets of $W$ (i.e., bivalent propositions/information states).
+A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worlds $W$, and an evaluation function $I:\mathscr{A} ↦ \mathscr{P}(W)$ from atomic sentences of the language to subsets of $W$ (i.e., bivalent propositions/information states).
 \end{definition}
 
 \begin{definition}[Information state]
-  An \textit{information state}\sidenote{\citet{Veltman1996} gives an algebraic characterization of update systems which remains neutral regarding the ontology of information states themselves. Next time, we'll be consider an update system with a different notion of information state, but as we'll see, the algebraic properties of the update system will remain largely in place.} (also called a \textit{context}) is any subset of $W_{M}$. The set of possible information states is therefore $\mathscr{P}(W)$, where:
+  An \textit{information state}\sidenote[][-4\baselineskip]{\citet{Veltman1996} gives an algebraic characterization of update systems which remains neutral regarding the ontology of information states themselves. Next time, we'll be consider an update system with a different notion of information state, but as we'll see, the algebraic properties of the update system will remain largely in place.} (also called a \textit{context}) is any subset of $W_{M}$. The set of possible information states is therefore $\mathscr{P}(W)$, where:
   \begin{itemize}
       \item $∅$ is the \textit{absurd information state}.
       \item $W$ is the \textit{ignorance state} (i.e., the space of logical possibilities).
   \end{itemize}
 \end{definition}
 
-Providing a dynamic semantics consists of recursively defining an \textit{update function} $.[.]:\mathscr{L} ↦ \mathscr{P}(W) ↦ \mathscr{P}(W)$ which maps sentences of our language to functions from information states to information states.\sidenote[][-4\baselineskip]{In fact, we only need to give a semantics for conjunctive and negated formulas. Disjunction and material implication can be defined in terms of conjunction and negation under classical equivalence:
+N.b. the role of the \textit{absurd information state} will be the same as in Stalnakerian pragmatics. It is an idealization representing the point at which a discourse crashes.
+
+For example, a successful update of $c$ by $p$, followed by an update of $c$ with $¬ p$ will result in the absurd information state.
+
+\ex
+It's raining. \# It's not raining.
+\xe
+
+Naturally, discourse participants will ordinarily reject an assertion that would lead to the absurd information state.
+
+Providing a \textit{dynamic semantics} consists of recursively defining an \textit{update function} $.[.]:\mathscr{L} ↦ \mathscr{P}(W) ↦ \mathscr{P}(W)$ which maps sentences of our language to functions from information states to information states.\sidenote[][-4\baselineskip]{In fact, we only need to give a semantics for conjunctive and negated formulas. Disjunction and material implication can be defined in terms of conjunction and negation under classical equivalence:
 
   \begin{itemize}
       \item $ϕ ∨ ψ ≔ ¬ (¬ ϕ ∧ ¬ ψ)$
       \item $ϕ → ψ ≔ ¬ (ϕ ∧ ¬ ψ)$
   \end{itemize}
 
-  Not all classical equivalences will work however --- this is a corollary of the Rooth/Soames objection to dynamic semantics, which we'll discuss in a later section. As an optional exercise, convince yourself that the definitions above are equivalent to the ones stated in the body of the text, and furthermore, that the following deviant definitions aren't:
-
-  \begin{itemize}
-      \item $ϕ ∨ ψ ≔ ¬ (¬ ψ ∧ ¬ ϕ)$
-      \item $ϕ → ψ ≔ ¬ (¬ ψ ∧ ϕ)$
-  \end{itemize}
-
+  See the first exercise in this week's problem set (the appendix) for more.
 }
+
+Think back to the slogan of dynamic semantics (taken from \citeauthor{Veltman1996}) --- the meaning of a sentence \textit{is} the effect it has on the context.
 
 \begin{definition}[Basic expressions]
   $$
   c[p] ≔ c ∩ I(p)
   $$
-  Updating a context $c$ with $p$ involves subtracting worlds from $c$ where $p$ is false.
+  Updating a context $c$ with $p$ involves subtracting worlds from $c$ where $p$ is false. Since, at this point we're dealing with a completely bivalent semantics, we don't need to say anything about bridge; every atomic sentence is assumed to be either true or false at every point.
 \end{definition}
 
 \begin{definition}[Negated formulas]
@@ -349,7 +388,7 @@ Providing a dynamic semantics consists of recursively defining an \textit{update
 
 \begin{definition}[Disjunctive formulas]
   $$
-  c[\phi ∨ \phi] ≔ c[\phi] ∪ c[¬ \phi][\phi]
+  c[\phi ∨ \psi] ≔ c[\phi] ∪ c[¬ \psi][\psi]
   $$
   To update a context $c$ with a disjunctive formula $ϕ ∨ ψ$: (i) let $c' = c[ϕ]$, let (ii) let $c'' = c[¬ ϕ]$, (iii) do $c''[ψ]$ and union the result with $c'$.
 \end{definition}
@@ -374,11 +413,7 @@ $$
   \end{aligned}
 $$
 
-\begin{tcolorbox}
-  \textbf{Optional exercise}
-  \tcblower
-  Prove the equivalences above.
-\end{tcolorbox}
+As an exercise in this week's problem set, i've asked you informally prove the above equivalences.
 
 Some important logical properties of update semantics:
 
@@ -389,15 +424,43 @@ Some important logical properties of update semantics:
 
 \begin{itemize}
 
-    \item Eliminativity says that updating a context $c$ with any sentence $ϕ$ results in an updated context $c'$, s.t. $c' ⊆ c$; updates always shrinks the context; grows information.
+    \item Informally, eliminativity says that updating an information state $c$ with $ϕ$ always results in either (a) a stronger information state, or (b) the absurd state. This ensures that updates can't \textit{remove} information.
 
-    \item Distributivity says that updating a context $c$ with $ϕ$ is equivalent to updating each world $w ∈ c$ with $ϕ$, and gathering up the results.
+    \item Distributivity says that updating a context $c$ with $ϕ$ is equivalent to updating each world $w ∈ c$ with $ϕ$, and gathering up the results. This ensures that the result of an update is only ever sensitive to properties of individual points, rather than the context as a whole. This is an important constraint on update semantics.
 
 \end{itemize}
 
-In fact, \citet{Benthem1986} proves that any dynamic semantics that is \textit{eliminative} and \textit{distributive} admits of a static reformulation; in other words, for any sentence $ϕ$, we can model $c[ϕ]$ as $c ∩ \eval{ϕ}$.\sidenote{See \cite{RothschildYalcin2016,RothschildYalcin2017} for detailed discussion of this point.}
+We won't go into this in detail here, but \citet{Benthem1986} famously proves that any dynamic semantics that is \textit{eliminative} and \textit{distributive} admits of a static reformulation; in other words, for any sentence $ϕ$, we can model $c[ϕ]$ as $c ∩ \eval{ϕ}$.\sidenote{See \cite{RothschildYalcin2016,RothschildYalcin2017} for detailed discussion of this point.}
 
 As we modify the fragment to account for presupposition and epistemic modals, we'll see ways in which eliminativity and distributivity fail.\sidenote{Concretely, distributivity will fail once we discuss epistemic modals. Eliminativity will fail when we come round to discussing anaphora.}
+
+Before doing so, it's worth noting that even the simplest, bivalent formulation of propositional update semantics allows us to formulate a notion of \textit{redundancy} which will do some empirical work.
+
+Informally, a sentence $ϕ$ is redundant in $c$ if the result of computing some derivative update $c'[ψ]$ is redundant.
+
+\pex
+\a It's raining and (in fact) it's raining heavily.
+\a\ljudge{\#}It's raining heavily and (in fact) it's raining.
+\xe
+
+\pex~
+\a If it's raining then it's raining heavily.
+\aljudge{\#}If it's raining heavily then it's raining.
+\xe
+
+We won't be discussing \textit{redundancy} in depth in this class, but I'll finish this section by noting an interesting problem uncovered by \citet{MayrRomoli2016}:
+
+\ex
+Either Paul isn't married or he is (married) and he lives in London.
+\xe
+
+As noted by \citeauthor{MayrRomoli2016}, the logical form of the sentence is $⌜¬ ϕ ∨ (ϕ ∧ ψ)$. If we apply the recipes for the logical connectives in dynamic semantics, we predict the following update:
+
+$$
+c[¬ ϕ ∨ (ϕ ∧ ψ)] = c[¬ ϕ] ∪ c[¬ ¬ ϕ][ϕ][ψ]
+$$
+
+\citet{MayrRomoli2016} present a fairly involved solution, which we won't go into here. See also Sudo (under revision) for a solution which makes use of a stricter notion of redundancy, framed in terms of situation semantics.
 
 \subsection{Update semantics and presupposition projection}
 
@@ -411,7 +474,7 @@ A model $M$ is a pair $⟨W,I⟩$ consisting of a non-empty set of possible worl
 
 We only need to change the definition of our basic update operation to incorporate Stalnaker's bridge.
 
-\begin{definition}[Basic expression (revised)]
+\begin{definition}[Basic expressions (partial semantics)]
   $$
   c[p] ≔ \begin{cases}
     c ∩ \set{w| I(p)(w) = 1}&∀w' ∈ c[I(p)(w') = 1 ∨ I(p)(w') = 0]\\
@@ -419,6 +482,10 @@ We only need to change the definition of our basic update operation to incorpora
     \end{cases}
   $$
 \end{definition}
+
+Treating the update induced by an atomic sentence as a \textit{partial} function imbues the entire logic with a notion of presupposition.
+
+The difference between the approach here, and a classical trivalent semantics is that, due to the incremental nature of updates induced by complex sentences, the definedness conditions on update can be satisfied locally.
 
 \pex
 \a $\overbrace{\text{Sarah stopped smoking}}^{p}$
@@ -784,6 +851,55 @@ Try to connect the results to your intuitions about what these sentences mean.
 \end{tcolorbox}
 
 \printbibliography
+
+\begin{appendices}
+
+  \section{Problem set (due before Friday 2 October)}
+
+  \subsection{Dynamic semantics and classical equivalence}
+
+  In today's handout, we stated a dynamic semantics for negated sentences, conjunctive and disjunctive sentences, as well as material implications.
+
+  In fact, the only primitives we need are a dynamic semantics for negated and conjunctive sentences. We can define disjunction and material implication via classical equivalence, but not just any classical equivalences will do.
+
+  \begin{tcolorbox}
+    \textbf{Exercise}
+    \tcblower
+
+    \textbf{Part 1:} Informally prove the following equivalences:
+    \begin{itemize}
+        \item $c[ϕ ∨ ψ] ≡ c[¬ (¬ ϕ ∧ ¬ ψ)]$
+        \item $c[ϕ → ψ] ≡ c[¬ (ϕ ∧ ¬ ψ)]$
+    \end{itemize}
+
+    \textbf{Part 2:} Provide formulas using only conjunction and negation that are classically equivalent to $⌜ϕ ∨ ψ⌝$, $⌜ϕ → ψ⌝$, which nevertheless aren't equivalent in propositional dynamic semantics. Demonstrate where the equivalence breaks down.
+
+    \textbf{Part 3:} Comment briefly on what this tells us about the explanatory potential of propositional dynamic semantics.
+  \end{tcolorbox}
+
+  \subsection{Staticization}
+
+  As noted in today's handout, we can \textit{staticize} a (bivalent) propositional update semantics by taking the \textit{proposition expressed by $p$} to be $W[p]$, i.e., the logical space updated with $p$. $\eval*{p} ≔ W[p]$.
+
+  \begin{tcolorbox}
+    \textbf{Exercise}
+    \tcblower
+    \textbf{Part 1:} Prove the following equivalences (an informal demonstration is fine).
+
+  $$
+  \begin{aligned}[l]
+    &\eval*{p}  &= I(p)\\
+    &\eval*{¬ ϕ} &= W - \eval*{ϕ}\\
+    &\eval*{\phi ∧ \psi}  &= \eval*{\phi} ∩ \eval*{\psi}\\
+    &\eval*{\phi ∨ \psi} &= \eval*{\phi} ∪ \eval*{\psi}\\
+  \end{aligned}
+  $$
+
+  \textbf{Part 2:} What is the staticization of a modalized sentence $⌜◇ ϕ⌝$? Comment on the significance of the result.
+  \end{tcolorbox}
+
+
+\end{appendices}
 
 \end{document}
 
