@@ -210,7 +210,7 @@ c[\text{Sarah has a corgi}] = \overbrace{\set{w | w ∈ c ∧ \ml{Sarah has a co
 $$
 
 $$
-(\text{Sarah's corgi is sleepy})^{π} = c'
+(\text{Sarah's corgi is sleepy})^{π} ⊆ c'
 $$
 
 $$
@@ -388,7 +388,7 @@ Think back to the slogan of dynamic semantics (taken from \citeauthor{Veltman199
 
 \begin{definition}[Disjunctive formulas]
   $$
-  c[\phi ∨ \psi] ≔ c[\phi] ∪ c[¬ \psi][\psi]
+  c[\phi ∨ \psi] ≔ c[\phi] ∪ c[¬ \phi][\psi]
   $$
   To update a context $c$ with a disjunctive formula $ϕ ∨ ψ$: (i) let $c' = c[ϕ]$, let (ii) let $c'' = c[¬ ϕ]$, (iii) do $c''[ψ]$ and union the result with $c'$.
 \end{definition}
@@ -552,7 +552,7 @@ $¬ p ∨ q$, where $q^{π} = \set{w_{cy},w_{cn}}$
 \begin{itemize}
     \item $\set{w_{cy},w_{cn},w_{∅}}[¬ p ∨ q] = \set{w_{cy},w_{cn},w_{∅}}[¬ p] ∪ \set{w_{cy},w_{cn},w_{∅}}[¬ ¬ p][q]$
     \item $= \set{w_{∅}} ∪ (\set{w_{cy},w_{cn},w_{∅}} - (\set{w_{cy},w_{cn},w_{∅}} - \set{w_{cy},w_{cn}}))[q]$
-    \item $= \set{w_{∅}} ∪ set{w_{cy},w_{cn}}[q]$\footnote{Note that double-negation elimination is valid in propositional update semantics.}
+    \item $= \set{w_{∅}} ∪ \set{w_{cy},w_{cn}}[q]$\footnote{Note that double-negation elimination is valid in propositional update semantics.}
     \item N.b. the update of $q$ is guaranteed to be defined, since $\set{w_{cy},w_{cn}} = q^{π}$
     \item $= \set{w_{∅}} ∪ \set{w_{cy}}$
     \item $= \set{w_{∅},c_{cy}}$
@@ -714,8 +714,8 @@ We'll extend our simple propositional language with an additional unary operator
 
 \begin{definition}[Test semantics for epistemic possibility]
   $$
-  c[◇ p] ≔ \begin{cases}
-    c&c[p] ≠ ∅\\
+  c[◇ \phi] ≔ \begin{cases}
+    c&c[\phi] ≠ ∅\\
     ∅&\text{otherwise}
     \end{cases}
   $$
@@ -807,7 +807,7 @@ We can make sense of this in update semantics by using the notion of \textit{coh
 
 \begin{definition}[Coherence]
 $ϕ$ is coherent iff there is some non-absurd information state $c$, s.t., $c$ \textit{supports} $ϕ$.
-\end{definition}
+\end{definition }
 
 Note that \textit{coherence} implies \textit{consistency}: if a non-absurd $c$ supports $ϕ$, then $c[ϕ]$ is consistent, and hence $ϕ$ is consistent simpliciter.
 
