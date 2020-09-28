@@ -1,0 +1,357 @@
+\documentclass[nols,twoside,nofonts,nobib,nohyper]{tufte-handout}
+
+\usepackage{fixltx2e}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{appendix}
+\usepackage{listings}
+\lstset{language=TeX,
+       frame=single,
+       basicstyle=\ttfamily,
+       captionpos=b,
+       tabsize=4,
+  }
+
+\input{acronyms}
+\renewcommand*{\acsfont}[1]{\textsc{#1}}
+
+\usepackage[font=footnotesize]{caption}
+
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{0pt}%
+  \setlength{\JustifyingParindent}{0pt}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0pt}%
+  \setlength{\JustifyingParindent}{0pt}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\makeatother
+
+\usepackage{multicol}
+\usepackage{subcaption}
+\usepackage{float}
+
+\setcounter{secnumdepth}{3}
+
+% Set up the spacing using fontspec features
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+\usepackage{amsthm}
+\usepackage{diagbox}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\title{An explanatory theory of presupposition projection}
+
+\author[Patrick D. Elliott \& Danny Fox]{Patrick~D. Elliott \& Danny Fox}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/master.bib}
+
+\lingset{
+  belowexskip=-1\baselineskip,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt}
+}
+
+\usepackage{float}
+
+
+% \usepackage{booktabs} % book-quality tables
+% \usepackage{units}    % non-stacked fractions and better unit spacing
+% \usepackage{lipsum}   % filler text
+% \usepackage{fancyvrb} % extended verbatim environments
+%   \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+
+% % Standardize command font styles and environments
+% \newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+% \newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+% \newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+% \newcommand{\docenv}[1]{\textsf{#1}}% environment name
+% \newcommand{\docpkg}[1]{\texttt{#1}}% package name
+% \newcommand{\doccls}[1]{\texttt{#1}}% document class name
+% \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+% \newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+\section{Weak Kleene}
+
+\begin{tcolorbox}
+  \textbf{Weak Kleene recipe}
+  \tcblower
+  Where the classical semantics is silent, always return \#.
+\end{tcolorbox}
+
+One way of thinking of the third truth value, \#, is as representing \textit{undefinedness}.
+
+This interpretation gives rise to a Weak Kleene logic.
+
+  \begin{figure*}[h!]
+      \centering
+      \begin{subfigure}[t]{0.25\textwidth}
+          \centering
+          \begin{tabular}{cc}
+              $ϕ$ & $\mathbf{¬ ϕ}$ \\
+              \midrule
+              1   & 0              \\
+              0   & 1              \\
+              \#  & \#
+          \end{tabular}
+          \caption{Negation}
+      \end{subfigure}
+      \begin{subfigure}[t]{0.25\textwidth}
+          \centering
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∧ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 0  & 0  & \#    \\
+              \#                 & \# & \# & \#
+          \end{tabular}
+          \caption{Conjunction}
+      \end{subfigure}
+      %
+      \begin{subfigure}[t]{0.25\textwidth}
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∨ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 1  & \#    \\
+              0                  & 1  & 0  & \#    \\
+              \#                 & \# & \# & \#
+          \end{tabular}
+          \caption{Disjunction}
+      \end{subfigure}
+      %
+      \begin{subfigure}[t]{0.25\textwidth}
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ → ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 1  & 1  & \#    \\
+              \#                 & \# & \# & \#
+          \end{tabular}
+          \caption{Material implication}
+      \end{subfigure}
+      \caption{Weak Kleene/Bochvar truth-tables for the connectives}
+  \end{figure*}
+
+\section{Strong Kleene (symmetric)}
+
+We can think of the third truth value, \#, as representing \textit{uncertainty whether 1 or 0}, which we can represent as the set $\set{1,0}$.
+
+In order to explain the recipe, it will be helpful to think of our three truth-values as the following isomorphic three-membered set: $\set{\set{1},\set{0},\set{1,0}}$, with $\set{1}$ representing \textit{definitely true}, $\set{0}$ representing \textit{definitiely false}, and $\set{1,0}$ representing \textit{maybe true and maybe false}.
+
+$$
+\set{\overbrace{\set{1}}^{\text{true}},\underbrace{\set{0}}_{\text{false}},\overbrace{\set{1,0}}^{\text{uncertain}}}
+$$
+
+The intuition behind our recipe will be as follows:
+
+\begin{itemize}
+    \item Given a complex formula with an $n$-place truth-functional connective $f$, $⌜f ϕ_{1}…ϕ_{n}⌝$.
+  \item Assuming that $I^{bi}$ gives the bivalent interpretation of $f$ as a function, compute $\set{I^{bi}(f) t_{1}\ldots t_{n}|t_{1} ∈ \eval*[tri]{ϕ_{1}},…,t_{n} ∈ \eval*[tri]{ϕ_{n}}}$.
+    \item The result is the value of $\eval*[tri]{f ϕ_{1} … ϕ_{n}}$
+\end{itemize}
+
+\subsection{Applying the Strong Kleene algorithm to conjunction}
+
+When the values of the arguments of the connective are $\set{1}$ or $\set{0}$, the algorithm will simply deliver the classical semantics. We can illustrate this with conjunction.
+
+$$
+\eval*[tri]{p ∧ q} = \set{t ∧ u | t ∈ I(p) ∧ u ∈ I(q)}
+$$
+
+If $I(p)$ and $I(q)$ are singleton sets $\set{t}$ and $\set{u}$, this will obviously be equivalent to the classical semantics:
+
+$$
+= \set{t ∧ u}
+$$
+
+What if one of $I(p)$ is $\set{0,1}$? The value of the conjunctive formula will differ depending on whether $I(q)$ is $\set{1}$ or $\set{0}$. Assuming that $I(q) = \set{1}$:
+
+\pex $I(p) = \set{0,1}, I(q) = 1$
+\a $\eval*[tri]{p ∧ q} = \set{t ∧ u | t ∈ \set{0,1} ∧ u ∈ \set{1}}$
+\a $= \set{t ∧ 1 | t ∈ \set{0,1}}$
+\a $= \set{0,1}$
+\xe
+
+\pex~ $I(p) = \set{0,1}, I(q) = 0$
+\a $\eval*[tri]{p ∧ q} = \set{t ∧ u | t ∈ \set{0,1} ∧ u ∈ \set{0}}$
+\a $= \set{t ∧ 0 | t ∈ \set{0,1}}$
+\a $= \set{0}$
+\xe
+
+\begin{tcolorbox}
+  \textbf{Strong Kleene conjunction}\\
+  \tcblower
+  \begin{itemize}
+      \item $⌜ϕ ∧ ψ⌝$ is \textit{defined} if either (a) $\eval*{ϕ}$ is false, (b) $\eval*{ψ}$ is false, or (c) both $\eval*{ϕ}$ and $\eval*{ϕ}$ are true.
+      \item $⌜ϕ ∧ ψ⌝$ is \textit{true} if both $\eval*{ϕ}$ and $\eval*{ψ}$ are true.
+      \item $⌜ϕ ∧ ψ⌝$ is \textit{false} if either (a) $\eval*{ϕ}$ is false, or (b) $\eval*{ψ}$ is false.
+  \end{itemize}
+\end{tcolorbox}
+
+\subsection{Disjunction in Strong Kleene semantics}
+
+\begin{tcolorbox}
+  \textbf{Strong Kleene disjunction}\\
+  \tcblower
+  \begin{itemize}
+      \item $⌜ϕ ∨ ψ⌝$ is \textit{defined} if either (a) $\eval*{ϕ}$ is true, (b) $\eval*{ψ}$ is true, or (c) both $\eval*{ϕ}$ and $\eval*{ϕ}$ are false.
+      \item $⌜ϕ ∧ ψ⌝$ is \textit{false} if both $\eval*{ϕ}$ and $\eval*{ψ}$ are false.
+      \item $⌜ϕ ∧ ψ⌝$ is \textit{true} if either (a) $\eval*{ϕ}$ is true, or (b) $\eval*{ψ}$ is true.
+  \end{itemize}
+\end{tcolorbox}
+
+\subsection{Strong Kleene truth-tables}
+
+If we apply the strong Kleene algorithm to the classical connectives, substituting in $\set{1,0,\#}$ for $\set{\set{1},\set{0},\set{1,0}}$, the result is the following truth-tables.
+
+  \begin{figure*}[h!]
+      \centering
+      \begin{subfigure}[t]{0.25\textwidth}
+          \centering
+          \begin{tabular}{cc}
+              $ϕ$ & $\mathbf{¬ ϕ}$ \\
+              \midrule
+              1   & 0              \\
+              0   & 1              \\
+              \#  & \#
+          \end{tabular}
+          \caption{Negation}
+      \end{subfigure}
+      \begin{subfigure}[t]{0.25\textwidth}
+          \centering
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∧ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 0  & 0  & 0    \\
+              \#                 & \# & 0 & \#
+          \end{tabular}
+          \caption{Conjunction}
+      \end{subfigure}
+      %
+      \begin{subfigure}[t]{0.25\textwidth}
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∨ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 1  & 1    \\
+              0                  & 1  & 0  & \#    \\
+              \#                 & 1 & \# & \#
+          \end{tabular}
+          \caption{Disjunction}
+      \end{subfigure}
+      %
+      \begin{subfigure}[t]{0.25\textwidth}
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ → ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 1  & 1  & 1    \\
+              \#                 & 1 & \# & \#
+          \end{tabular}
+          \caption{Material implication}
+      \end{subfigure}
+      \caption{Strong Kleene truth-tables for the connectives}
+    \end{figure*}
+
+    \subsection{The role of linear order in presupposition projection}
+
+    As discussed by \citet{Schlenker2008}, it's not clear that the projection generalization we've been assuming for disjunctive sentences is correct.
+
+    \pex\label{ex:disj}
+    \a Either this house has no bathroom, or the bathroom is upstairs.\label{ex:disj-a}
+    \a Either the bathroom is upstairs, or (else) this house has no bathroom.\\
+    \phantom{,}\hfill\citep[p.\,185]{Schlenker2008}\label{ex:disj-a}
+    \xe
+
+    The entry we gave for disjunction in update semantics can capture the projection pattern illustrated by (\ref{ex:disj-a}), but not (\ref{ex:disj-b}).
+
+\section{Middle Kleene/Peters (asymmetric)}
+
+Presupposition projection displays asymmetries based on \textit{linear order}; something that strong Kleene fails to capture.
+
+
+\printbibliography
+
+\begin{appendices}
+
+  \section{Strong Kleene as an alternative semantics}
+
+  Assume that $\type{t}$ is the type of \textit{bivalent} truth values.
+
+  \ex
+  $\eval[w]{stopped smoking} = λ x . \begin{cases}
+    \set{1}&\ml{smoked}_{w} x ∧ ¬ (\ml{smokes}_{w} x)\\
+    \set{0}&\ml{smoked}_{w} x ∧ \ml{smokes}_{w} x\\
+    \set{1,0}&\text{otherwise}
+    \end{cases}$\hfill$\type{e → \set{t}}$
+  \xe
+
+  \ex
+  $\eval[w]{and} ≔ λ u . λ t . t ∧ u$\hfill$\type{t → t → t}$
+  \xe
+
+  As in a standard alternative semantics, we just need two truth-values to massage composition.
+
+  \pex
+  \a $x^{ρ} ≔ \set{x}$\hfill$\type{a → \set{a}}$
+  \a $m ⊛ n ≔ \set{x \ml{A} y | x ∈ m ∧ y ∈ n}$\hfill$\type{\set{a → b} → \set{a} → \set{b}}$
+  \xe
+
+  \ex
+  Paul smoked and he stopped smoking.
+  \xe
+
+  \begin{forest}
+    [{$\set{t ∧ u | t ∈ \eval[w]{Paul smoked}^{ρ} ∧ u ∈ \eval[w]{Paul stopped smoking}}$\\$⊛$}
+    [{$\begin{cases}
+        \set{1}&\ml{smoked}_{w} \ml{p}\\
+        \set{0}&\text{otherwise}
+        \end{cases}$} [{$1$ iff Paul smoked in $w$} [{Paul smoked},roof]]]
+      [{$⊛$}
+        [{$\set{λ ut . t ∧ u}$\\and$^{ρ}$}]
+        [{$\begin{cases}
+    \set{1}&\ml{smoked}_{w} p ∧ ¬ (\ml{smokes}_{w} p)\\
+    \set{0}&\ml{smoked}_{w} p ∧ \ml{smokes}_{w} p\\
+    \set{1,0}&\text{otherwise}
+    \end{cases}$}
+        [{Paul stopped smoking},roof]]
+      ]
+    ]
+  \end{forest}
+
+
+\end{appendices}
+
+\end{document}
