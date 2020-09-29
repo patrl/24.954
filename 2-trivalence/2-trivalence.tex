@@ -2,7 +2,7 @@
 
 \usepackage{fixltx2e}
 \usepackage{tikz-cd}
-\usepackage{tcolorbox}
+\usepackage[most]{tcolorbox}
 \usepackage{appendix}
 \usepackage{listings}
 \lstset{language=TeX,
@@ -37,8 +37,9 @@
 \makeatother
 
 \usepackage{multicol}
-\usepackage{subcaption}
 \usepackage{float}
+% \usepackage{subcaption}
+\usepackage{capt-of}
 
 \setcounter{secnumdepth}{3}
 
@@ -103,21 +104,22 @@ One way of thinking of the third truth value, \#, is as representing \textit{und
 
 This interpretation gives rise to a Weak Kleene logic.
 
-  \begin{figure*}[h!]
+\begin{fullwidth}
+  \begin{tcolorbox}[title=Weak Kleene truth-tables]
+    \begin{minipage}{.5\linewidth}
       \centering
-      \begin{subfigure}[t]{0.25\textwidth}
-          \centering
-          \begin{tabular}{cc}
+      \begin{tabular}{cc}
               $ϕ$ & $\mathbf{¬ ϕ}$ \\
               \midrule
               1   & 0              \\
               0   & 1              \\
               \#  & \#
           \end{tabular}
-          \caption{Negation}
-      \end{subfigure}
-      \begin{subfigure}[t]{0.25\textwidth}
-          \centering
+          \captionof{figure}{Negated formulas}
+    \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
+          %
           \begin{tabular}{c|ccc}
               \multicolumn{4}{c}{$\mathbf{ϕ ∧ ψ}$} \\
               \midrule
@@ -127,10 +129,10 @@ This interpretation gives rise to a Weak Kleene logic.
               0                  & 0  & 0  & \#    \\
               \#                 & \# & \# & \#
           \end{tabular}
-          \caption{Conjunction}
-      \end{subfigure}
-      %
-      \begin{subfigure}[t]{0.25\textwidth}
+          \captionof{figure}{Conjunctive formulas}
+          \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
           \begin{tabular}{c|ccc}
               \multicolumn{4}{c}{$\mathbf{ϕ ∨ ψ}$} \\
               \midrule
@@ -140,10 +142,10 @@ This interpretation gives rise to a Weak Kleene logic.
               0                  & 1  & 0  & \#    \\
               \#                 & \# & \# & \#
           \end{tabular}
-          \caption{Disjunction}
-      \end{subfigure}
-      %
-      \begin{subfigure}[t]{0.25\textwidth}
+          \captionof{figure}{Disjunctive formulas}
+    \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
           \begin{tabular}{c|ccc}
               \multicolumn{4}{c}{$\mathbf{ϕ → ψ}$} \\
               \midrule
@@ -153,10 +155,11 @@ This interpretation gives rise to a Weak Kleene logic.
               0                  & 1  & 1  & \#    \\
               \#                 & \# & \# & \#
           \end{tabular}
-          \caption{Material implication}
-      \end{subfigure}
-      \caption{Weak Kleene/Bochvar truth-tables for the connectives}
-  \end{figure*}
+          \captionof{figure}{Conditional formulas}
+    \end{minipage}
+\end{tcolorbox}
+\end{fullwidth}
+
 
 \section{Strong Kleene (symmetric)}
 
@@ -230,60 +233,63 @@ What if one of $I(p)$ is $\set{0,1}$? The value of the conjunctive formula will 
 
 If we apply the strong Kleene algorithm to the classical connectives, substituting in $\set{1,0,\#}$ for $\set{\set{1},\set{0},\set{1,0}}$, the result is the following truth-tables.
 
-  \begin{figure*}[h!]
+\begin{fullwidth}
+  \begin{tcolorbox}[title=Strong Kleene truth-tables]
+    The highlighted cells differ from weak Kleene.
+    \tcblower
+    \begin{minipage}{.5\linewidth}
       \centering
-      \begin{subfigure}[t]{0.25\textwidth}
-          \centering
-          \begin{tabular}{cc}
+      \begin{tabular}{cc}
               $ϕ$ & $\mathbf{¬ ϕ}$ \\
               \midrule
               1   & 0              \\
               0   & 1              \\
               \#  & \#
           \end{tabular}
-          \caption{Negation}
-      \end{subfigure}
-      \begin{subfigure}[t]{0.25\textwidth}
-          \centering
+          \captionof{figure}{Negated formulas}
+    \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
+          %
           \begin{tabular}{c|ccc}
               \multicolumn{4}{c}{$\mathbf{ϕ ∧ ψ}$} \\
               \midrule
               \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
               \midrule
               1                  & 1  & 0  & \#    \\
-              0                  & 0  & 0  & 0    \\
-              \#                 & \# & 0 & \#
+              0                  & 0  & 0  & \hl{0}    \\
+              \#                 & \# & \hl{0} & \#
           \end{tabular}
-          \caption{Conjunction}
-      \end{subfigure}
-      %
-      \begin{subfigure}[t]{0.25\textwidth}
+          \captionof{figure}{Conjunctive formulas}
+          \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
           \begin{tabular}{c|ccc}
               \multicolumn{4}{c}{$\mathbf{ϕ ∨ ψ}$} \\
               \midrule
               \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
               \midrule
-              1                  & 1  & 1  & 1    \\
+              1                  & 1  & 1  & \hl{1}    \\
               0                  & 1  & 0  & \#    \\
-              \#                 & 1 & \# & \#
+              \#                 & \hl{1} & \# & \#
           \end{tabular}
-          \caption{Disjunction}
-      \end{subfigure}
-      %
-      \begin{subfigure}[t]{0.25\textwidth}
+          \captionof{figure}{Disjunctive formulas}
+    \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
           \begin{tabular}{c|ccc}
               \multicolumn{4}{c}{$\mathbf{ϕ → ψ}$} \\
               \midrule
               \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
               \midrule
               1                  & 1  & 0  & \#    \\
-              0                  & 1  & 1  & 1    \\
-              \#                 & 1 & \# & \#
+              0                  & 1  & 1  & \hl{1}    \\
+              \#                 & \hl{1} & \# & \#
           \end{tabular}
-          \caption{Material implication}
-      \end{subfigure}
-      \caption{Strong Kleene truth-tables for the connectives}
-    \end{figure*}
+          \captionof{figure}{Conditional formulas}
+    \end{minipage}
+\end{tcolorbox}
+\end{fullwidth}
 
     \subsection{The role of linear order in presupposition projection}
 
@@ -295,12 +301,97 @@ If we apply the strong Kleene algorithm to the classical connectives, substituti
     \phantom{,}\hfill\citep[p.\,185]{Schlenker2008}\label{ex:disj-a}
     \xe
 
-    The entry we gave for disjunction in update semantics can capture the projection pattern illustrated by (\ref{ex:disj-a}), but not (\ref{ex:disj-b}).
+    The entry we gave for disjunction in propositional update semantics (after \citealt{Beaver2001}) can capture the projection pattern illustrated by (\ref{ex:disj-a}), but not (\ref{ex:disj-b}).
+
+    This is because, in update semantics, when we compute $c[ϕ ∨ ψ]$, the first disjunct $ϕ$ updates the global input context $c$, but the second disjunct updates a modified context $c[¬ ϕ]$.\sidenote{As a reminder, here's the semantics for disjunctive formulas in propositional update semantics:
+
+      \begin{itemize}
+          \item $c[ϕ ∨ ψ] = c[ϕ] ∪ c[¬ ϕ][ψ]$
+      \end{itemize}
+
+    }
+
+    \citeauthor{Schlenker2008} suggests that there is a similar problem involving conditional sentences.
+
+    \pex
+    \a If this house has a bathroom, then the bathroom is well hidden.
+    \a If the bathroom is well hidden, then this house has a bathroom.\\
+    \phantom{,}\hfill\citep[p.\,186]{Schlenker2008}
+    \xe
+
+    He furthermore suggests that post-posing the antecedent makes no difference to the judgements.
+
+    \pex
+    \a The bathroom is well hidden, if this house has a bathroom.
+    \a Mary's doctor knows she is expecting a child, if she is pregnant.\\
+    \phantom{,}\hfill\citep[p.\,186]{Schlenker2008}
+    \xe
 
 \section{Middle Kleene/Peters (asymmetric)}
 
-Presupposition projection displays asymmetries based on \textit{linear order}; something that strong Kleene fails to capture.
+As we've seen, presupposition projection displays asymmetries based on \textit{linear order}; something that strong Kleene fails to capture.
 
+We need to adjust the strong Kleene algorithm to account for ordering asymmetries.
+
+\textbf{George's intuition:} currying, motivated by considerations of compositionality, imposes an asymmetry between arguments based on evaluation order. Strong Kleene can be modified to be sensitive to evaluation order.
+
+\begin{fullwidth}
+  \begin{tcolorbox}[title=Middle Kleene truth-tables]
+    N.b. the highlighted cells diverge from strong Kleene.
+    \tcblower
+    \begin{minipage}{.5\linewidth}
+      \centering
+      \begin{tabular}{c|c}
+              $ϕ$ & $\mathbf{¬ ϕ}$ \\
+              \midrule
+              1   & 0              \\
+              0   & 1              \\
+              \#  & \#
+          \end{tabular}
+          \captionof{figure}{Negated formulas}
+    \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
+          %
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∧ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 0  & 0  & 0    \\
+              \#                 & \# & \hl{\#} & \#
+          \end{tabular}
+          \captionof{figure}{Conjunctive formulas}
+          \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∨ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 1  & 1    \\
+              0                  & 1  & 0  & \#    \\
+              \#                 & \hl{\#} & \# & \#
+          \end{tabular}
+          \captionof{figure}{Disjunctive formulas}
+    \end{minipage}
+    \begin{minipage}{.5\linewidth}
+      \centering
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ → ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 1  & 1  & 1    \\
+              \#                 & \hl{\#} & \# & \#
+          \end{tabular}
+          \captionof{figure}{Conditional formulas}
+    \end{minipage}
+\end{tcolorbox}
+\end{fullwidth}
 
 \printbibliography
 
@@ -334,7 +425,7 @@ Presupposition projection displays asymmetries based on \textit{linear order}; s
   \xe
 
   \begin{forest}
-    [{$\set{t ∧ u | t ∈ \eval[w]{Paul smoked}^{ρ} ∧ u ∈ \eval[w]{Paul stopped smoking}}$\\$⊛$}
+    [{$\set{t ∧ u | t ∈ \eval[w,\rho]{Paul smoked} ∧ u ∈ \eval[w]{Paul stopped smoking}}$\\$⊛$}
     [{$\begin{cases}
         \set{1}&\ml{smoked}_{w} \ml{p}\\
         \set{0}&\text{otherwise}
@@ -350,6 +441,16 @@ Presupposition projection displays asymmetries based on \textit{linear order}; s
       ]
     ]
   \end{forest}
+
+\subsection{Strong Kleene for quantifiers}
+
+\ex
+$\set{(a → b) → c} → (a → \set{b}) → \set{c}$
+\xe
+
+\subsection{Middle Kleene as an alternative semantics}
+
+\todo[inline]{Fill this is.}
 
 
 \end{appendices}
