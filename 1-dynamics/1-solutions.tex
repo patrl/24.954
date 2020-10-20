@@ -1,0 +1,218 @@
+\documentclass[nols,twoside,nofonts,nobib,nohyper]{tufte-handout}
+
+\usepackage{fixltx2e}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{appendix}
+\usepackage{listings}
+\lstset{language=TeX,
+       frame=single,
+       basicstyle=\ttfamily,
+       captionpos=b,
+       tabsize=4,
+  }
+
+\input{acronyms}
+\renewcommand*{\acsfont}[1]{\textsc{#1}}
+
+\usepackage[font=footnotesize]{caption}
+
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{0pt}%
+  \setlength{\JustifyingParindent}{0pt}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0pt}%
+  \setlength{\JustifyingParindent}{0pt}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\makeatother
+
+\usepackage{multicol}
+
+\setcounter{secnumdepth}{3}
+
+% Set up the spacing using fontspec features
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\title{The dynamic turn I:\\
+Update semantics}
+
+\author[Patrick D. Elliott \& Danny Fox]{Patrick~D. Elliott \& Danny Fox}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/master.bib}
+
+\lingset{
+  belowexskip=-1\baselineskip,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt}
+}
+
+\usepackage{float}
+
+
+% \usepackage{booktabs} % book-quality tables
+% \usepackage{units}    % non-stacked fractions and better unit spacing
+% \usepackage{lipsum}   % filler text
+% \usepackage{fancyvrb} % extended verbatim environments
+%   \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+
+% % Standardize command font styles and environments
+% \newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+% \newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+% \newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+% \newcommand{\docenv}[1]{\textsf{#1}}% environment name
+% \newcommand{\docpkg}[1]{\texttt{#1}}% package name
+% \newcommand{\doccls}[1]{\texttt{#1}}% document class name
+% \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+% \newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+\section{Problem set solutions}
+
+  \subsection{Dynamic semantics and classical equivalence}
+
+  In today's handout, we stated a dynamic semantics for negated sentences, conjunctive and disjunctive sentences, as well as material implications.
+
+  In fact, the only primitives we need are a dynamic semantics for negated and conjunctive sentences. We can define disjunction and material implication via classical equivalence, but not just any classical equivalences will do.
+
+  \begin{tcolorbox}
+    \textbf{Exercise}
+    \tcblower
+
+    \textbf{Part 1:} Informally prove the following equivalences:
+    \begin{itemize}
+        \item $c[ϕ ∨ ψ] ≡ c[¬ (¬ ϕ ∧ ¬ ψ)]$
+        \item $c[ϕ → ψ] ≡ c[¬ (ϕ ∧ ¬ ψ)]$
+    \end{itemize}
+
+    \textbf{Part 2:} Provide formulas using only conjunction and negation that are classically equivalent to $⌜ϕ ∨ ψ⌝$, $⌜ϕ→ψ⌝$, which nevertheless aren't equivalent in propositional dynamic semantics. Demonstrate where the equivalence breaks down.
+
+    \textbf{Part 3:} Comment briefly on what this tells us about the explanatory potential of propositional dynamic semantics.
+  \end{tcolorbox}
+
+  \subsection{Staticization}
+
+  As noted in today's handout, we can \textit{staticize} a (bivalent) propositional update semantics by taking the \textit{proposition expressed by $p$} to be $W[p]$, i.e., the logical space updated with $p$. $\eval*{p} ≔ W[p]$.
+
+  \begin{tcolorbox}
+    \textbf{Exercise}
+    \tcblower
+    \textbf{Part 1:} Prove whether the following equivalences (an informal demonstration is fine).
+
+  $$
+  \begin{aligned}[l]
+    &\eval*{p}  &= I(p)\\
+    &\eval*{¬ ϕ} &= W - \eval*{ϕ}\\
+    &\eval*{\phi ∧ \psi}  &= \eval*{\phi} ∩ \eval*{\psi}\\
+    &\eval*{\phi ∨ \psi} &= \eval*{\phi} ∪ \eval*{\psi}\\
+    &\eval*{\phi → \psi} &= \eval*{\phi} ⊆ \eval*{\psi}\\
+  \end{aligned}
+  $$
+
+  \textbf{Part 2:} What is the staticization of a modalized sentence $⌜◇ ϕ⌝$? Comment on the significance of the result.
+  \end{tcolorbox}
+
+  $$
+  \begin{aligned}[t]
+    &\eval*{p}\\
+    &= W[p]\\
+    &= W ∩ I(p)\\
+    &= I(p)&(I(p) ⊂ W, ∀p)
+    \end{aligned}
+  $$
+
+  $$
+  \begin{aligned}[t]
+    &\eval*{¬ ϕ}\\
+    &= W[¬ ϕ]\\
+    &= W - W[ϕ]\\
+    &= W - \eval*{ϕ}
+    \end{aligned}
+  $$
+
+  $$
+  \begin{aligned}[t]
+    &\eval*{ϕ ∧ ψ}\\
+    &= W[ϕ ∧ ψ]\\
+    &= W[ϕ][ψ]
+    &= \eval{ϕ}[ψ]
+    \end{aligned}
+  $$
+
+  \subsection{Backwards connectives}
+
+  \begin{tcolorbox}
+    \textbf{Exercise}
+    \tcblower
+    \textbf{Part 1:} give a dynamic semantics for \enquote{backwards disjunction} $⊻$, which (i) captures the classical contribution of disjunction (demonstrate this via staticization), and (ii) predicts the presupposition of the first disjunct to be satisfied in the following (provided without judgement).
+
+    \enquote{Either Sarah's corgi is sleepy, or Sarah has no corgi.}
+
+    Is this prediction good, in the general case? Feel free to use raw data from whichever language(s) you speak in the discussion here.
+
+    \textbf{Part 2:} do the same thing for \eqnuote{backwards implication}, $←$, with respect to the following sentence:
+
+    \enquote{If Sarah's corgi is sleepy, then Sarah has a corgi.}
+  \end{tcolorbox}
+
+  \subsection{\textit{Must}}
+
+\begin{tcolorbox}
+  \textbf{Exercise}
+  \tcblower
+  Can we state the meaning of epistemic \textit{must} ($□$) as the dual of Veltmann's $◇$?
+  \begin{itemize}
+    \item If so, demonstrate that this delivers intuitively correct results.
+    \item If not, show why not.
+  \end{itemize}
+
+\end{tcolorbox}
+
+ \textbf{Answer}
+
+  Yes, we can define \textit{must} as the dual of Veltmann's \textit{might}.
+
+  \begin{definition}{Epistemic \textit{must} in update semantics}
+        $$c[□ ϕ] ≔ c[¬ ◇ ¬ ϕ]$$
+  \end{definition}
+
+  Epistemic \textit{must} has a test semantics. It does a tentative update of $c$ with $¬ ϕ$, if the result is \textit{not} the absurd state, then the test fails, and we get the absurd state. Otherwise, the test succeeds, and we get back $c$. This is shown below:
+
+  $$\begin{aligned}[t]
+    c[¬ ◇ ¬ ϕ] &= c - c[◇ ¬ ϕ]\\
+      &= c - \begin{cases}
+    c&c[¬ ϕ] ≠ ∅\\
+    ∅&\text{otherwise}
+    \end{cases}\\
+&= \begin{cases}
+    \emptyset & (c - c[ϕ]) ≠ ∅\\
+    c&\text{otherwise}
+  \end{cases}
+\end{aligned}
+  $$
+
+\printbibliography
+
+\end{document}

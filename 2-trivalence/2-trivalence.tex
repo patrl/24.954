@@ -2,7 +2,7 @@
 
 \usepackage{fixltx2e}
 \usepackage{tikz-cd}
-\usepackage[most]{tcolorbox}
+\usepackage[most,breakable]{tcolorbox}
 \usepackage{appendix}
 \usepackage{listings}
 \lstset{language=TeX,
@@ -53,7 +53,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
-\title{An explanatory theory of presupposition projection}
+\title{Towards an explanatory theory of presupposition projection}
 
 \author[Patrick D. Elliott \& Danny Fox]{Patrick~D. Elliott \& Danny Fox}
 
@@ -92,11 +92,347 @@
 
 \maketitle% this prints the handout title, author, and date
 
-\section{Weak Kleene}
+\begin{tcolorbox}[title=homework]
+  \begin{itemize}
+\item If you have time, read \citet{Fox2013} in advance of next week.
+\item There is no p-set this week, so use this time to catch up on any material you may have missed.
+  \end{itemize}
+\end{tcolorbox}
+
+\section{Recap}
+
+\textbf{Where we're at}
+
+\begin{itemize}
+
+\item Last week, we encountered a new perspective on linguistic meanings --- \textit{dynamic semantics} (\citealt{Heim1982,Heim1983,Veltman1996}) --- wherein the meaning of an expression is an \textit{instruction} to update an information state.
+
+\item This week we'll begin by briefly recapping what we discovered, before finishing our discussion of \citeauthor{Veltman1996}'s semantics for epistemic modals.
+
+\item This will conclude our initial encounter with dynamic semantics --- we'll return to this topic in a couple of weeks time, when we discuss \textit{anaphora} in dynamic semantics.
+
+\item In the mean time, we'll discuss a notable attempt to make the theory of presupposition projection more explanatory by providing a \textit{general algorithm} for deriving trivalent semantics for logical connectives and other operators (\citealt{George2008,George2014}).
+
+\end{itemize}
+
+\textbf{What we've accomplished so far}
+
+\begin{itemize}
+
+    \item We began with a fairly austere trivalent semantics, which gave us a notion of the \textit{semantic presupposition} of a sentence.
+
+    \item We paired our semantics with a Stalnakerian pragmatics, wherein to \textit{assert} a sentence is to propose updating an idealized body of information, the \textit{context set}.
+
+    \item The \textit{bridge principle} allowed us to model the interaction between the semantic presuppositions of sentences, and the pragmatics of assertion.
+
+    \item This theory allowed us to model the interaction between presupposition and information growth in discourse.
+
+    \item We went on to explore a fairly radical generalization of Stalnakerian pragmatics to the semantics proper, \textit{dynamic semantics}:
+
+    \begin{displayquote}[\cite{Veltman1996}]
+\enquote{The slogan `You know the meaning of a sentence if you know the conditions under which it is true', is replaced by this one: `You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it'.}
+\end{displayquote}
+
+    \item In order to develop an understanding of the basic features of dynamic semantics, we went through the simplest version of the theory: propositional update semantics (\citealt{Veltman1996}).
+
+    \item As we saw in class (hopefully, further reinforced by doing the homework), the resulting system in which updates of complex sentences are assembled compositionally, delivered exactly the same results vis á vis informational contribution as a static semantics with a global (i.e., pragmatic) update rule.\sidenote{\citet{Veltman1996} demonstrated this by defining an operation of \textit{staticization}.}
+
+    \item Even before we considered presupposition projection, an advantage of the resulting system, however, is that it allowed us to formulate a notion of informational \textit{redundancy} active not just at the level of discourse, but also inter-sententially. This collapsed cases like the following:
+
+\pex
+\a It's raining. (In fact) it's raining heavily.
+\a It's raining heavily. \# (In fact) it's raining.
+\xe
+
+\pex
+\a It's raining and (in fact) it's raining heavily.
+\a\ljudge{\#}It's raining heavily and (in fact) it's raining.
+\xe
+
+\pex
+\a If it's raining then it's raining heavily.
+\a\ljudge{\#}If it's raining heavily then it's raining.
+\xe
+
+\end{itemize}
+
+\begin{itemize}
+
+    \item We went on to show that, once we incorporate a notion of \textit{semantic presupposition} into propositional update semantics, along with the bridge principle, the resulting system captures the Karttunen-Heim projection generalizations for the logical connectives.
+
+    \ex
+    Sarah has a corgi, and her corgi is cute.
+    \xe
+
+    \ex
+    If Sarah has a corgi, then her corgi is cute.
+    \xe
+
+    \ex
+      Either Sarah has no corgi, or her corgi is cute.
+    \xe
+
+\end{itemize}
+
+\begin{itemize}
+
+    \item We subsequently realized that we shouldn't get \textit{too} excited about these results. As pointed out by Rooth and Soames, update semantics for the logical connectives are essentially \textit{tailored} to derive the Karttunen-Heim generalizations, so it's not surprising that they indeed do so. Update semantics doesn't straightforwardly follow from a classical semantics.\sidenote{This is something that should have been reinforced by the homework exercises last week.}
+
+    \item That said, I suggested that we shouldn't hastily dismiss dynamic semantics completely. Update semantics doesn't just capture presupposition projection, but lumps it in with other phenomena which bolster the explanatory power of dynamic semantics.
+
+    \item One empirical domain, which we'll come back to in a couple of weeks time: \textit{anaphora} (\citealt{Heim1982,GroenendijkStokhof1991}).
+
+    \end{itemize}
+
+    \pex
+    \a Sarah has a$^{1}$ corgi and she adores it$_{1}$.
+    \a Everyone who has a$^{1}$ puppy showers it$_{1}$ with affection.
+    \xe
+
+    \begin{itemize}
+
+    \item Another empirical domain, which we started to discuss last week, is \textit{epistemic modality}, and specifically \textit{epistemic contradictions} (\citealt{Veltman1996,Yalcin2007}).
+
+        \end{itemize}
+
+    \pex
+    \a\ljudge{\#}It's raining and it might not be raining.
+    \a\ljudge{?}It might be raining and it's not raining.
+    \xe
+
+    \begin{itemize}
+
+    \item Before getting back to epistemic modals, we'll provide a brief technical summary of update semantics.
+
+\end{itemize}
+
+\textbf{Technical summary of update semantics}
+
+\begin{itemize}
+
+  \item In propositional update semantics with trivalence, a model is a pair $⟨W,I⟩$, where $W$ is a finite non-empty set of possible worlds, and $I: \mathscr{A} ↦ (W ↦ \set{1,0,\#})$ is an evaluation function.
+
+    \item Giving an update semantics for a simple propositional language $\mathscr{L}$ consists of recursively defining an update function $.[.]$ mapping \textit{information states} and expressions of $\mathscr{L}$ to (potentially modified) information states.
+
+\end{itemize}
+
+
+\begin{fullwidth}
+% \begin{tcolorbox}[title=Recap: propositional update semantics]
+\tcblower
+\begin{tcbitemize}[raster equal height]
+  \tcbitem[title=Atomic sentences]
+  Update of a context $c$ with an atomic sentence $p$ is subject to Stalnaker's bridge; update is defined iff $c$ entails the presupposition of $p$.
+  \tcblower
+  $$
+        c[p] ≔ \begin{cases}
+          c ∩ \set{w | I(p) w}&c ⊆ p^{π}\\
+          \text{undefined}&\text{otherwise}
+          \end{cases}
+        $$
+  \tcbitem[title=Negated sentences]
+  Updating $c$ with a negated sentence $¬ ϕ$, involves first updating $c$ with $ϕ$, and subtracting the result from $c$. This predicts that $¬ ϕ$ inherits the presuppositions of $ϕ$.
+  \tcblower
+  $$
+        c[¬ ϕ] ≔ c - c[ϕ]
+        $$
+  \tcbitem[title=Conjunctive sentences]
+  Updating $c$ with a conjunctive sentence is an instruction to perform a successive update; this predicts that the presuppositions of $ψ$ are satisfied if entailed by $c$ updated with the first conjunct.
+  \tcblower
+  $$
+  c[ϕ ∧ ψ] ≔ c[ϕ][ψ]
+  $$
+  \tcbitem[title=Disjunctive sentences]
+  Updating $c$ with a disjunctive sentence is an instruction to update $c$ with $\phi$, then update $c$ with $¬ ϕ ∧ ψ$, and then take the union of the results; this predicts that the presuppositions of $ψ$ are satisifed if entailed by $c$ updated with the \textit{negation} of the first disjunct.
+  \tcblower
+  $$
+  c[ϕ ∧ ψ] ≔ c[ϕ] ∪ c[¬ ϕ][ψ]
+  $$
+  \tcbitem[title=Conditional sentences]
+  Updating $c$ with a conditional sentence $ϕ → ψ$ is an instruction to update $c$ with $ϕ ∧ ψ$, and subtract the result from $c[ϕ]$. The result is then subtracted from $c$. This predicts that the presuppositions of the consequent $ψ$ are satisfied if entailed by $c$ updated with the antecedent.
+  \tcblower
+  $$
+  c[ϕ → ψ] ≔ c - (c[ϕ] - c[ϕ][ψ])
+  $$
+\end{tcbitemize}
+% \end{tcolorbox}
+%
+\begin{itemize}
+
+\item Epistemic modals are an interesting case of operators that are \textit{only statable} within update semantics; as you will have learned from doing the homework, staticizing $◇$ results in a tautology.
+
+\end{itemize}
+
+\begin{tcbitemize}[raster equal height]
+  \tcbitem[title=Veltman's epistemic \textit{might}]
+  Epistemic \textit{might} tests whether updating $c$ with the prejacent results in a non-absurd information state.
+  \tcblower
+  $$
+  c[◇ ϕ] ≔ \begin{cases}
+    c&c[ϕ] ≠ ∅\\
+    \emptyset&\text{otherwise}
+    \end{cases}
+  $$
+  \tcbitem[title=Epistemic \textit{must}]
+  Epistemic \textit{must} tests whether updating $c$ with the negation of the prejacent results in an absurd information state.
+  \tcblower
+  $$
+  c[□ ϕ] ≔ \begin{cases}
+    ∅&c[¬ ϕ] ≠ ∅\\
+    c&\text{otherwise}
+    \end{cases}
+  $$
+\end{tcbitemize}
+
+\end{fullwidth}
+
+\subsection{Back to epistemic contradictions}
+
+\textbf{Case 1}
+
+\ex
+It's not raining outside, but it might be raining outside.\hfill$¬ p ∧ ◇ p$\label{moore2}
+\xe
+
+
+\begin{tcolorbox}[title=Consistency in update semantics]
+A sentence $ϕ$ is consistent with respect to $c$, if $c[ϕ] ≠ ∅$; a sentence $ϕ$ is \textit{consistent} simpliciter, if there is some information state $c'$, s.t., $c'[ϕ]$ is consistent.
+\end{tcolorbox}
+
+A good result: (\ref{moore2}) is \textit{inconsistent}.
+
+Before giving an informal proof, the intuition is as follows: updating an information state with the information that it's not raining is guaranteed to make a tentative update of \enquote{it's raining} fail.
+
+\begin{itemize}
+
+    \item $c[¬ p ∧ ◇ p] = c[¬ p][◇ p]$
+    \item $= (c - I(p))[◇ p]$
+  \item $= \begin{cases}
+    c - I(p)&(c - I(p)[p] ≠ ∅\\
+    ∅&\text{otherwise}
+    \end{cases}$
+  \item $= \begin{cases}
+    c - I(p)&((c - I(p) ∩ I(p)) ≠ ∅\\
+    ∅&\text{otherwise}
+    \end{cases}$
+  \item $(c - s) ∩ s = ∅$, $∀s$, hence $(¬ p ∧ ◇ p)$ is \textit{inconsistent}.
+\end{itemize}
+
+\textbf{Case 2}
+
+What about the other ordering (\ref{moore-rep})? Although we didn't assign this a $\#$ diacritic, arguably there is something deviant about this sentence.
+
+\ex
+\ljudge{?}It might be raining and it's not raining.\hfill$◇ p ∧ ¬ p$\label{moore-rep}
+\xe
+
+
+We can make sense of this in update semantics by using the notion of \textit{coherence}, which we define in terms of a derivative notion of \textit{support}.
+
+\begin{tcolorbox}[title=Support in update semantics]
+  An information state $c$ \textit{supports} a sentence $ϕ$ iff:
+
+  $$c[ϕ] = c$$
+
+  Other terms which are often used to mean the same thing: \textit{$c$ accepts $\phi$, $c$ incorporates $\phi$, $ϕ$ is redundant in $c$}.
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=Coherence in update semantics]
+$ϕ$ is coherent iff there is some non-absurd information state $c$, s.t., $c$ \textit{supports} $ϕ$.
+\end{tcolorbox}
+
+Note that \textit{coherence} implies \textit{consistency}: if a non-absurd $c$ supports $ϕ$, then $c[ϕ]$ is consistent, and hence $ϕ$ is consistent simpliciter.
+
+Now we can ask ourselves, is (\ref{moore-rep}) consistent/coherent?
+
+\begin{itemize}
+    \item $c[◇ p ∧ ¬ p] = c[◇ p][¬ p]$
+  \item $= \begin{cases}
+    c[¬ p]&c[p] ≠ ∅\\
+    ∅[¬ p]&\text{otherwise}
+   \end{cases}$
+  \item $= \begin{cases}
+    c - c[p]&c[p] ≠ ∅\\
+    ∅&\text{otherwise}
+    \end{cases}$
+\end{itemize}
+
+(\ref{moore-rep}) is \textit{consistent}, since as long as both $p$ and $¬ p$ are $c$-consistent, then updating $c$ with (\ref{moore-rep}) will result in a non-absurd information state --- namely, one that supports $¬ p$.
+
+Now we can ask, is (\ref{moore-rep}) \textit{coherent}? The answer is no. For the test imposed by $◇ p$ to be successful in $c$, $c$ cannot support $¬ p$, and for $c$ to support $p ∧ q$, $c[p]$ must support $q$.\sidenote{A sketch of a proof by contradiction:
+
+  \begin{itemize}
+      \item If $◇ p ∧ ¬ p$ is coherent; there exists a $c$, s.t., $c[◇ p ∧ ¬ p] = c$.
+    \item If $c[◇ p ∧ ¬ p] = c$,\\
+      then $(c[◇ p])[¬ p] = c$,\\
+      so by eliminativity $c[◇ p] = c[¬ p] = c$
+    \item if $c[◇ p] = c$, then $c[p] ≠ ∅$
+    \item if $c[p] ≠ ∅$, then $c - p ≠ c$
+      \item Therefore $c[¬ p] ≠ c$
+  \end{itemize}
+
+}
+
+The thought here is that a speaker can only sincerely utter a sentence if it is coherent, and this follows from the fact that a speaker can only sincerely utter a sentence that is redundant with respect to her \textit{her own} information state (see \citealt{GroenendijkEtAl1996} for discussion).
 
 \begin{tcolorbox}
-  \textbf{Weak Kleene recipe}
+  \textbf{Optional exercise}
   \tcblower
+Recall that, due to presupposition projection facts, the update rule for disjunctive sentences is as follows:
+$$
+c[ϕ ∨ ψ] ≔ c[ϕ] ∪ c[¬ ϕ][ψ]
+$$
+What does the theory predict for a sentence such as \enquote{either it's raining, or it might be raining}?
+
+$$
+p ∨ ◇ p
+$$
+
+What about the reverse order, \enquote{it might be raining, or it's raining}?
+
+$$
+◇ p ∨ p
+$$
+
+Try to connect the results to your intuitions about what these sentences mean.
+\end{tcolorbox}
+
+\section{Towards an explanatory theory of presupposition projection}
+
+\subsection{Back to the Rooth-Soames objection and Schlenker's challenge}
+
+It's advantages in other domains nonwithstanding, there is something stipulative about update semantics in the domain of presupposition projection.
+
+Can we improve upon it? In recent years there have been a number of attempts to cover the same empirical ground as dynamic semantics (wrt presupposition projection) with fewer stipulations, by developing a general \textit{algorithm} which predicts the behavior of bivalent operators in a setting with presuppositions. This point has been made especially forcefully in the work of Philippe Schlenker (\citeyear{Schlenker2008,Schlenker2009,Schlenker2010}).
+
+If successful, this counts as an improvement over dynamic semantics, since the algorithm only needs to be stated once.
+
+In order to do this in a way that requires minimal additional machinery, well shift back to a static trivalent setting, and think about the interpretation of the third truth value, following \citet{George2008}.
+
+\subsection{Weak Kleene}
+
+Once we introduce a third truth-value (\#) there is an extremely large number of ways in which we might consider extending the classical semantics of the logical connectives.
+
+Consider, e.g., conjunction.
+
+\begin{figure}[h!]
+  \centering
+\begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∧ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & ?    \\
+              0                  & 0  & 0  & ?    \\
+              \#                 & ? & ? & ?
+          \end{tabular}
+\end{figure}
+
+Once we introduce \# as a possible truth-value, there are 5 new cells in the truth table, each of which can have three values, which means that there are 243 ($3^{5}$) possible ways of extending conjunction in a trivalent setting.
+
+Of course, not all of these possibilities are going to be useful for analyzing natural language.
+
+\begin{tcolorbox}[title=Weak Kleene algorithm]
   Where the classical semantics is silent, always return \#.
 \end{tcolorbox}
 
@@ -160,8 +496,11 @@ This interpretation gives rise to a Weak Kleene logic.
 \end{tcolorbox}
 \end{fullwidth}
 
+As we've already seen, this isn't much use for analyzing presupposition projection in natural language.
 
-\section{Strong Kleene (symmetric)}
+\subsection{Strong Kleene (symmetric)}
+
+We can work towards a more explanatory set of trivalent meanings by shifting perspectives on what the third truth-value \# is taken to represent.
 
 We can think of the third truth value, \#, as representing \textit{uncertainty whether 1 or 0}, which we can represent as the set $\set{1,0}$.
 
@@ -171,15 +510,15 @@ $$
 \set{\overbrace{\set{1}}^{\text{true}},\underbrace{\set{0}}_{\text{false}},\overbrace{\set{1,0}}^{\text{uncertain}}}
 $$
 
-The intuition behind our recipe will be as follows:
+Our recipe will consist of the following recursive procedure:\footnote{This is delivers equivalent results to the initial version of \citeauthor{George2008}'s (\citeyear{George2008}) \textit{function deployment}.}
 
 \begin{itemize}
     \item Given a complex formula with an $n$-place truth-functional connective $f$, $⌜f ϕ_{1}…ϕ_{n}⌝$.
-  \item Assuming that $I^{bi}$ gives the bivalent interpretation of $f$ as a function, compute $\set{I^{bi}(f) t_{1}\ldots t_{n}|t_{1} ∈ \eval*[tri]{ϕ_{1}},…,t_{n} ∈ \eval*[tri]{ϕ_{n}}}$.
+  \item Assuming that $I$ gives the bivalent interpretation of $f$ as a function, compute $\set{I(f) t_{1}\ldots t_{n}|t_{1} ∈ \eval*[tri]{ϕ_{1}},…,t_{n} ∈ \eval*[tri]{ϕ_{n}}}$.
     \item The result is the value of $\eval*[tri]{f ϕ_{1} … ϕ_{n}}$
 \end{itemize}
 
-\subsection{Applying the Strong Kleene algorithm to conjunction}
+\textbf{Applying the Strong Kleene algorithm to conjunction}
 
 When the values of the arguments of the connective are $\set{1}$ or $\set{0}$, the algorithm will simply deliver the classical semantics. We can illustrate this with conjunction.
 
@@ -193,7 +532,7 @@ $$
 = \set{t ∧ u}
 $$
 
-What if one of $I(p)$ is $\set{0,1}$? The value of the conjunctive formula will differ depending on whether $I(q)$ is $\set{1}$ or $\set{0}$. Assuming that $I(q) = \set{1}$:
+What if $I(p)$ is $\set{0,1}$? The value of the conjunctive formula will differ depending on whether $I(q)$ is $\set{1}$ or $\set{0}$. Assuming that $I(q) = \set{1}$:
 
 \pex $I(p) = \set{0,1}, I(q) = 1$
 \a $\eval*[tri]{p ∧ q} = \set{t ∧ u | t ∈ \set{0,1} ∧ u ∈ \set{1}}$
@@ -201,11 +540,17 @@ What if one of $I(p)$ is $\set{0,1}$? The value of the conjunctive formula will 
 \a $= \set{0,1}$
 \xe
 
-\pex~ $I(p) = \set{0,1}, I(q) = 0$
+Next, assume that $I(q)$ is $\set{0}$.
+
+\pex~ $I(p) = \set{0,1}, I(q) = \set{0}$
 \a $\eval*[tri]{p ∧ q} = \set{t ∧ u | t ∈ \set{0,1} ∧ u ∈ \set{0}}$
 \a $= \set{t ∧ 0 | t ∈ \set{0,1}}$
 \a $= \set{0}$
 \xe
+
+Since the algorithm is completely symmetric, the same reasoning applies if $I(q)$ is $\set{0,1}$.
+
+Applying this algorithm to every different combination of truth-values, we end up with the following semantics for strong Kleene disjunction. The intuition here is that uncertainty only projects when indeterminacy could affect the result of the conjunctive sentence.
 
 \begin{tcolorbox}
   \textbf{Strong Kleene conjunction}\\
@@ -217,21 +562,51 @@ What if one of $I(p)$ is $\set{0,1}$? The value of the conjunctive formula will 
   \end{itemize}
 \end{tcolorbox}
 
-\subsection{Disjunction in Strong Kleene semantics}
+\textbf{Applying the strong Kleene algorithm to disjunction}
+
+Again, when the values of the arguments of the connective are $\set{1}$ or $\set{0}$, the algorithm will simply deliver the classical semantics. This is easy to see.
+
+$$
+\eval*[tri]{p ∨ q} = \set{t ∨ u | t ∈ I(p) ∧ u ∈ I(q)}
+$$
+
+
+What if $I(p)$ is $\set{0,1}$? As before, the value of the disjunctive formula will differ deppending on whether $I(q)$ is $\set{1}$ or $\set{0}$. Assuming that $I(q) = 1$:
+
+\pex
+\a $I(p) = \set{0,1}, I(q) = \set{1}$
+\a $\eval*[tri]{p ∨ q} = \set{t ∨ u | t ∈ \set{0,1} ∧ u ∈ \set{1}}$
+\a $= \set{t ∨ 1 | t ∈ \set{0,1}}$
+\a $= \set{1}$
+\xe
+
+Next, assume that $I(q)$ is $\set{0}$.
+
+\pex
+\a $I(p) = \set{0,1}, I(q) = \set{0}$
+\a $\eval*[tri]{p ∨ q} = \set{t ∨ u | t ∈ \set{0,1} ∧ u ∈ \set{0}}$
+\a $= \set{t ∨ 0 | t ∈ \set{0,1}}$
+\a $= \set{0,1}$
+\xe
+
+Like before, since the algorithm is completely symmetric, the same reasoning applies if $I(q)$ is $\set{0,1}$
+
+Applying the algorithm to every possible combination of truth values, we end up with the following strong Kleene semantics for disjunction. Remember, the intuition is that uncertainty projects when indeterminacy could effect the result of the disjunctive sentence.
 
 \begin{tcolorbox}
   \textbf{Strong Kleene disjunction}\\
   \tcblower
   \begin{itemize}
       \item $⌜ϕ ∨ ψ⌝$ is \textit{defined} if either (a) $\eval*{ϕ}$ is true, (b) $\eval*{ψ}$ is true, or (c) both $\eval*{ϕ}$ and $\eval*{ϕ}$ are false.
-      \item $⌜ϕ ∧ ψ⌝$ is \textit{false} if both $\eval*{ϕ}$ and $\eval*{ψ}$ are false.
-      \item $⌜ϕ ∧ ψ⌝$ is \textit{true} if either (a) $\eval*{ϕ}$ is true, or (b) $\eval*{ψ}$ is true.
+      \item $⌜ϕ ∨ ψ⌝$ is \textit{false} if both $\eval*{ϕ}$ and $\eval*{ψ}$ are false.
+      \item $⌜ϕ ∨ ψ⌝$ is \textit{true} if either (a) $\eval*{ϕ}$ is true, or (b) $\eval*{ψ}$ is true.
   \end{itemize}
 \end{tcolorbox}
 
+
 \subsection{Strong Kleene truth-tables}
 
-If we apply the strong Kleene algorithm to the classical connectives, substituting in $\set{1,0,\#}$ for $\set{\set{1},\set{0},\set{1,0}}$, the result is the following truth-tables.
+Applying the strong Kleene algorithm to the classical connectives, substituting in $\set{1,0,\#}$ for $\set{\set{1},\set{0},\set{1,0}}$, the result is the following truth-tables.
 
 \begin{fullwidth}
   \begin{tcolorbox}[title=Strong Kleene truth-tables]
@@ -298,7 +673,7 @@ If we apply the strong Kleene algorithm to the classical connectives, substituti
     \pex\label{ex:disj}
     \a Either this house has no bathroom, or the bathroom is upstairs.\label{ex:disj-a}
     \a Either the bathroom is upstairs, or (else) this house has no bathroom.\\
-    \phantom{,}\hfill\citep[p.\,185]{Schlenker2008}\label{ex:disj-a}
+    \phantom{,}\hfill\citep[p.\,185]{Schlenker2008}\label{ex:disj-b}
     \xe
 
     The entry we gave for disjunction in propositional update semantics (after \citealt{Beaver2001}) can capture the projection pattern illustrated by (\ref{ex:disj-a}), but not (\ref{ex:disj-b}).
@@ -327,13 +702,170 @@ If we apply the strong Kleene algorithm to the classical connectives, substituti
     \phantom{,}\hfill\citep[p.\,186]{Schlenker2008}
     \xe
 
-\section{Middle Kleene/Peters (asymmetric)}
+    Nonetheless, it seems like a pretty bad result if we predict that the following presupposes that \textit{if Sarah was sad yesterday, then Sarah has a corgi}.
 
-As we've seen, presupposition projection displays asymmetries based on \textit{linear order}; something that strong Kleene fails to capture.
+    \ex
+    Sarah's corgi cheered her up today and she was sad yesterday.
+    \xe
+
+    We'll put the data favouring strong Kleene to one side for now, and explore the possibility that we can \textit{incrementalize} the strong Kleene algorithm in order to capture the Karttunen-Heim projection generalizations.\sidenote{This strategy was pursued originally by \citet{Schlenker2008}, who proposes a very different kind of algorithmic procedure. Our discussion here is based primarily of \citeauthor{George2007}'s (\citeyear{George2007,George2008,George2014}) related work.}
+
+\section{Incrementalizing Strong Kleene: towards Middle Kleene}
+
+As we've seen, presupposition projection displays \textit{asymmetries}; something that strong Kleene fails to capture.
 
 We need to adjust the strong Kleene algorithm to account for ordering asymmetries.
 
-\textbf{George's intuition:} currying, motivated by considerations of compositionality, imposes an asymmetry between arguments based on evaluation order. Strong Kleene can be modified to be sensitive to evaluation order.
+As before, it will be helpful to think of our three truth-values as the following isomorphic three-membered set: $\set{\set{1},\set{0},\set{1,0}}$, with $\set{1}$ representing \textit{definitely true}, $\set{0}$ representing \textit{definitiely false}, and $\set{1,0}$ representing \textit{maybe true and maybe false}.
+
+The intuition behind our recipe will be a recursive procedure:
+
+\begin{description}
+
+    \item[Step 1:]Let $f$ be an $n$-place curried function which returns truth-values, $X$ be an $n$-long sequence of arguments (where $n ≥ 1$).
+
+    \item[Step 2:]If $X ≔ [x_{1}]$, compute $\set{f t_{1} | t_{1} ∈ \eval*[tri]{x_{1}}}$ and return the result.
+
+    \item[Step 3:] Else, if $X ≔ [x_{1},x_{2},…]$, compute $\set{f t_{1} | t_{1} ∈ \eval*[tri]{x_{1}}}$.
+
+    \begin{itemize}
+        \item If the result is non-singleton set of functions, return $\set{0,1}$ as the value of $f \eval*[tri]{x_{1}}…\eval*[tri]{x_{n}}$.
+      \item If the result is a singleton set $\set{g}$, go back to step 1 and let $f$ be $g$, and $X ≔ [x_{2},…]$.
+    \end{itemize}
+
+\end{description}
+
+\subsection{Applying the Middle Kleene algorithm to conjunction}
+
+\textbf{Case 1: Presuppositions in the first conjunct}
+
+Let's start by applying the algorithm to a conjunctive formula $p ∧ q$, where $I(p) = \set{0,1}$, and $I(q) = \set{0}$.
+
+By assumption, we have a curried function $λ t . λ u . t ∧ u$, and a sequence of arguments $[p,q]$.
+
+We begin by applying our function pointwise to each value in $I(p)$.
+
+$$
+\begin{aligned}[t]
+  &\set{[λ t . λ u . t ∧ u] t | t ∈ \set{1,0}}\\
+  &=\set{λ u . 1 ∧ u, λ u . 0 ∧ u}
+\end{aligned}
+$$
+
+These are \textit{distinct functions}, which we can see by looking at their graphs, this means that we get back $\set{1,0}$ (i.e. \#) as the value of $\eval*{p ∧ q}$.
+
+  $$
+  [λ u . 1 ∧ u] ≔ \left[\begin{array}{c}
+                          \mathbf{1 ↦ 1}\\
+                          0 ↦ 0
+                          \end{array}\right]
+  $$
+
+  $$
+  [λ u . 0 ∧ u] ≔ \left[\begin{array}{c}
+                          \mathbf{1 ↦ 0}\\
+                          0 ↦ 0
+                          \end{array}\right]
+  $$
+
+The intuition here is that, as soon as the function is fed an argument that \textit{could} lead to indeterminacy, the algorithm throws its hands up and returns a presupposition failure.
+
+Note that the value of $I(q)$ \textit{didn't in fact matter} --- since the value of feeding in the first conjunct was indeterminate, the algorithm simply throws up its hands and returns $\set{1,0}$.
+
+\textbf{Case 2: Presuppositions in the second conjunct}
+
+Now let's apply the algorithm to a conjunctive formula $p ∧ q$, where $I(p) = \set{0}$ and $I(q) = \set{1,0}$.
+
+By assumption, we have a curried function $λ t . λu . t ∧ u$ and a sequence of arguments $[p,q]$.
+
+We begin by applying our function pointwise to each value in $I(p)$; since $I(p)$ is the singleton set $\set{0}$, this is straightforward:
+
+$$
+\begin{aligned}[t]
+  &\set{[λ t . λ u . t ∧ u] t | t ∈ \set{0}}\\
+  &=\set{λ u . 0 ∧ u}
+\end{aligned}
+$$
+
+The result is a singleton set containing a function, so we can go back and repeat our algorithm. We apply the function pointwise to each value in $I(q)$:
+
+$$
+\begin{aligned}[t]
+  &\set{[λ u . 0 ∧ u] u | u ∈ \set{1,0}}\\
+  &=\set{0 ∧ 1, 0 ∧ 0}\\
+  &=\set{0, 0} = \set{0}
+\end{aligned}
+$$
+
+The result is a singleton set containing a truth-value, which gives us the semantic value of the conjunctive sentence.
+
+If the second conjunct had been $\set{1,0}$ of course, we would have gotten back a different result --- namely, $\set{1,0}$. When the third value occurs in the \textit{second} conjunct, middle Kleene algorithm therefore does the same thing as strong Kleene.
+
+\subsection{Applying the middle Kleene algorithm to disjunction}
+
+\textbf{Case 1: Presuppositions in the first disjunct}
+
+Let's start by applying the algorithm to a disjunctive formula $p ∨ q$, where $I(p) = \set{1,0}$, and $I(q) = \set{1}$.
+
+By assumption, we have a curried function $λ t . λ u . t \vee u$, and a sequence of arguments $[p,q]$.
+
+We begin by applying our function pointwise to each value in $I(p)$.
+
+$$
+\begin{aligned}[t]
+  &\set{[λ t . λ u . t ∨ u] t | t ∈ \set{1,0}}\\
+  &= \set{λ u . 1 ∨ u, λ u . 0 \vee u }
+\end{aligned}
+$$
+
+These are \textit{distinct functions}.
+
+ $$
+  [λ u . 1 ∨ u] ≔ \left[\begin{array}{c}
+                          1 ↦ 1\\
+                          0 ↦ 1
+                          \end{array}\right]
+  $$
+
+  $$
+  [λ u . 0 ∧ u] ≔ \left[\begin{array}{c}
+                          1 ↦ 1\\
+                          0 ↦ 0
+                          \end{array}\right]
+  $$
+
+
+\textbf{Case 2: Presuppositions in the second disjunct}
+
+Now let's apply the algorithm to a disjunctive formula $p ∨ q$, where $I(p) ≔ \set{1}$, and $I(q) = \set{1,0}$.
+
+By assumption, we have a curried function $λ t . λ u . t ∨ u$, and a sequence of arguments $[p,q]$.
+
+We begin by applying our function pointwise to each value in $I(p)$.
+
+$$
+\begin{aligned}[t]
+  &\set{[λ t . λ u . t ∨ u] t | t ∈ \set{1}}\\
+  &= \set{λ u . 1 ∨ u }
+\end{aligned}
+$$
+
+The result is determinate, so in accordance with the algorithm we take the result and apply it pointwise to the value of the next argument:
+
+$$
+\begin{aligned}[t]
+  &\set{[λ u . 1 ∨ u] u | u ∈ \set{1,0}}\\
+  &= \set{1 ∨ 1, 1 ∨ 0}\\
+  &= \set{1 ∨ 1} = \set{1}
+\end{aligned}
+$$
+
+This gives us the semantic value of the sentence as $\set{1}$.
+
+Note that things would have been different had the value of $p$ been $\set{0}$. In this instance, subsequent pointwise application would have failed to collapse the result, and we would have ended up with $\set{1,0}$. When the third value occurs in the \textit{second} disjunct, the middle Kleene algorithm therefore does the same thing as strong Kleene.
+
+\subsection{Assembling the results}
+
 
 \begin{fullwidth}
   \begin{tcolorbox}[title=Middle Kleene truth-tables]
@@ -393,66 +925,465 @@ We need to adjust the strong Kleene algorithm to account for ordering asymmetrie
 \end{tcolorbox}
 \end{fullwidth}
 
-\printbibliography
+\subsection{Equivalence with propositional update semantics}
 
-\begin{appendices}
+To show that middle Kleene delivers the same results as update semantics for presupposition projection, it's helpful to be a little more explicit about the pragmatic component factors in.
 
-  \section{Strong Kleene as an alternative semantics}
+We'll again assume a simple propositional language $\mathscr{L}$ interpreted relative to a model $⟨W,I⟩$, where $W$ is a finite non-empty set of possible worlds and $I$ maps atomic sentences to partial propositions. Since our semantics is \textit{static} however, we'll recursively define $⟦.⟧$ as a function from any sentence in $\mathscr{L}$ to a partial proposition.
 
-  Assume that $\type{t}$ is the type of \textit{bivalent} truth values.
+Connectives in the language will simply be interpreted as their \textit{middle Kleene} counterparts (I'll write, e.g., $∧_{mid}$ for the middle Kleene entry for conjunction).
 
-  \ex
-  $\eval[w]{stopped smoking} = λ x . \begin{cases}
-    \set{1}&\ml{smoked}_{w} x ∧ ¬ (\ml{smokes}_{w} x)\\
-    \set{0}&\ml{smoked}_{w} x ∧ \ml{smokes}_{w} x\\
-    \set{1,0}&\text{otherwise}
-    \end{cases}$\hfill$\type{e → \set{t}}$
-  \xe
+\begin{definition}[Simple sentences]
+  $$
+  \eval*{p} ≔ I(p)
+  $$
+\end{definition}
 
-  \ex
-  $\eval[w]{and} ≔ λ u . λ t . t ∧ u$\hfill$\type{t → t → t}$
-  \xe
+\begin{definition}[Conjunctive sentences]
+  $$
+  \eval*{p ∧ q} ≔ λ w . I(p)(w) ∧_{mid} I(q)(w)
+  $$
+\end{definition}
 
-  As in a standard alternative semantics, we just need two truth-values to massage composition.
+\begin{definition}[Disjunctive sentences]
+  $$
+  \eval*{p ∨ q} ≔ λ w . I(p)(w) ∨_{mid} I(q)(w)
+  $$
+\end{definition}
 
-  \pex
-  \a $x^{ρ} ≔ \set{x}$\hfill$\type{a → \set{a}}$
-  \a $m ⊛ n ≔ \set{x \ml{A} y | x ∈ m ∧ y ∈ n}$\hfill$\type{\set{a → b} → \set{a} → \set{b}}$
-  \xe
+\begin{definition}[Conditional sentences]
+  $$
+  \eval*{p → q} ≔ λ w . I(p)(w) →_{mid} I(q)(w)
+  $$
+\end{definition}
 
-  \ex
-  Paul smoked and he stopped smoking.
-  \xe
+Finally, as a seperate component, we give our notion of \textit{update} --- since this semantics is \textit{static} update is tied to the pragmatics of assertion.
 
-  \begin{forest}
-    [{$\set{t ∧ u | t ∈ \eval[w,\rho]{Paul smoked} ∧ u ∈ \eval[w]{Paul stopped smoking}}$\\$⊛$}
-    [{$\begin{cases}
-        \set{1}&\ml{smoked}_{w} \ml{p}\\
-        \set{0}&\text{otherwise}
-        \end{cases}$} [{$1$ iff Paul smoked in $w$} [{Paul smoked},roof]]]
-      [{$⊛$}
-        [{$\set{λ ut . t ∧ u}$\\and$^{ρ}$}]
-        [{$\begin{cases}
-    \set{1}&\ml{smoked}_{w} p ∧ ¬ (\ml{smokes}_{w} p)\\
-    \set{0}&\ml{smoked}_{w} p ∧ \ml{smokes}_{w} p\\
-    \set{1,0}&\text{otherwise}
-    \end{cases}$}
-        [{Paul stopped smoking},roof]]
-      ]
-    ]
-  \end{forest}
+\begin{definition}[Update]
+  $$
+  c[ϕ] ≔ \begin{cases}
+    \set{w | w ∈ c ∧ \eval*{ϕ} w = 1}&∀w ∈ c[\eval*{ϕ} w = 1 ∨ \eval*{ϕ} w = 0]\\
+    \text{undefined}&\text{otherwise}
+    \end{cases}
+  $$
+\end{definition}
 
-\subsection{Strong Kleene for quantifiers}
+Now we'll give a couple of illustrations to show that this system delivers the same results as propositional update semantics.
+
+\textbf{Example 1: Projection in conditional sentences}
+
+Let's go through a concrete concrete case, in $w_{cy}$ Sarah has a corgi and it's cute, in $w_{cn}$  Sarah has a corgi and it's not cute, and in $w_{∅}$ Sarah has no corgi.
 
 \ex
-$\set{(a → b) → c} → (a → \set{b}) → \set{c}$
+If Sarah has a corgi, then Sarah's corgi is cute.\hfill$p → q$
 \xe
 
-\subsection{Middle Kleene as an alternative semantics}
+$\set{w_{cy},w_{cn},w_{∅}}[p → q]$ is defined if $\set{w_{cy},w_{cn},w_{∅}}$ entails the semantic presupposition of $p → q$.
 
-\todo[inline]{Fill this is.}
+\begin{figure}[h!]
+\centering
+\begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ → ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 0  & \#    \\
+              0                  & 1  & 1  & 1    \\
+              \#                 & \hl{\#} & \# & \#
+          \end{tabular}
+\caption{Middle Kleene semantics for material implication}
+\end{figure}
+
+\begin{itemize}
+
+    \item According to the middle Kleene truth-table, $p → q$ is true at a world $w$ if (a) Sarah has no corgi in $w$, or (b) Sarah has a corgi in $w$ and Sarah's corgi is cute in $w$. These worlds are $\set{w_{cy},w_{∅}}$.
+    \item $p → q$ is false at a world $w$ if Sarah has a corgi in $w$, and Sarah's corgi is not cute in $w$. These worlds are $\set{w_{cn}}$.
+
+\end{itemize}
+
+The semantic presupposition of the sentence is therefore just $\set{w_{cy},w_{cn},w_{∅}}$, which is entailed (and in fact equivalent to) the context set $c$.
+
+Since update is defined, we simply retain the \textit{true} worlds from the context set, which are $\set{w_{cy},w_{∅}}$.
+
+Let's check that we get the desired results if we flip the order of antecedent and consequent.
+
+\ex
+If Sarah's corgi is cute, then Sarah has a corgi.\hfill$q → p$\label{flipped}
+\xe
+
+Now we compute the semantic presupposition of the sentence:
+
+\begin{itemize}
+
+    \item According to the middle Kleene truth-table, $q → p$ is true at a world $w$ if (a) $q$ is false in $w$, or (b) $q$ and $p$ are true in $w$. In other words, either Sarah has a corgi and it's not cute, or Sarah has a corgi and it's cute. These worlds are $\set{w_{cy},w_{cn}}$.
+
+    \item $q → p$ is false at a world iff $q$ is true and $p$ is false. I.e., Sarah has a corgi and it's cute, and Sarah doesn't have a corgi. This is a contradiction, so these worlds are $∅$.
+
+\end{itemize}
+
+The semantic presupposition of this sentence is therefore $\set{w_{cy},w_{cn}}$, i.e., \textit{that Sarah has a corgi}, and update will be undefined in the context above.\sidenote{A symmetric theory would predict this sentence to be presuppositionless, although there's an independent factor which could be responsible for the oddness of (\ref{flipped}); namely, if we incorporate some notion of incremental redundancy into our theory, the consequent is predicted to be redundant.}
+
+\textbf{Example 2: Projection in disjunctive sentences}
+
+Again, assume $w_{cy}$ Sarah has a corgi and it's cute, in $w_{cn}$  Sarah has a corgi and it's not cute, and in $w_{∅}$ Sarah has no corgi.
+
+\ex
+Either Sarah has no corgi, or Sarah's corgi is cute.\hfill$¬ p ∨ q$
+\xe
+
+$\set{w_{cy},w_{cn},w_{∅}}[p ∨ q]$ is defined if $\set{w_{cy},w_{cn},w_{∅}}$ entails the semantic presupposition of $¬ p ∨ q$.
+
+\begin{figure}[h!]
+\centering
+          \begin{tabular}{c|ccc}
+              \multicolumn{4}{c}{$\mathbf{ϕ ∨ ψ}$} \\
+              \midrule
+              \diagbox{$ϕ$}{$ψ$} & 1  & 0  & \#    \\
+              \midrule
+              1                  & 1  & 1  & 1    \\
+              0                  & 1  & 0  & \#    \\
+              \#                 & \hl{\#} & \# & \#
+          \end{tabular}
+          \caption{Middle Kleene semantics for disjunction}
+\end{figure}
+
+\begin{itemize}
+
+    \item According to the middle Kleene truth-tables $¬ p ∨ q$ is true at a world $w$ if (a) $p$ is false in $w$, or (b) $p$ is true in $w$ and $q$ is true in $w$. In other words, worlds in which Sarah doesn't have a corgi, and those in which she does, and it's cute. These are $\set{w_{∅},w_{cy}}$.
+
+    \item $¬ p ∨ q$ is false at a world $w$ if $p$ is true and $q$ is false; so, if Sarah has a corgi, and it's not cute. These are just $\set{w_{cn}}$.
+
+    \item The semantic presupposition, then is $\set{w_{cy},w_{cn},w_{∅}}$, which is entailed by (in fact equivalent to) the original context.
+
+\end{itemize}
+
+Since the update is defined, we now simply retain the true worlds, which are $\set{w_{∅},w_{cy}}$.
+
+\begin{tcolorbox}[title=Optional exercise]
+Show how the predictions change if the order of the disjuncts is flipped.
+\end{tcolorbox}
+
+\section{Extension to first order quantifiers}
+
+\textbf{The empirical issue}
+
+Many theories of projection, such as \citeauthor{Heim1983}'s system, predict quantified sentences to have universal presuppositions \textit{across the board}.\sidenote{We haven't actually seen this yet; we'll take more about how dynamic semantics deals with quantificational sentences once we talk about anaphora.}
+
+This seems plausible in many cases:
+
+\pex
+\a Each of these Italians has stopped smoking.\\\phantom{,}\hfill\textit{presupposes: each Italian smoked in the past}
+\a None of these Italians has stopped smoking.\\\phantom{,}\hfill\textit{presupposes: each Italian smoked in the past}
+\xe
+
+For other quantifiers however, this is much less straightforward; they seem to presuppose something much weaker.
+
+\pex
+\a At least one Italian has stopped smoking.\\\phantom{,}\hfill\textit{presupposes: some Italian smoked in the past}
+\a Some Italian has stopped smoking.\\\phantom{,}\hfill\textit{presupposes: some Italian smoked in the past}
+\xe
+
+Here we'll abstract away from the intricacies of the data (but more on this from Danny next week), and show how a generalization of the strong Kleene algorithm predicts a contrast between first order existential and universal quantifiers.
+
+\textbf{Generalizing the strong Kleene algorithm}
+
+Consider a language $\mathscr{L'}$ just like $\mathscr{L}$, only we supplement it with a non-empty finite set of \textit{predicate symbols} $\mathscr{P} = \set{P,Q,...}$, and quantifiers $⌜∃⌝$, $⌜∀⌝$, s.t., if $P ∈ \mathscr{P}$ then $⌜∃ P⌝, ⌜∀ P⌝ ∈ \mathscr{L'}$.
+
+The evaluation function $I$ maps predicate symbols to total functions from a domain of individuals $D$ to $\set{\set{1},\set{0},\set{1,0}}$, and the quantifiers to the following functions to bivalent truth-values:
+
+\pex
+\a $I(∃) ≔ λ P_{et} . ∃x[x ∈ D ∧ P x]$\hfill$\type{⟨et,t⟩}$
+\a $I(∀) ≔ λ P_{et} . ∀x[x ∈ D → P x]$\hfill$\type{⟨et,t⟩}$
+\xe
+
+In a trivalent setting, the scope of a quantifier will be a function from $f: D ↦ \set{\set{1},\set{0},\set{1,0}}$; since we aren't here interested in linear ordering effects, we need a way of generalizing the strong Kleene algorithm to quantifiers.
 
 
-\end{appendices}
+\begin{definition}[Semantics of quantified sentences] Where $D ∈ \set{∃,∀}$:
+    $$
+    \eval*{D P} ≔ \set{I(D) g | g ∈ \set{f | f x ∈ I(P) x | x ∈ D}}
+    $$
+\end{definition}
+
+The informal intuition:
+
+\begin{itemize}
+
+    \item $P$ denotes a mapping from $D$ to a set of truth-values.
+
+    \item We compute a set of functions $f$, where $f$ maps each $x$ to an element of whatever $I(P)$ maps $x$ to.
+
+    \item This means that if $I(P)$ maps $x$ to a singleton set, we get one $f$, whereas if $I(P)$ maps $x$ to a 2-membered set, we get two $f$s.
+
+    \item The resulting set of mappings from $D$ to $\set{1,0}$ is applied \textit{pointwise} to the function denoted by the quantified, resulting in a set of truth-values.
+
+\end{itemize}
+
+Let's say that we're interested in \enquote{stopped smoking}, which maps individuals to $\set{1}$ if they smoked and don't smoke anymore, $\set{0}$, if they smoked and still smoke, and $\set{1,0}$ if they never smoked:
+
+\begin{itemize}
+  \item $I(P)(\ml{sophie}) = \set{1}$
+  \item $I(P)(\ml{paul}) = \set{0}$
+  \item $I(P)(\ml{nathan}) = \set{1,0}$
+\end{itemize}
+
+\textbf{Case 1: Existential quantification}
+
+In order to compute $\eval*{∃ P}$, we first compute $\set{f | f x ∈ I(P) x | x ∈ D}$. The result is the following set of functions; $I(P)$ maps everything except Nathan to a singleton set, so functions only differ along the \textit{Nathan} dimension:
+
+$$
+f_{1} ≔ \left[\begin{array}{c}
+                \ml{sophie} ↦ 1\\
+                \ml{paul} ↦ 0\\
+                \ml{nathan} ↦ 1
+                \end{array}\right]
+$$
+
+$$
+f_{2} ≔ \left[\begin{array}{c}
+                \ml{sophie} ↦ 1\\
+                \ml{paul} ↦ 0\\
+                \ml{nathan} ↦ 0
+                \end{array}\right]
+$$
+
+Now we apply $∃$ pointwise to each of $f_{1}$ and $f_{2}$.
+
+$$
+\eval*{∃ P} = \set{[λ P . ∃x ∈ D[P x]] f | f ∈ \set{f_{1},f_{2}}}
+$$
+
+Due to the semantics of existential quantification, the result is true in each case, so the semantic value for $\eval*{∃ P}$ is $\set{1}$.
+
+The prediction in the general case is that an existential sentence will be \textit{true} just if $P$ is true of at least one individual. In other words, we get \textit{existential projection}.
+
+What about if there are no individuals that $P$ is true of? Let's shrink our domain of individuals $D' = \set{\ml{paul},\ml{nathan}}$. Computing $\set{f | f x ∈ I(P) x | x ∈ D'}$ gives us the following set of functions:
+
+$$
+f_{1} ≔ \left[\begin{array}{c}
+                \ml{paul} ↦ 0\\
+                \ml{nathan} ↦ 1
+                \end{array}\right]
+$$
+
+$$
+f_{2} ≔ \left[\begin{array}{c}
+                \ml{paul} ↦ 0\\
+                \ml{nathan} ↦ 0
+                \end{array}\right]
+$$
+
+Applying the existential quantifier pointwise to these functions will result in $\set{1,0}$. In other words, we predict that an existential sentence is only false if the scope is false of \textit{every} individual; otherwise, it is undefined.
+
+From this discussion, it's easy to see that an existential sentence $∃ P$ is predicted to presupposes \textit{either} (a) someone is $P$, or (b) nobody is $P$.
+
+\textbf{Case 2: Universal quantification}
+
+Let's tweak our model slightly, and assume that both Paul and Sophie used to smoke but don't anymore, whereas Nathan never smoked.
+
+\begin{itemize}
+    \item $I(P)(\ml{paul}) = I(P)(\ml{sophie}) = \set{1}$
+    \item $I(P)(\ml{nathan}) = \set{1,0}$
+\end{itemize}
+
+We're interested in the status of the following sentence:
+
+\ex
+Everyone stopped smoking.\hfill$∀ P$
+\xe
+
+We first compute $\set{f | f x ∈ I(P) x | x ∈ D}$. The result is the following set of functions:
+
+$$
+f_{1} ≔ \left[\begin{array}{c}
+                \ml{paul} ↦ 1\\
+                \ml{sophie} ↦ 1\\
+                \ml{nathan} ↦ 1\\
+                \end{array}\right]
+$$
+
+$$
+f_{2} ≔ \left[\begin{array}{c}
+                \ml{paul} ↦ 1\\
+                \ml{sophie} ↦ 1\\
+                \ml{nathan} ↦ 0\\
+                \end{array}\right]
+$$
+
+Applying $∀$ pointwise to each function results in $\set{0,1}$ --- i.e., a presupposition failure. For a universal sentence to be true, the scope must be true of \textit{every} individual.
+
+Let's now change our model again, assuming that both Paul and Sophie used to smoke, and still do, whereas Nathan never smoked.
+
+\begin{itemize}
+    \item $I(P)(\ml{paul}) = I(P)(\ml{sophie}) = \set{0}$
+    \item $I(P)(\ml{nathan}) = \set{1,0}$
+\end{itemize}
+
+$$
+f_{1} ≔ \left[\begin{array}{c}
+                \ml{paul} ↦ 0\\
+                \ml{sophie} ↦ 0\\
+                \ml{nathan} ↦ 1\\
+                \end{array}\right]
+$$
+
+$$
+f_{2} ≔ \left[\begin{array}{c}
+                \ml{paul} ↦ 0\\
+                \ml{sophie} ↦ 0\\
+                \ml{nathan} ↦ 0\\
+                \end{array}\right]
+$$
+
+Applying $∀$ pointwise to each function results in $\set{0}$, i.e., a universal sentence is predicted to be false, just in case the scope is false of some individual.
+
+From this discussion, it's easy to see that a universal sentence $∀ P$ is predicted to presuppose either (a) everyone is $P$, or (b) at least one person isn't $P$.
+
+\section{Incrementalization: beyond middle Kleene}
+
+We've presented \citeauthor{George2008}'s middle Kleene algorithm with reference to a toy fragment where issues of compositionality and syntax don't really arise, but there's an open question as to what determines the order in which arguments are evaluated for the Middle Kleene and related algorithms.
+
+Based on syntactic evidence, it's often assumed that conjunctive sentences in English have a descending structure:
+
+\ex
+\begin{forest}
+  [{andP}
+    [{TP} [{Sarah is sick},roof]]
+    [{and'}
+      [{and}]
+      [{TP} [{her corgi is unhappy},roof]]
+    ]
+  ]
+\end{forest}
+\xe
+
+This suggests the following currying:
+
+\ex
+$\eval{and} ≔ λ u . λ t . t ∧ u$
+\xe
+
+In order to get the projection facts right, we can't incrementalize our algorithm based on the \textit{evaluation order} provided by the curried function; rather incrementalization must make reference to the order in which the juncts are pronounced.
+
+This intuition is bolstered by the fact that in head-final languages such as Korean and Japanese, where the constituency of conjunctive sentences is different, the projection generalizations are the same as in English.
+
+Consider the following Korean example; \citet{Chung2018} observes that the sentence presupposes that \textit{if John is over thirty, he cannot apply}.
+
+\ex
+\begingl
+\gla{} [John-un selun-i nem-ess-ko] caki-ka ciwenha-ci mosha-n-ta-num//
+\glb{} [John-{\sc top} thirty-{\sc nom} over-perf-and] self-{\sc nom} apply-{\sc ci} cannot-{\sc pres-decl-res}//
+\glft \enquote{John is over thirty and he knows he cannot apply.}//
+\endgl\\
+\phantom{,}\hfill\citep[p.\,319]{Chung2018}
+\xe
+
+Since this is a head final language, the structure is assumed to be as follows:
+
+\ex
+\begin{forest}
+  [{andP}
+  [{and'}
+    [{TP} [{John is over thiry},roof]]
+    [{and}]
+  ]
+      [{TP} [{he knows he cannot apply},roof]]
+  ]
+\end{forest}
+\xe
+
+This motivates a different currying of the conjunctive marker:
+
+\ex
+$\eval{\textit{ko}} ≔ λ t . λ u . t ∧ u$
+\xe
+
+Here, incrementalizing based on evaluation and linear order coincide, but we're clearly missing a generalization if we give different algorithms for English and Korean.
+
+Intriguingly, there is evidence from redundancy effects in Japanese, discussed by \citet{Ingason2016}, that suggest that incrementalization is not strictly based on linear order.\sidenote{We haven't shown here how to give an explanatory theory of redundancy effects, that doesn't stipulate the dynamic entries for the connectives, but see, e.g., \citet{Schlenker2009}.}
+
+\ex
+\begingl
+\gla Taro-ga [[\textbf{yamome}-dearu] \textbf{zyosei}-ni] atta.//
+\glb Taro-{\sc nom} [[\textbf{widow}-{\sc cop}] \textbf{woman}-{\sc dat}] met.//
+\glft \enquote{Taro met a woman who is a widow}//
+\endgl
+\xe
+
+\ex
+\begingl
+\gla\ljudge{\#}Taro-ga [[\textbf{zyosei}-dearu] \textbf{yamome}-ni] atta.//
+\glb Taro-{\sc nom} [[\textbf{woman}-{\sc cop}] \textbf{widow}-{\sc dat}] met.//
+\glft \enquote{Taro met a widow who is a woman}//
+\endgl
+\xe
+
+According to \citet{Ingason2016}, the judgements above indicate that a relativve clause is interpreted in the context of the head noun, irregardless of linear order.
+
+There's a common assumption that redundancy and presupposition projection pattern together with respect to incrementality, but this is not obvious at all.\sidenote{In fact, we already saw one place in which presupposition projection and redundancy apparently come apart --- namely, disjunctions (\citealt{MayrRomoli2016}).}
+
+The factors that incrementalization is sensitive to is very much an open question.\sidenote{Indeed, something relating to this question would make for an excellent squib topic.}
+
+\printbibliography
+
+% \begin{appendices}
+
+%   \section{Strong Kleene as an alternative semantics}
+
+%   Assume that $\type{t}$ is the type of \textit{bivalent} truth values.
+
+%   \ex
+%   $\eval[w]{stopped smoking} = λ x . \begin{cases}
+%     \set{1}&\ml{smoked}_{w} x ∧ ¬ (\ml{smokes}_{w} x)\\
+%     \set{0}&\ml{smoked}_{w} x ∧ \ml{smokes}_{w} x\\
+%     \set{1,0}&\text{otherwise}
+%     \end{cases}$\hfill$\type{e → \set{t}}$
+%   \xe
+
+%   \ex
+%   $\eval[w]{and} ≔ λ u . λ t . t ∧ u$\hfill$\type{t → t → t}$
+%   \xe
+
+%   As in a standard alternative semantics, we just need two truth-values to massage composition.
+
+%   \pex
+%   \a $x^{ρ} ≔ \set{x}$\hfill$\type{a → \set{a}}$
+%   \a $m ⊛ n ≔ \set{x \ml{A} y | x ∈ m ∧ y ∈ n}$\hfill$\type{\set{a → b} → \set{a} → \set{b}}$
+%   \xe
+
+%   \ex
+%   Paul smoked and he stopped smoking.
+%   \xe
+
+%   \begin{forest}
+%     [{$\set{t ∧ u | t ∈ \eval[w,\rho]{Paul smoked} ∧ u ∈ \eval[w]{Paul stopped smoking}}$\\$⊛$}
+%     [{$\begin{cases}
+%         \set{1}&\ml{smoked}_{w} \ml{p}\\
+%         \set{0}&\text{otherwise}
+%         \end{cases}$} [{$1$ iff Paul smoked in $w$} [{Paul smoked},roof]]]
+%       [{$⊛$}
+%         [{$\set{λ ut . t ∧ u}$\\and$^{ρ}$}]
+%         [{$\begin{cases}
+%     \set{1}&\ml{smoked}_{w} p ∧ ¬ (\ml{smokes}_{w} p)\\
+%     \set{0}&\ml{smoked}_{w} p ∧ \ml{smokes}_{w} p\\
+%     \set{1,0}&\text{otherwise}
+%     \end{cases}$}
+%         [{Paul stopped smoking},roof]]
+%       ]
+%     ]
+%   \end{forest}
+
+% \subsection{Strong Kleene for quantifiers}
+
+% \ex
+% $\set{(a → b) → c} → (a → \set{b}) → \set{c}$
+% \xe
+
+% \subsection{Middle Kleene as an alternative semantics}
+
+% \todo[inline]{Fill this is.}
+
+
+% \end{appendices}
 
 \end{document}
