@@ -56,7 +56,9 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
-\title{The dynamic approach to anaphora (revised)}
+\title{The dynamic approach to anaphora}
+
+\date{Revised and expanded, as of {\today}}
 
 \author[Patrick D. Elliott \& Danny Fox]{Patrick~D. Elliott \& Danny Fox}
 
@@ -94,10 +96,6 @@
 \begin{document}
 
 \maketitle% this prints the handout title, author, and date
-
-\begin{tcolorbox}[title=Readings]
-After today's class, you should be able to read \citeauthor{GroenendijkStokhof1991}'s (\citeyear{GroenendijkStokhof1991}) classic paper \textit{Dynamic Predicate Logic}. Please take a look before next week.
-\end{tcolorbox}
 
 \section{Background}
 
@@ -742,6 +740,7 @@ First, we need to cash out the notion of semantic presupposition in the current 
     $$
     \eval*[g]{ϕ ∧ ψ} ≔ \bigcup\limits_{g' ∈ \eval*[g]{ϕ}} \eval*[g']{ψ}
     $$
+    Note: since either conjunct can be undefined, we want to make sure that the grand union operator in the meta-language projects undefinedness.
   \end{tcolorbox}
 
   Interestingly, unlike in propositional update semantics, in dynamic semantics we're clearly distinguishing between the semantic value of a sentence and the \textit{update} it induces.
@@ -915,7 +914,7 @@ First, we need to cash out the notion of semantic presupposition in the current 
 
   Another amendment we might like to make is an account of \citeauthor{Heim1991}'s (\citeyear{Heim1991}) \textit{novely condition},
 
-  The novelty condition is essentially a ban on index re-use. It captures disjointness effects:
+  The novelty condition is often taken to ban index re-use.\sidenote{Although, as we'll see when we discuss Stone disjunctions, it is actually distinct from such a principle.} It captures disjointness effects:
 
   \ex
   \ljudge{*}Someone$^{1}$ walked in and someone$^{1}$ sat down.
@@ -924,6 +923,8 @@ First, we need to cash out the notion of semantic presupposition in the current 
   Our definition for existential quantification/random assignment is \textit{destructive}; $g^{[1 → x]}$ is implicitly assumed to be defined even if $g_{1}$ is defined.
 
   In order to capture novelty in a way that percolates through our system, we can make a very small amendment, and simply assume that $g^{[1 → x]}$ is defined iff $g_{1}$ is \textit{undefined}.
+
+  To illustrate, $[1 ↦ \ml{paul}]^{[1 ↦ \ml{sophie}]}$ is \textit{undefined}, but $[2 ↦ \ml{paul}]^{[1 ↦ \ml{sophie}]}$ is defined.
 
   This means that, e.g., \textit{random assignment} carries a presupposition.
 
@@ -939,6 +940,8 @@ First, we need to cash out the notion of semantic presupposition in the current 
   \end{tcolorbox}
 
   Via the bridge principle, an indefinite indexed $n$ presupposes that $n$ is undefined throughout $c$.
+
+  We don't need to make any special assumptions about indices in the syntax; we can simply assume that articles and pronouns are freely assigned indices; possible indexings are constrained by the need to satisfy novelty and familiarity.
 
 
   \subsection{Semantics IV: Negation and accessibility}
@@ -999,9 +1002,17 @@ First, we need to cash out the notion of semantic presupposition in the current 
 
   A negated sentence tests the classical-truth value of the contained sentence.
 
+  More technically, a \textit{test} in \ac{dpl} is a sentence that always outputs either the singleton set of the input assignment, or the absurd information state.
+
+  Similarly, in update semantics a test was a sentence that always outputs either the input state or the absurd information state.
+
+  A disanalogy is that, in update semantics, tests can be sensitive to properties of an \textit{information state}; in \ac{dpl}, tests can only be sensitive to individual points (i.e., assignments).
+
+  Interestingly, tests were only useful in update semantics for analyzing modalized sentences; in \ac{dpl}, tests are completely prevalent; based on what we've seen so far, only existential statements are non-tests.
+
   \textbf{An illustration}
 
-  To see how negation renders an indefinite \textit{inaccessible}, it will pay to go through a concrete example. Let's imagine that $D = \set{\ml{pat}}$, and $I(P) = \ml{pat}, I(A) = ∅$ and $I(W) = \ml{pat}$
+  To see how negation renders an indefinite \textit{inaccessible}, it will pay to go through a concrete example. Let's imagine that $D = \set{\ml{pat}}$, and $I(P) = \set{\ml{pat}}, I(A) = ∅$ and $I(W) = \set{\ml{pat}}$
 
   \ex
   It's not true that some$^{1}$ philosopher is in the audience.\\
@@ -1048,7 +1059,7 @@ First, we need to cash out the notion of semantic presupposition in the current 
 
   We don't need to bother to compute the result of asserting \enquote{she$_{1}$'s waiting outside}; it's clear that the familiarity presupposition of the second sentence won't be satisfied.
 
-  Despite the fact that its motivation is on firm footing, there are some well known problems with negation in \ac{ds} involving \textit{double negation} and \textit{disjunction}. We'll come back to this.
+  Despite the fact that its motivation is on firm footing, there are some well known problems with negation in \ac{ds} involving \textit{double negation} and \textit{disjunction}. We'll come back to this later today.
 
   \subsection{Semantics V: Disjunction}
 
@@ -1124,6 +1135,15 @@ First, we need to cash out the notion of semantic presupposition in the current 
   \ljudge{*}Neither a$^{1}$ philosopher nor a$^{1}$ linguist is outside. He$_{1}$'s inside smoking.
   \xe
 
+  There are some interesting open questions regarding disjunction, e.g.:
+
+  \begin{itemize}
+
+          \item Under what conditions does natural language \textit{or} express \ac{dpl} disjunction vs. Stone disjunction?
+
+  \end{itemize}
+
+  As we'll see later today, there is still a problem: neither of these entries capture \textit{Partee disjunctions}.
 
   \section{Donkey sentences and Egli's corollary}
 
@@ -1147,8 +1167,7 @@ First, we need to cash out the notion of semantic presupposition in the current 
     $$
     \eval[g]{ϕ → ψ} ≔ \begin{cases}
       \set{g}&∀g'[g' ∈ \eval*[g]{ϕ} → (\eval*[g']{ψ} ≠ ∅)]\\
-      ∅&∃g'[g' ∈ \eval*[g]{ϕ} ∧ (\eval*[g']{ψ} = ∅)]\\
-      \text{undefined}&\text{otherwise}
+      ∅&\text{otherwise}
       \end{cases}
     $$
   \end{tcolorbox}
@@ -1163,8 +1182,8 @@ First, we need to cash out the notion of semantic presupposition in the current 
   \xe
 
   \ex~
-  If I talk for too long, a philosopher will ask an annoying question.\\
-  She's in the audience.\hfill \cmark $∃ > \ml{if}$, \xmark $\ml{if} > ∃$
+  If I talk for too long, a$^{1}$ philosopher will ask an annoying question.\\
+  She$_{1}$'s in the audience.\hfill \cmark $∃ > \ml{if}$, \xmark $\ml{if} > ∃$
   \xe
 
   This is even easier to see via an \ac{npi}:
@@ -1176,6 +1195,8 @@ First, we need to cash out the notion of semantic presupposition in the current 
 
   \textbf{Donkey sentences}
 
+  Let's illustrate how the semantics of implication, in tandem with existentials, accounts for donkey sentences.
+
   \ex\label{ex:donkey1}
   If Sarah sees a corgi, she pets it.\\
   $(∃x_{1}C x_{1}) → P x_{1}$\sidenote[][-5\baselineskip]{To simplify the computation, we'll treat \textit{corgi seen by Sarah} ($C$), and \textit{petted by Sarah} ($P$) as syntactically simplex predicates. This is a harmless idealization.}
@@ -1185,8 +1206,7 @@ First, we need to cash out the notion of semantic presupposition in the current 
   $
   \eval*[g]{(∃x_{1} C x_{1}) → P x_{1}} = \begin{cases}
     \set{g}&∀g'[g' ∈ \eval*[g]{∃x_{1} C x_{1}} → (\eval*[g']{P x_{1}} ≠ ∅)]\\
-    ∅&∃g'[g' ∈ \eval*[g]{∃x_{1} C x_{1}} ∧ (\eval*[g']{P x_{1}} = ∅)]\\
-    \text{undefined}&\text{otherwise}
+    ∅&\text{otherwise}
     \end{cases}
   $
   \xe
@@ -1212,6 +1232,8 @@ First, we need to cash out the notion of semantic presupposition in the current 
   \xe
 
   Note that our theory predicts \textit{strong, universal} truth-conditions for donkey sentences; i.e., for (\ref{ex:donkey1}) to be true, Sarah must pet \texttit{every} corgi that she sees.
+
+  This is most certainly a good prediction in this instance, although as we'll see later today, this semantics will lead to problems further down the line.
 
   We can give an alternative rendering of the semantics for implicational sentences in terms of a subsethood relation between the output of the antecedent, and the assignments that make the consequent dynamically true:
 
@@ -1280,7 +1302,7 @@ $$
 
   \ex
   Everyone$^{1}$ who sees a corgi pets it$_{1}$.\\
-  $∀x_{1}[C x_{1} → P x_{1}]$
+  $∀x_{1}[(εx_{2} ∧ C x_{2} ∧ S x_{1} x_{2}) → P x_{1} x_{2}]$
   \xe
 
   \begin{itemize}
@@ -1288,9 +1310,9 @@ $$
     \item To see whether the test is passed, we first compute the result of doing random assignment:
     \item $\eval*[g]{ε_{1}} = \set{g^{[1 ↦ x]} | x ∈ D}$
     \item We now compute the set of assignments which make the contained sentence dynamically true:
-    \item $\set{g'' | ∃h[h ∈ \eval*[g'']{C x_{1} → P x_{1}}]}$
-    \item This is all those assignments $g''$ that are defined at $1$, such that either $g''_{1} ∉ I(C)$ or $g''_{1} ∈ I(P)$
-    \item For the former set to be a subset of the latter, everyone in the domain must either not $C$, or $P$.
+    \item $\set{g''| ∃h[h ∈ \eval*[g'']{(εx_{2} ∧ C x_{2} ∧ S x_{1} x_{2}) → P x_{1} x_{2}}]}$
+    \item This is all those assignments $g''$ that are defined at $1$, such that $g''_{1}$ petted every corgi that $g''_{1}$ saw (from the semantics of implicational sentences).
+    \item For the former set to be a subset of the latter, everyone in the domain must be s.t. they petted every corgi that they saw.
   \end{itemize}
 
     \begin{tcolorbox}[title=Egli's corollary]
@@ -1298,8 +1320,25 @@ $$
     $$
     (∃x_{1} ϕ) → ψ ⇔ ∀x_{1} (ϕ → ψ)
     $$
+    \tcblower
+    In terms of random assignment:
+
+    $$
+    (εx_{1} ∧ ϕ) → ψ ⇔ ∀x_{1} (ϕ → ψ)
+    $$
   \end{tcolorbox}
 
+  From Egli's corrolary our Corgi sentence is equivalent to universally quantifying over people and corgis:
+
+  \ex
+  $
+  \begin{aligned}[t]
+    &∀x_{1}[(εx_{2} ∧ C x_{2} ∧ S x_{1} x_{2}) → P x_{1} x_{2}]\\
+    &⇔ ∀x_1∀x_2[(C x_2 ∧S x_1 x_2) → P x_1 x_2]
+    \end{aligned}
+  $
+  \xe
+
 \section{Problems, prospects, and extensions}
 
 \subsection{Double negation and bathroom sentences}
@@ -1367,121 +1406,10 @@ Anaphora from doubly-negated sentences seems to be subject to poorly understood 
 \a\ljudge{??}It's not true that John \textsc{doesn't} own a$^{1}$ shirt; It$_{1}$'s in the wardrobe!
 \xe
 
-The validity of \ac{dne} with respect to anaphora might be taken to show that \ac{dpl} strays too far from the classical; if \citeauthor{Gotham2019} is correct however, we might not want to reinstate $¬ (¬ ϕ) ⇔ ϕ$ wholesale.
-
-\textbf{Bathroom sentences}
-
-There's a related problem with involving disjunctive sentence.
-
-First, think back to the Heim/Karttunen projection generalization for disjunctive sentences.
-
-\ex
-Either there is no bathroom, or the bathroom is upstairs.\label{ex:bathroom1}
-\xe
-
-(\ref{ex:bathroom1}) is presuppositionless, because the presupposition of the second disjunct (that \textit{there is a bathroom}), is locally satisfied; in update semantics, a subsequent disjunct is interpreted relative to the \textit{negation} of the initial disjunct.
-
-We can make a completely parallel observation with anaphora.
-
-\ex
-Either there is no$^{1}$ bathroom, or it$_{1}$'s upstairs.\label{ex:bathroom2}
-\xe
-
-The entry for disjunction we've given here, based on \citet{GroenendijkStokhof1991}, is both externally \textit{and} internally dynamic, so it has no chance at all of accounting for the possibility of anaphora in (\ref{ex:bathroom2}).
-
-Our entry for disjunction predicts that the test imposed by (\ref{ex:bathroom2}) is passed if the union of output states of the first and second disjuncts is non-empty; the disjunctive sentence should therefore inherit the definedness conditions of \textit{it's upstairs}, which contains a free variable.
-
-An intuitive thought is that a subsequent disjunct is interpreted in the context of the \textit{negation} of the first, so the problem of (\ref{ex:bathroom2}) is reduced to accounting for anaphora in the following:
-
-\ex
-Either there is no$^{1}$ bathroom,\\
-or (there isn't no$^{1}$ bathroom and) it$_{1}$'s upstairs.
-\xe
-
-This, naturally, reduces the problem of anaphora in bathroom sentences to the problem of \ac{dne} more generally.
-
-Similarly, \citet{Gotham2019} claims that anaphora in bathroom sentences comes with an associated uniqueness inference.
-
-\ex \textit{Context: the speaker knows that, if John owns any shirts, he owns more than one.}\\
-Either John has no$^{1}$ shirt, or it$_{1}$'s in the wardrobe.
-\xe
-
-This receives a natural explanation, if the account of anaphora in bathroom sentences is parasitic on the account of \ac{dne}.
-
-The data is somewhat unclear however; \citet{KrahmerMuskens1995} develop an account of bathroom sentences that ascribes them universal truth-conditions, just like donkey sentences; for them, (\ref{ex:bathroom2}) is true just so long as there is no bathroom that \textit{isn't} upstairs (there may be multiple bathrooms).
-
-As I've noted elsewhere, anaphora from under double negation is compatible with a plural pronoun, just so long as it picks up a \textit{maximal} \ac{dr}. This is a puzzle for uniqueness.
+As I note in \cite{Elliott2020b}, anaphora from under double negation is compatible with a plural pronoun, just so long as it picks up a \textit{maximal} \ac{dr}. This is a puzzle for uniqueness.
 
 \ex
 John doesn't own no$^{1}$ shirt. They$_{1}$'re in the wardrobe.
-\xe
-
-There are a number of accounts of \ac{dne} in the literature which depart to a lesser or greater extent from \ac{dpl}: see \cite{Rothschild2017} and \cite{Mandelkern2020a,Mandelkern2020b} for a significant departure, and \cite{KrahmerMuskens1995,Gotham2019,Elliott2020b} for accounts which more closely toe the line.\sidenote{For anyone who's interested in this problem (I think it would make an \textit{excellent} squib topic), there's an extremely useful discussion in \citet[ch. 2]{vandenBerg1996}.}
-\section{Problems, prospects, and extensions}
-
-\subsection{Double negation and bathroom sentences}
-
-\textbf{Double negation}
-
-In \ac{ds}, negation is a \textit{destructive} operation; it obliterates any \acp{dr} in its scope since, the output state of the contained sentence is, essentially, \existentially closed.
-
-This makes a pretty strong prediction; \textit{double negation elimination} should \textit{not} be valid, unlike in a classic setting.
-
-We can illustrate this be giving a concrete example:
-
-\ex
-It's not true that nobody left.\hfill$¬ (¬ ∃x_{1} L x_{1})$
-\xe
-
-Let's compute the meaning of the sentence in \ac{ds}:\sidenote{As usual, we ignore undefinedness since there are no free variables.}
-
-\ex
-$\eval*[g]{¬ (¬ ∃x_{1} L x_{1})} = \begin{cases}
-  \set{g}&\eval*[g]{¬ ∃x_{1} L x_{1}} = ∅\\
-  ∅&\text{otherwise}
-  \end{cases}$
-\xe
-
-\ex
-$ = \begin{cases}
-  \set{g}&\eval*[g]{∃x_{1} L x_{1}} ≠ ∅\\
-  ∅&\text{otherwise}
-  \end{cases}$
-\xe
-
-\ex
-$ = \begin{cases}
-  \set{g}&\set{g^{[1 → x]} | x ∈ I(L) ∧ x ∈ D} ≠ ∅\\
-  ∅&\text{otherwise}
-  \end{cases}$
-\xe
-
-\ex\label{ex:dn-result}
-$ = \begin{cases}
-  \set{g}&∃x[x ∈ D ∧ x ∈ I(L)]\\
-  ∅&\text{otherwise}
-  \end{cases}$
-\xe
-
-If we just take the conditions under which the doubly negated sentence is \textit{true}, then this is equivalent to the conditions under which its positive counterpart are true; namely, just so long as $I(L) ≠ ∅$:
-
-\ex\label{ex:pos-result}
-$\eval*[g]{∃x_{1} L x_{1}} = \set{g^{[1 → x]} | x ∈ I(L) ∧ x ∈ D}$
-\xe
-
-However, if we compare (\ref{ex:dn-result}) and (\ref{ex:pos-result}), we can see that the output states are \textit{not} the same; the doubly-negated sentence is a \textit{test}, whereas its positive counterpart introduces $x_{1}$ as a \ac{dr}.
-
-It was already noted by \citeauthor{GroenendijkStokhof1991} that this is a problem, and indeed it seems to make bad predictions for anaphora.
-
-\ex
-It's not true that \textsc{no} philosopher registered; she$_{1}$'s sitting at the back.
-\xe
-
-Anaphora from doubly-negated sentences seems to be subject to poorly understood constraints; \citet{Gotham2019} (see also \citealt{KrahmerMuskens1995}) claims that there is an associated uniqueness inference.\sidenote{The following examples are based on \cite{Gotham2019}.}
-
-\pex \textit{Context: The speaker knows that John owns more than one shirt.}
-\a John owns a$^{1}$ shirt. It$_{1}$'s in the wardrobe.
-\a\ljudge{??}It's not true that John \textsc{doesn't} own a$^{1}$ shirt; It$_{1}$'s in the wardrobe!
 \xe
 
 The validity of \ac{dne} with respect to anaphora might be taken to show that \ac{dpl} strays too far from the classical; if \citeauthor{Gotham2019} is correct however, we might not want to reinstate $¬ (¬ ϕ) ⇔ ϕ$ wholesale.
@@ -1506,9 +1434,10 @@ Either there is no$^{1}$ bathroom, or it$_{1}$'s upstairs.\label{ex:bathroom2}
 
 The entry for disjunction we've given here, based on \citet{GroenendijkStokhof1991}, is both externally \textit{and} internally dynamic, so it has no chance at all of accounting for the possibility of anaphora in (\ref{ex:bathroom2}).
 
+
 Our entry for disjunction predicts that the test imposed by (\ref{ex:bathroom2}) is passed if the union of output states of the first and second disjuncts is non-empty; the disjunctive sentence should therefore inherit the definedness conditions of \textit{it's upstairs}, which contains a free variable.
 
-An intuitive thought is that a subsequent disjunct is interpreted in the context of the \textit{negation} of the first, so the problem of (\ref{ex:bathroom2}) is reduced to accounting for anaphora in the following:
+An intuitive thought is that a subsequent disjunct is interpreted in the context of the \textit{negation} of the first, just like in our update semantic entry for disjunction \citep{Beaver2001}, so the problem of (\ref{ex:bathroom2}) is reduced to accounting for anaphora in the following:
 
 \ex
 Either there is no$^{1}$ bathroom,\\
@@ -1519,21 +1448,21 @@ This, naturally, reduces the problem of anaphora in bathroom sentences to the pr
 
 Similarly, \citet{Gotham2019} claims that anaphora in bathroom sentences comes with an associated uniqueness inference.
 
-\ex \textit{Context: the speaker knows that, if John owns any shirts, he owns more than one.}\\
-Either John has no$^{1}$ shirt, or it$_{1}$'s in the wardrobe.
+\ex\textit{Context: the speaker knows that, if John owns any shirts, he owns more than one.}\\
+\# Either John has no$^{1}$ shirt, or it$_{1}$'s in the wardrobe.
 \xe
 
 This receives a natural explanation, if the account of anaphora in bathroom sentences is parasitic on the account of \ac{dne}.
 
 The data is somewhat unclear however; \citet{KrahmerMuskens1995} develop an account of bathroom sentences that ascribes them universal truth-conditions, just like donkey sentences; for them, (\ref{ex:bathroom2}) is true just so long as there is no bathroom that \textit{isn't} upstairs (there may be multiple bathrooms).
 
-As I've noted elsewhere, anaphora from under double negation is compatible with a plural pronoun, just so long as it picks up a \textit{maximal} \ac{dr}. This is a puzzle for uniqueness.
+In essence, the idea is to reduce the bathroom sentence to the following paraphrase:
 
 \ex
-John doesn't own no$^{1}$ shirt. They$_{1}$'re in the wardrobe.
+Either there is no$^{1}$ bathroom, or (if there isn't no$^{1}$ bathroom, then) it$_{1}$'s upstairs.
 \xe
 
-There are a number of accounts of \ac{dne} in the literature which depart to a lesser or greater extent from \ac{dpl}: see \cite{Rothschild2017} and \cite{Mandelkern2020a,Mandelkern2020b} for a significant departure, and \cite{KrahmerMuskens1995,Gotham2019,Elliott2020b} for accounts which more closely toe the line.\sidenote{For anyone who's interested in this problem (I think it would make an \textit{excellent} squib topic), there's an extremely useful discussion in \citet[ch. 2]{vandenBerg1996}.}
+There are a number of accounts of \ac{dne} and bathroom sentences in the literature which depart to a lesser or greater extent from \ac{dpl}: see \cite{Rothschild2017} and \cite{Mandelkern2020a,Mandelkern2020b} for a significant departure, and \cite{KrahmerMuskens1995,Gotham2019,Elliott2020b} for accounts which more closely toe the line.\sidenote{For anyone who's interested in this problem (I think it would make an \textit{excellent} squib topic), there's an extremely useful discussion in \citet[ch. 2]{vandenBerg1996}.}
 
 \subsection{Generalized quantifiers and the proportion problem}
 
@@ -1549,6 +1478,10 @@ Most people who see a$^{1}$ corgi pet it$_{1}$.
 Few people who see a$^{1}$ corgi pet it$_{1}$.
 \xe
 
+\ex
+Usually, a person who sees a$^{1}$ corgi pets it$_{1}$.
+\xe
+
 In order to account for determiners, we need to go beyond \ac{dpl}. We can minimally extend the syntax of $\mathbb{L}$, in the following way:
 
 \begin{itemize}
@@ -1557,11 +1490,13 @@ In order to account for determiners, we need to go beyond \ac{dpl}. We can minim
         \item If $Q ∈ \mathbb{Q}$, $x_{n} ∈ \mathb{V}$, $ϕ,ψ ∈ \mathbb{L}$, then $Qx_{n} ϕ ψ ∈ \mathbb{L}$.
 \end{itemize}
 
-Note that we're treating determiners as (two-place) \textit{sentential} operators.
+Note that we're treating determiners as (two-place) \textit{sentential} operators, which come with a binding index.
 
 \textbf{Semantics for quantified sentences}
 
-Let's furthermore assume that the valuation function $I$ maps determiners to binary relations between sets of individuals.
+N.b. the semantics that we'll give for quantified sentences is called an \textit{unselective} semantics, for reasons which will become clear.
+
+Let's assume that the valuation function $I$ maps determiners to conservative binary relations between sets of individuals (i.e., generalized quantifiers).
 
 Remember our semantics for universal sentences, in terms of subsethood? This will help us give a general recipe for quantified statements:
 
@@ -1619,7 +1554,7 @@ This elegant semantics for quantified sentences is essentially the semantics giv
 
 \textbf{The proportion problem}
 
-Consider the truth conditions we combine donkey anaphora with the determiner \textit{most}:\sidenote{We assume here that \textit{most} means \textit{more than half}, although this is of course a simplification.}
+Now, let's consider what happens when we combine donkey anaphora with the determiner \textit{most}:\sidenote{We assume here that \textit{most} means \textit{more than half}, although this is of course a simplification.}
 
 \ex
 Most people who see a corgi pet it.\hfill$⇝ \mathbf{most}_{1} (εx_{2} ∧ C x_{2} ∧ S x_{1} x_{2}) (P x_{1} x_{2})$
@@ -1659,12 +1594,15 @@ $$
 
 It's pretty clear then, that our truth conditions predict that the sentence should be true, but it's intuitively false in this scenario.
 
+The problem amounts to the fact that we end up quantifying over \textit{person-corgi pairs}, rather than individuals.
+
 \textbf{Weak vs. strong donkeys}
 
 Consider the classic donkey sentence below --- our entry for first-order universal quantification, and also \textit{every} as a generalized quantifier predict it to have strong, universal truth conditions.\sidenote{Apologies for the animal cruelty; I regrettably need to use this example to repeat Chierchia's reasoning.}
 
 \ex
-Every$^{2}$ farmer who owns a$^{2}$ donkey beats it$_{2}$.
+Every$^{1}$ farmer who owns a$^{2}$ donkey beats it$_{2}$.\\
+$⇝ \mathbf{every}_{1} (εx_{2} ∧ D x_{2} ∧ F x_{1} ∧ O x_{1} x_{2}) (B x_{1} x_{2})$
 \xe
 
 Concretely, we predict this to be true iff each farmer is s.t. they beat each donkey that they own.
@@ -1674,24 +1612,40 @@ However, donkey sentences can receive a so-called \enquote{weak} reading too. Co
 \textit{The farmers under discussion are all part of an anger management program, and they are encouraged by the psychotherapist involved to channel their aggressiveness towards their donkeys (should they own any) rather than towards each other. The farmers scrupulously follow the psychotherapist's advice.}
 
 \ex
-...every farrmer who owns a donkey beats it.
+...every farmer who owns a donkey beats it.
 \xe
+
+In the context, this is true just so long as each farmer is s.t. they beat some donkey that they own.
 
 Even more convincingly, there are donkey sentences for which the weak reading is the most salient:
 
 \ex
-Every person who has a dime will put it in the meter.
+Every person who has a$^{11}$ dime will put it$_{1}$ in the meter.
 \xe
 
 \ex
-Yesterday, every person who had a credit card paid his bill with it.
+Yesterday, every person who had a$^{1}$ credit card paid his bill with it$_{1}$.
 \xe
 
 The unselective analysis can't account for this reading.
 
 The solution to both of these problems involves formulating a \textit{selective} semantics for generalized quantifiers that relates sets of individuals rather than information states.
 
-We won't go through how to do this in class, but see, e.g., \cite{Chierchia1995} and \cite{Kanazawa1994}.
+We won't go through how to do this in class (although if there's a demand for it, I can discuss how to solve this problem next week), but see, e.g., \cite{Chierchia1995} and \cite{Kanazawa1994}.\sidenote[][-5\baselineskip]{Probably the simplest way of doing this is by formulating an object language abstraction operator $λ_{n}$, and defining dynamic GQs as relating functions from individuals to dynamic propositions, e.g.
+
+  \ex
+  Most farmers who own a$^{2}$ donkey beat it$_{2}$.\\
+  $\begin{aligned}
+    &\mathbf{most} (λ_{1} (εx_{2} ∧ D x_{2} ∧ F x_{1} ∧ O x_{1} x_{2}))\\
+    & (λ_{3} (B x_{3} x_{2}))
+  \end{aligned}$
+  \xe
+
+}
+
+\begin{tcolorbox}[title=Next time]
+Next week I'll discuss dynamic treatments of anaphora and \textit{explanatory adequacy} --- reading is \cite{Mandelkern2020a}.
+\end{tcolorbox}
 
 \printbibliography
 
