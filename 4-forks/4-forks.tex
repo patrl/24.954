@@ -1,0 +1,1437 @@
+\documentclass[nols,twoside,nofonts,nobib,nohyper]{tufte-handout}
+
+\usepackage{fixltx2e}
+\usepackage{tikz-cd}
+\usepackage[most,breakable]{tcolorbox}
+\usepackage{appendix}
+\usepackage{listings}
+\lstset{language=TeX,
+       frame=single,
+       basicstyle=\ttfamily,
+       captionpos=b,
+       tabsize=4,
+  }
+
+\input{acronyms}
+\renewcommand*{\acsfont}[1]{\textsc{#1}}
+
+\usepackage[font=footnotesize]{caption}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{%
+  \setlength{\RaggedRightParindent}{0pt}%
+  \setlength{\JustifyingParindent}{0pt}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\@tufte@reset@par
+
+% Paragraph indentation and separation for marginal text
+\renewcommand{\@tufte@margin@par}{%
+  \setlength{\RaggedRightParindent}{0pt}%
+  \setlength{\JustifyingParindent}{0pt}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{\baselineskip}%
+}
+\makeatother
+
+\usepackage{multicol}
+\usepackage{float}
+% \usepackage{subcaption}
+\usepackage{capt-of}
+
+\setcounter{secnumdepth}{3}
+
+% Set up the spacing using fontspec features
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+\usepackage{amsthm}
+\theoremstyle{observation}
+\newtheorem{observation}{Observation}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{corollary}
+\newtheorem{corollary}{Corollary}
+\usepackage{diagbox}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\title{Anaphora: extensions and alternatives}
+
+\date{\today}
+
+\author[Patrick D. Elliott \& Danny Fox]{Patrick~D. Elliott \& Danny Fox}
+
+\addbibresource[location=remote]{/home/patrl/repos/bibliography/master.bib}
+
+\lingset{
+  belowexskip=-1\baselineskip,
+  aboveglftskip=0pt,
+  belowglpreambleskip=0pt,
+  belowpreambleskip=0pt,
+  interpartskip=0pt,
+  extraglskip=0pt,
+  Everyex={\parskip=0pt}
+}
+
+\usepackage{float}
+
+
+% \usepackage{booktabs} % book-quality tables
+% \usepackage{units}    % non-stacked fractions and better unit spacing
+% \usepackage{lipsum}   % filler text
+% \usepackage{fancyvrb} % extended verbatim environments
+%   \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+
+% % Standardize command font styles and environments
+% \newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+% \newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+% \newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+% \newcommand{\docenv}[1]{\textsf{#1}}% environment name
+% \newcommand{\docpkg}[1]{\texttt{#1}}% package name
+% \newcommand{\doccls}[1]{\texttt{#1}}% document class name
+% \newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+% \newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+\section{Roadmap}
+
+\begin{itemize}
+
+        \item We'll begin with a recap of where we're at with \ac{dpl}; this will be a good time for any remaining clarification questions. We'll also touch on some problems and possible extensions.
+
+        \item Next, we'll discuss two big problems for first-generation dynamic approaches to anaphora (\citealt{Heim1982,Kamp1981,GroenendijkStokhof1991}) --- \textit{double negation}, and \textit{the proportion problem}.
+
+        \item This will lead into a discussion of a recent alternative approach which aims to retain the good parts of \ac{ds}, while being more explanatory and having superior empirical coverage --- \citeauthor{Mandelkern2020a}'s (\citeyear{Mandelkern2020a,Mandelkern2020b}) \textit{pseudo-dynamics}.\sidenote{I'll also touch on some recent, related work of mine \citealt{Elliott2020b,Elliott2020e}, time permitting.}
+
+        \item Next week we'll move away from anaphora, and \ac{ds}; we'll be focusing on \textit{implicature} for the last three classes of the semester.\sidenote{If you haven't already, we'd encourage you to start thinking of possible squib topics.}
+
+\end{itemize}
+
+\section{Recap and summary of \ac{dpl}}
+
+\subsection{Motivations}
+
+Initial, empirical motivations: \textit{discourse anaphora} and \textit{donkey anaphora}:
+
+\textbf{Discourse anaphora}
+
+\ex
+A$^{1}$ philosopher attended the talk, and she$_{1}$ asked some difficult questions.\label{ex:indef}
+\xe
+
+\pex
+\a A: A$^{1}$ famous philosopher attended my talk.
+\a B: Oh? Did she$_{1}$ ask any especially difficult questions.
+\xe
+
+\textbf{Donkey anaphora}
+
+\ex
+If a$^{1}$ farmer owns a$^{2}$ donkey, he$_{1}$ feeds it$_{2}$ hay.
+\xe
+
+\ex
+Every farmer who owns a$^{2}$ donkey feeds it$_{1}$ hay.\label{ex:farmer2}
+\xe
+
+Conceptual motivation: a richer notion of context is necessary to track relative referential certainty.
+
+The \textit{formal link} condition indicates that we need a notion of \textit{aboutness} above and beyond the classical notion of content.
+
+\pex
+\a Andreea is married. I saw ?them/Andreea's spouse yesterday.\label{ex:fl1}
+\a Andreea has a husband. I saw them/Andreea's spouse yesterday.\label{ex:fl2}
+\xe
+
+\pex
+\a I dropped ten marbles and found all of them, except for one.\\
+It's probably under the sofa.
+\a I dropped ten marbles and found only nine of them.\\
+?It's probably under the sofa.\hfill\citep[p. 21]{Heim1982}
+\xe
+
+\subsection{Technical summary}
+
+\begin{fullwidth}
+\begin{tcolorbox}[title=Syntax of \ac{dpl}]
+  Given the following:
+    \tightlist
+  \begin{itemize}
+          \tightlist
+          \item $\mathbb{V}$, a non-empty set of \textit{variables}, $x_{1},x_{2},…$.
+          \item $\mathbb{C}$, a non-empty set of \textit{individual constants}, $a,b,c,…$.
+          \item $\mathbb{P}_{n}$, a non-empty set of $n$-ary predicate symbols, $P,Q,…$.
+          \item $\mathbb{T}$, the set of terms: $\mathbb{V} ∪ \mathbb{C}$.
+  \end{itemize}
+  \tcblower
+  A \ac{dpl} language $\mathbb{L}$ is the smallest set where:
+  \begin{itemize}
+          \tightlist
+          \item If $P ∈ \mathbb{P}_{n}$, and $t_1,…t_{n} ∈ \mathbb{T}$, then $P t_{1} … t_{n} ∈ \mathbb{L}$.\hfill atomic sentences
+          \item If $ϕ ∈ \mathbb{L}$, then $¬ ϕ ∈ \mathbb{L}$.\hfill negated sentences
+          \item If $ϕ,ψ ∈ \mathbb{L}$, then $ϕ ∧ ψ, ϕ ∨ ψ, ϕ → ψ ∈ \mathbb{L}$\hfill con/disjunctive \& implicational sentences
+          \item If $ϕ ∈ L$, $x_{n} ∈ \mathbb{V}$, then $∃x_{n} ϕ, ∀x_{n} ϕ ∈ \mathbb{L}$\hfill quantified sentences
+          \item If $x_{n} ∈ \mathbb{V}$, then $εx_{n} ∈ \mathbb{L}$\hfill random assignment
+  \end{itemize}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{tcbitemize}[raster equal height]
+\tcbitem[title=Semantics of terms]
+
+Constants:
+$$
+\eval*[g]{c} ≔ I(c)
+$$
+Variables:
+$$
+\eval*[g]{x_{1}} ≔ \begin{cases}
+      g_{1}&g_{1} \text{ is defined}\\
+      \text{undefined}&\text{otherwise}
+      \end{cases}
+$$
+
+\tcbitem[title=Semantics of atomic sentences]
+
+  $$
+  \eval*[g]{P t_{1} … t_{n}} ≔ \begin{cases}
+    \set{g}&\begin{aligned}[t]
+      &⟨\eval*[g]{t_{1}},…,\eval*[g]{t_{n}}⟩ ∈ I(P)\\
+      &∧ \eval*[g]{t_{1}},…,\eval*[g]{t_{n}}\text{ are defined}
+      \end{aligned}\\
+      ∅&\begin{aligned}[t]
+        &⟨\eval*[g]{t_{1}},…,\eval*[g]{t_{n}}⟩ ∉ I(P)\\
+        &∧ \eval*[g]{t_{1}},…,\eval*[g]{t_{n}}\text{ are defined}
+        \end{aligned}\\
+    \#&\text{otherwise}
+    \end{cases}
+  $$
+\end{tcbitemize}
+
+\begin{tcbitemize}[raster equal height]
+\tcbitem[title=Existentially quantified sentences]
+    $$
+    \eval*[g]{∃x_{1} ϕ} ≔
+      ⋃\limits_{x ∈ D}\eval*[g^{[1 → x]}]{ϕ}
+    $$
+
+  \tcbitem[title=Conjunctive sentences]
+    $$
+    \eval*[g]{ϕ ∧ ψ} ≔ \bigcup\limits_{g' ∈ \eval*[g]{ϕ}} \eval*[g']{ψ}
+    $$
+  \tcbitem[title=Random assignment]
+    $$
+    \eval*[g]{εx_{n}} ≔ \set{g^{[n → x]} | x ∈ D}
+    $$
+  \tcbitem[title=Negated sentences]
+    $$\eval*[g]{¬ ϕ} ≔ \begin{cases}
+      \set{g}&\eval*[g]{ϕ} = ∅\\
+      \emptyset&\eval*[g]{ϕ} ≠ ∅\\
+      \text{undefined}&\text{otherwise}
+      \end{cases}$$
+  \tcbitem[title=Disjunctive sentences]
+  $$\eval*[g]{ϕ ∨ ψ} ≔ \begin{cases}
+      \set{g}&\eval*[g]{ϕ} ∪ \eval*[g]{ψ} ≠ ∅\\
+      ∅&\text{otherwise}\\
+      \end{cases}
+    $$
+  \tcbitem[title=Program disjunction]
+  $$
+    \eval*[g]{ϕ ⊻ ψ} ≔ \eval*[g]{ϕ} ∪ \eval*[g]{ψ}
+    $$
+  \tcbitem[title=Implicational sentences]
+$$
+    \eval*[g]{ϕ → ψ} ≔ \begin{cases}
+      \set{g}&\begin{aligned}[t]
+        &\set{g'|g' ∈ \eval*[g]{ϕ}}\\
+        &⊆ \set{g''|∃h[h ∈ \eval*[g'']{ψ}]}
+        \end{aligned}\\
+      ∅&\text{otherwise}
+      \end{cases}
+    $$
+  \tcbitem[title=Universally quantified sentences]
+  $$
+    \eval*[g]{∀x_{n} ϕ} ≔ \begin{cases}
+      \set{g}&\begin{aligned}[t]
+        &\set{g^{[n ↦ x]} | x ∈ D}\\
+        &⊆ \set{g' | ∃h[h ∈ \eval*[g']{ϕ}]}
+        \end{aligned}\\
+      ∅&\text{otherwise}
+      \end{cases}
+  $$
+\end{tcbitemize}
+\end{fullwidth}
+
+\subsection{Some important results}
+
+True existential quantification can be dispensed with, and instead expressed in terms of random assignment and conjunction
+
+\begin{tcolorbox}[title=Existential quantification and random assignment]
+$$
+∃x_{n} ϕ ⇔ εx_{n} ∧ ϕ
+$$
+\end{tcolorbox}
+
+Egli's theorem and its corollary are validated --- this is central to the account of discourse anaphora and donkey anaphora respectively:
+
+\begin{tcolorbox}[title=Egli's theorem]
+\tightlist
+
+$$∃x_{n} ϕ ∧ ψ ⇔ ∃x_{n} (ϕ ∧ ψ)$$
+
+\tcblower
+Expressed in terms of random assignment, this is just associativity:
+
+$$
+    (εx_{n} ∧ ϕ) ∧ ψ ⇔ εx_{n} ∧ (ϕ ∧ ψ)
+    $$
+\end{tcolorbox}
+
+This means that...
+
+\ex
+Someone$^{1}$ walked in and she$_{1}$ immediately sat down.\\
+$\rightsquigarrow (εx_{1} ∧ W x_{1}) ∧ S x_{1}$
+\xe
+
+...can be rewritten as...
+
+\ex
+$\rightsquigarrow εx_{1} ∧ (W x_{1} ∧ S x_{1})$
+\xe
+
+\begin{tcolorbox}[title=Egli's corollary]
+$$
+    (∃x_{1} ϕ) → ψ ⇔ ∀x_{1} (ϕ → ψ)
+    $$
+
+    \tcblower
+Expressed in terms of random assignment:
+
+$$
+    (εx_{1} ∧ ϕ) → ψ ⇔ ∀x_{1} (ϕ → ψ)
+    $$
+\end{tcolorbox}
+
+This means that...
+
+\ex
+If someone$^{1}$ walked in then she$_{1}$ immediately sat down.\\
+$⇝ (εx_{1} ∧ W x_{1}) → S x_{1}$
+\xe
+
+...can be rewritten as...
+
+\ex
+$⇝ ∀x_{1} (W x_{1} → S x_{1})$
+\xe
+
+Similar, the following sentence:
+
+\ex
+Everyone$^{1}$ who owns a$^{2}$ donkey cares for it$_{2}$.\\
+$⇝ ∀x_{1}((εx_{2} ∧ D x_{2} ∧ O x_{1} x_{2}) → C x_{1} x_{2})$
+\xe
+
+...can rewritten as...
+
+\ex
+$⇝ ∀x_{1}∀x_{2}((D x_{2} ∧ O x_{1} x_{2}) → C x_{1} x_{2})$
+\xe
+
+  \textbf{Accessibility}
+
+  Due to the semantics of the operator, various \textit{accessibility} results are derived.
+
+  Assuming that indefinites scope within their containing sentences, an indefinites in prior conjuncts are accessible to pronouns in subsequent conjuncts, but not vice versa --- conjunction is both \textit{externally and internally dynamic}:
+
+  \pex
+  \a Someone$^{1}$ walked in and she$_{1}$ immediately sat down.
+  \a\ljudge{\#}She$_{1}$ immediately sat down, and someone$^{1}$ walked in.
+  \xe
+
+  Negation renders any indefinites within its scope inaccessible as antecedents to subsequent pronouns --- negation is \textit{externally static}:
+
+  \ex
+  \ljudge{\#}It's not true that anyone$^{1}$ walked in. She$_{1}$ immediate sat down.
+  \xe
+
+  An indefinite in either disjunct is inaccessible as an antecedent to a pronoun in the other disjunct, and to pronouns in subsequent sentences --- disjunction is both internally and externally static.\sidenote{Stone disjunctions are an exception to this generalization.}
+
+  \pex
+  \a \ljudge{\#}Either a$^{1}$ philosopher attended this talk or she$_{1}$'s waiting outside.
+  \a \ljudge{\#}Either she$_{1}$'s waiting outside, or a$^{1}$ philosopher attended this talk.
+  \xe
+
+  \pex
+  \a \ljudge{\#}Either a$^{1}$ philosopher attended this talk or nobody did.\\
+  She$_{1}$ enjoyed it.
+  \a\ljudge{\#}Either nobody attended this talk, or a$^{1}$ philosopher did.\\
+  She$_{1}$ enjoyed it.
+  \xe
+
+  Implicational sentences are \textit{internally dynamic} (since they allow for donkey anaphora, asymmetrically), but \textit{externally static}:
+
+  \pex
+  \a If a$^{1}$ philosopher attended this talk, then she$_{1}$ enjoyed it.
+  \a\ljudge{\#}If she$_{1}$ enjoyed this talk, then a$^{1}$ philosopher will feel inspired.
+  \xe
+
+  \pex
+  \a\ljudge{\#}If a$^{1}$ philosopher attended this talk, then it was a success,\\
+  but she$_{1}$ complained about it later.
+  \a\ljudge{\#}If this talk was a success, then it inspired a$^{1}$ philosopher,\\
+  but she$_{1}$ complained about it later.
+  \xe
+
+  \textbf{Donkey cataphora?}
+
+  One interesting nuance --- \cite[p. 192]{Chierchia1995} notes that cataphora is surprisingly good in certain implicational sentences (see also \citealt{BarkerShan2008} for similar remarks).
+
+  \ex
+  \ljudge{?}If John overcooks it$_{1}$, then a$^{1}$ hamburger usually tastes bad.\label{backwards}
+  \xe
+
+  \citet{ElliottSudo2019} note that sentences like (\ref{backwards}) become unacceptable in an episodic context, under the bound reading:
+
+  \ex
+  \ljudge{\#}If John overcooked it$_{1}$, then a$^{1}$ hamburger tasted bad.
+  \xe
+
+  They took this to suggest that something special is responsible for cataphora in (\ref{backwards}), such as reference to a kind.\sidenote{This class of examples is however very poorly understood, and a topic ripe for future research.
+
+See \citet{ElliottSudo2019} for an argument that (something like) cataphoric dynamic binding is possible, but only with definite antecedents.
+
+  }
+
+  \textbf{Quantificational subordination}
+
+  Universally quantified sentences are also predicted to be externally static, although this is apparently not the case:
+
+  \ex
+  Every woman bought a$^{1}$ book. Most of them read it$_{1}$ immediately.\label{subord}
+  \xe
+
+  But note that this is not generally possible:
+
+  \ex
+  \ljudge{\#}Every woman bought a$^{1}$ book. Tom borrowed it$_{1}$ later.
+  \xe
+
+  In fact, (\ref{subord}) is part of a systematic class of exceptions. What seems crucial here is that the first sentence establishes a functional relationship between \textit{women} and \textit{book}, which is picked up (in some sense) in the second sentence.
+
+  This phenomena is known as \textit{quantificational subordination}, and has often been taken to be one motivation a powerful extension of \ac{dpl} --- \textit{plural dynamic semantics} see, e.g., \citealt{vandenBerg1996,Brasoveanu2007}.\sidenote{That said, there have been some attempts to capture quantificational subordination without significantly extending the expressive power of \ac{dpl}. See, e.g., \cite{Gotham2019a}.}
+
+  \textbf{Modal subordination}
+
+  Background: as we've seen in previous classes, modals are \textit{holes} for presupposition projection:
+
+  \ex
+  Paul might have stopped smoking.\hfill\textit{presupposes: Paul used to smoke}
+  \xe
+
+  There are some surprising exceptions to this generalization, involving discourses with successive modals:
+
+  \ex
+  Paul might have started smoking,\\
+  and he might have subsequently stopped.\hfill\textit{presuppostionless}
+  \xe
+
+  Based on our naive projection generalizations, this is predicted to nevertheless presuppose that \textit{Paul used to smoke}, since \textit{Paul might have started smoking} doesn't entail the presuppostion.
+
+  In order to make sense of this, \citet{Roberts1989} famously proposed that subsequent modals can be anaphoric on a tentative update associated with a previous modal:\sidenote{Implementation details differ, but this is essentially the idea. See \citet{Kibble1994} for a presentation which sticks fairly close to the spirit of \ac{dpl}.}
+
+  \ex
+  Paul might$^{1}$ have started smoking,\\
+  and he might$_{1}$ have subsequently stopped.
+  \xe
+
+  Relevant to our purposes, modal subordination gives rise to a broad class of exceptions to the accessibility generalizations discussed above.
+
+  \ex
+  If a$^{1}$ philosopher attended this talk, then it was a success.\\
+  She would have enjoyed it$_{1}$.
+  \xe
+
+  \ex
+  Paul doesn't own a$^{1}$ truck, but it$_{1}$ would be a Ford Bronco.
+  \xe
+
+  It seems that other operators can license anaphoric modals, which in turn can exceptionally license anaphora --- \citet{Geurts2019} refers to this phenomenon as \textit{piggyback anaphora}, and it's of course outside of the remit of the simple system we've developed here.
+
+  This is worth bearing in mind when assessing the adequacy of the accessibility generalizations.
+
+\section{Beyond \ac{dpl}}
+
+\subsection{Double negation and bathroom sentences}
+
+\textbf{Double negation}
+
+In \ac{ds}, negation is a \textit{destructive} operation; it obliterates any \acp{dr} in its scope since, the output state of the contained sentence is, essentially, \existentially closed.
+
+This makes a pretty strong prediction; \textit{double negation elimination} should \textit{not} be valid, unlike in a classic setting.
+
+We can illustrate this be giving a concrete example:
+
+\ex
+It's not true that nobody left.\hfill$¬ (¬ ∃x_{1} L x_{1})$
+\xe
+
+Let's compute the meaning of the sentence in \ac{ds}:\sidenote{As usual, we ignore undefinedness since there are no free variables.}
+
+\ex
+$\eval*[g]{¬ (¬ ∃x_{1} L x_{1})} = \begin{cases}
+  \set{g}&\eval*[g]{¬ ∃x_{1} L x_{1}} = ∅\\
+  ∅&\text{otherwise}
+  \end{cases}$
+\xe
+
+\ex
+$ = \begin{cases}
+  \set{g}&\eval*[g]{∃x_{1} L x_{1}} ≠ ∅\\
+  ∅&\text{otherwise}
+  \end{cases}$
+\xe
+
+\ex
+$ = \begin{cases}
+  \set{g}&\set{g^{[1 → x]} | x ∈ I(L) ∧ x ∈ D} ≠ ∅\\
+  ∅&\text{otherwise}
+  \end{cases}$
+\xe
+
+\ex\label{ex:dn-result}
+$ = \begin{cases}
+  \set{g}&∃x[x ∈ D ∧ x ∈ I(L)]\\
+  ∅&\text{otherwise}
+  \end{cases}$
+\xe
+
+If we just take the conditions under which the doubly negated sentence is \textit{true}, then this is equivalent to the conditions under which its positive counterpart are true; namely, just so long as $I(L) ≠ ∅$:
+
+\ex\label{ex:pos-result}
+$\eval*[g]{∃x_{1} L x_{1}} = \set{g^{[1 → x]} | x ∈ I(L) ∧ x ∈ D}$
+\xe
+
+However, if we compare (\ref{ex:dn-result}) and (\ref{ex:pos-result}), we can see that the output states are \textit{not} the same; the doubly-negated sentence is a \textit{test}, whereas its positive counterpart introduces $x_{1}$ as a \ac{dr}.
+
+It was already noted by \citeauthor{GroenendijkStokhof1991} that this is a problem, and indeed it seems to make bad predictions for anaphora.
+
+\ex
+It's not true that \textsc{no}$^{1}$ philosopher registered; she$_{1}$'s sitting at the back.
+\xe
+
+Anaphora from doubly-negated sentences seems to be subject to poorly understood constraints; \citet{Gotham2019} (see also \citealt{KrahmerMuskens1995}) claims that there is an associated uniqueness inference.\sidenote{The following examples are based on \cite{Gotham2019}.}
+
+\pex \textit{Context: The speaker knows that John owns more than one shirt.}
+\a John owns a$^{1}$ shirt. It$_{1}$'s in the wardrobe.
+\a\ljudge{??}It's not true that John \textsc{doesn't} own a$^{1}$ shirt; It$_{1}$'s in the wardrobe!
+\xe
+
+As I note in \cite{Elliott2020b}, anaphora from under double negation is compatible with a plural pronoun, just so long as it picks up a \textit{maximal} \ac{dr}; uniqueness is just a special case of maximality.
+
+\ex
+John doesn't own no$^{1}$ shirt. They$_{1}$'re in the wardrobe.
+\xe
+
+The validity of \ac{dne} with respect to anaphora might be taken to show that \ac{dpl} strays too far from the classical; if \citeauthor{Gotham2019} is correct however, we might not want to reinstate $¬ (¬ ϕ) ⇔ ϕ$ wholesale.
+
+We'll ultimately come back to this issue when we discuss \citeauthor{Mandelkern2020a}'s appproach.
+
+\textbf{Bathroom sentences}
+
+There's a related problem with involving disjunctive sentence.
+
+First, think back to the Heim/Karttunen projection generalization for disjunctive sentences.
+
+\ex
+Either there is no bathroom, or the bathroom is upstairs.\label{ex:bathroom1}
+\xe
+
+(\ref{ex:bathroom1}) is presuppositionless, because the presupposition of the second disjunct (that \textit{there is a bathroom}), is locally satisfied; in update semantics, a subsequent disjunct is interpreted relative to the \textit{negation} of the initial disjunct.
+
+We can make a completely parallel observation with anaphora.
+
+\ex
+Either there is no$^{1}$ bathroom, or it$_{1}$'s upstairs.\label{ex:bathroom2}
+\xe
+
+The entry for disjunction we've given here, based on \citet{GroenendijkStokhof1991}, is both externally \textit{and} internally dynamic, so it has no chance at all of accounting for the possibility of anaphora in (\ref{ex:bathroom2}).\sidenote{Stone disjunction doesn't help either --- despite being externally dynamic, it's internally static.}
+
+
+Our entry for disjunction predicts that the test imposed by (\ref{ex:bathroom2}) is passed if the union of output states of the first and second disjuncts is non-empty; the disjunctive sentence should therefore inherit the definedness conditions of \textit{it's upstairs}, which contains a free variable.
+
+An intuitive thought is that a subsequent disjunct is interpreted in the context of the \textit{negation} of the first, just like in our update semantic entry for disjunction \citep{Beaver2001}, so the problem of (\ref{ex:bathroom2}) is reduced to accounting for anaphora in the following:
+
+\ex
+Either there is no$^{1}$ bathroom,\\
+or (there isn't no$^{1}$ bathroom and) it$_{1}$'s upstairs.
+\xe
+
+This, naturally, reduces the problem of anaphora in bathroom sentences to the problem of \ac{dne} more generally.
+
+Similarly, \citet{Gotham2019} claims that anaphora in bathroom sentences comes with an associated uniqueness inference.
+
+\ex\textit{Context: the speaker knows that, if John owns any shirts, he owns more than one.}\\
+\# Either John has no$^{1}$ shirt, or it$_{1}$'s in the wardrobe.
+\xe
+
+This receives a natural explanation, if the account of anaphora in bathroom sentences is parasitic on the account of \ac{dne}.
+
+The data is somewhat unclear however; \citet{KrahmerMuskens1995} develop an account of bathroom sentences that ascribes them universal truth-conditions, just like donkey sentences; for them, (\ref{ex:bathroom2}) is true just so long as there is no bathroom that \textit{isn't} upstairs (there may be multiple bathrooms).
+
+In essence, the idea is to reduce the bathroom sentence to the following paraphrase; due to Egli's corollary, the predicted truth conditions are universal.
+
+\ex
+Either there is no$^{1}$ bathroom,\\
+or (if there isn't no$^{1}$ bathroom, then) it$_{1}$'s upstairs.
+\xe
+
+There are a number of accounts of \ac{dne} and bathroom sentences in the literature which depart to a lesser or greater extent from \ac{dpl}: see especially \cite{KrahmerMuskens1995}, who develop a version of \ac{drt} which distinguishes between the positive and negative contribution of a sentence. We'll discuss a more recent proposal later on.\sidenote{For anyone who's interested in this problem (I think it would make an \textit{excellent} squib topic), there's an extremely useful discussion in \citet[ch. 2]{vandenBerg1996}.}
+
+\subsection{Generalized quantifiers and the proportion problem}
+
+\textbf{\ac{dpl} with quantifiers}
+
+\ac{dpl} is quite limited in its expressive power --- we're not in a position to analyze the broader range of environments in which donkey anaphora is possible.
+
+\ex
+Most [people who see a$^{1}$] [corgi pet it$_{1}$].
+\xe
+
+\ex
+Few [people who see a$^{1}$] [corgi pet it$_{1}$].
+\xe
+
+\ex
+Usually, a [person who sees a$^{1}$ corgi] [pets it$_{1}$].
+\xe
+
+Generalization: quantificational expressions are \textit{internall dynamic}; anaphora is licensed from the restrictor to the scope (but not vice versa).
+
+We'll try to naively extend \ac{dpl} to generalized quantifiers; in so doing, we'll encounter an interesting (but solvable) problem.
+
+In order to account for determiners, we first need to minimally extend the syntax of $\mathbb{L}$, in the following way:
+
+\begin{itemize}
+\tightlist
+        \item Let $\mathbb{Q}$ be a non-empty set of \textit{determiners}.
+        \item If $Q ∈ \mathbb{Q}$, $x_{n} ∈ \mathb{V}$, $ϕ,ψ ∈ \mathbb{L}$, then $Qx_{n} ϕ ψ ∈ \mathbb{L}$.
+\end{itemize}
+
+Note that we're treating determiners as (two-place) \textit{sentential} operators, which come with a binding index.
+
+\textbf{Unselected semantics for quantified sentences}
+
+N.b. the semantics that we'll give for quantified sentences is called an \textit{unselective} semantics, for reasons which will become clear.
+
+Let's assume that the valuation function $I$ maps determiners to conservative binary relations between sets of individuals (i.e., generalized quantifiers).
+
+Remember our semantics for universal sentences, in terms of subsethood? This will help us give a general recipe for quantified statements:
+
+\begin{tcolorbox}[title=Unselective semantics for quantified sentences]
+  To compute the output of a quantified sentence $Q_{n} ϕ ψ$, we must compute two sets: (i) the \textit{restrictor set} is the outputs of the restrictor $ϕ$ interpreted in the context of $n$-indexed random assignment. (ii) the \textit{matrix set} is the set of inputs that make the matrix sentence $ψ$ dynamically true. The quantified sentence $Q_{n} ϕ ψ$ is a test that checks whether a set-theoretic relation delivered by the valuation function holds between these two sets.
+  \tcblower
+  $$
+  \begin{aligned}[t]
+    &\eval*[g]{Qx_{n} ϕ ψ}\\
+    &≔ \begin{cases}
+    \set{g}&\eval*[g]{εx_{n} ∧ ϕ} \mathbin{I(Q)} \set{g'|∃h[h ∈ \eval*[g']{ψ}]}\\
+    ∅&\text{otherwise}
+    \end{cases}\end{aligned}
+  $$
+\end{tcolorbox}
+
+We can check that this makes the right predictions for donkey anaphora in universal statements.
+
+\ex
+Everyone who sees a$^{1}$ corgi pets it$_{1}$
+\xe
+
+We'll translate this into a quantified sentence as follows:\sidenote{As discussed by \citet{Heim1982}, these logical forms can be constructed compositionally by scoping out the \textit{determiner}.}
+
+\ex
+$\mathbf{every}_{1} (εx_{2} ∧ S x_{1} x_{2}) (P x_{1} x_{2})$
+\xe
+
+\ex
+$\begin{aligned}[t]
+  &\eval*[g]{\mathbf{every}_{1} (εx_{2} ∧ S x_{1} x_{2}) (P x_{1} x_{2})}\\
+  &= \begin{cases}
+    \set{g}&\eval*[g]{εx_{1} ∧ εx_{2} ∧ S x_{1} x_{2}} ⊆ \set{g' | ∃h[h ∈ \eval*[g']{P x_{1} x_{2}}]}\\
+    ∅&\text{otherwise}
+    \end{cases}
+  \end{aligned}$
+\xe
+
+In order to see if the test is passed, we first compute the restrictor set --- this gives back the set of modified assignments $g^{[1 ↦ x,2 ↦ y]}$, such that $x$ saw $y$.
+
+
+\ex
+$\eval*[g]{εx_{1} ∧ εx_{2} ∧ S x_{1} x_{2}} = \set{g^{[1 ↦ x,2 ↦ y]} | ⟨x,y⟩ ∈ I(S)}$
+\xe
+
+Now we compute the matrix set --- this gives back the set of assignments $g'$ defined for $1,2$, such that $g'_{1}$ petted $g'_{2}$.
+
+\ex
+$\set{g' | ∃ h[h ∈ \eval*{P x_{1} x_{2}}]} = \set{g' | g' ≠ \#, ⟨g'_{1},g'_{2}⟩ ∈ I(P)}$
+\xe
+
+In order for the restrictor set to be a subset of the matrix set, it must be the case that each modified assignment $g^{[1 ↦ x,1 ↦ y]}$ in the restrictor set is s.t. $x$ petted $y$; if this does not hold for some assignment in the restrictor set, then the subsethood relation fails to hold.
+
+\ex
+$∀h ∈ \set{g^{[1 ↦ x,2 ↦ y]} | ⟨x,y⟩ ∈ I(S)} → ⟨h_{1},h_{2}⟩ ∈ I(P)$\\
+$⇝ ∀⟨x,y⟩ ∈ I(S)[⟨x,y⟩ ∈ I(P)]$
+\xe
+
+This elegant semantics for quantified sentences is essentially the semantics given for adverbs of quantification in \cite{GroenendijkStokhof1991} and (implicitly) in \cite{Heim1982}, but it runs into two well-known problems: the \textit{proportion problem} and the distinction between \textit{weak and strong readings}.
+
+\textbf{The proportion problem}
+
+Now, let's consider what happens when we combine donkey anaphora with the determiner \textit{most}:\sidenote{We assume here that \textit{most} means \textit{more than half}, although this is of course a simplification.}
+
+\ex
+Most people who see a corgi pet it.\\
+\phantom{,}\hfill$⇝ \mathbf{most}_{1} (εx_{2} ∧ C x_{2} ∧ S x_{1} x_{2}) (P x_{1} x_{2})$
+\xe
+
+Let's compute the restrictor set relative to an input $g$, and the matrix set as usual:
+
+\ex Restrictor set relative to $g$:\\
+$\set{g^{[1 ↦ x,2 ↦ y]} | y ∈ I(C) ∧ ⟨x,y⟩ ∈ I(S)}$
+\xe
+
+\ex Matrix set:\\
+$\set{g' | g'_{1},g'_{2} ≠ \# ∧ ⟨g'_{1},g'_{2}⟩ ∈ I(P)}$
+\xe
+
+For the test imposed by the quantified sentence to be successful, more than half $⟨x,y⟩$ pairs, s.t. $y$ is a corgi and $x$ sees $y$, should be such that $x$ pets $y$.
+
+As many have remarked\sidenote{See, e.g., Partee 1984, Kadmon 1987, Rooth 1987, and Heim 1990.}, it's easy to come up with scenarios to demonstrate that this gets the truth-conditions of the English sentence wrong.
+
+Let's say that three people --- Sarah, Josie, and Alex --- saw corgis:
+
+\begin{itemize}
+        \tightlist
+  \item Sarah went to a dog park, and saw 10 corgis ($c_{1}, …, c_{10}$) --- she petted all of them.
+        \item Josie and Alex each saw one corgi ($c_{1}$ and $c_{2}$ respectively), but didn't pet them.
+  \end{itemize}
+
+We can list all the $⟨x,y⟩$ pairs such that $y$ is a corgi, and $x$ saw $y$. I've highlighted those pairs also in a petting relationship:
+
+$$
+\Set{\begin{array}{c}
+       ⟨j,c_{1}⟩,⟨a,c_{2}⟩,\\
+       \underline{⟨s,c_{1}⟩,⟨s,c_{2}⟩,⟨s,c_{3}⟩,⟨s,c_{4}⟩,⟨s,c_{5}⟩},\\
+       \underline{⟨s,c_{6}⟩,⟨s,c_{7}⟩,⟨s,c_{8}⟩,⟨s,c_{9}⟩,⟨s,c_{10}⟩},
+  \end{array}}
+$$
+
+It's pretty clear then, that our truth conditions predict that the sentence should be true, but it's intuitively false in this scenario.
+
+\ex
+Most people who see a$^{1}$ corgi pet it$_{1}$.
+\xe
+
+The problem amounts to the fact that we end up quantifying over \textit{person-corgi pairs}, rather than individuals. This is known as the \textit{proportion problem}.
+
+There's a (technical) fix to this, which relates to another problem with \ac{dpl}:
+
+\textbf{Weak vs. strong donkeys}
+
+Consider the classic donkey sentence below --- our entry for first-order universal quantification, and also \textit{every} as a generalized quantifier predict it to have strong, universal truth conditions.\sidenote{Apologies for the animal cruelty; I regrettably need to use this example to repeat Chierchia's reasoning.}
+
+\ex
+Every$^{1}$ farmer who owns a$^{2}$ donkey beats it$_{2}$.\\
+$⇝ \mathbf{every}_{1} (εx_{2} ∧ D x_{2} ∧ F x_{1} ∧ O x_{1} x_{2}) (B x_{1} x_{2})$
+\xe
+
+Concretely, we predict this to be true iff each farmer is s.t. they beat each donkey that they own.
+
+However, donkey sentences can receive a so-called \enquote{weak} reading too. Consider the following context from \cite{Chierchia1995}:
+
+\textit{The farmers under discussion are all part of an anger management program, and they are encouraged by the psychotherapist involved to channel their aggressiveness towards their donkeys (should they own any) rather than towards each other. The farmers scrupulously follow the psychotherapist's advice.}
+
+\ex
+...every farmer$^{11}$ who owns a$^{2}$ donkey beats it$_{2}$.
+\xe
+
+In the context, this is true just so long as each farmer is s.t. they beat some donkey that they own.
+
+Even more convincingly, there are donkey sentences for which the weak reading is the most salient:
+
+\ex
+Every person who has a$^{11}$ dime will put it$_{1}$ in the meter.
+\xe
+
+\ex
+Yesterday, every person who had a$^{1}$ credit card paid his bill with it$_{1}$.
+\xe
+
+The unselective analysis can't account for this reading.
+
+The solution to both of these problems involves formulating a \textit{selective} semantics for generalized quantifiers that relates sets of individuals rather than information states.
+
+We won't go through how to do this in class, but see, e.g., \cite{Chierchia1995} and \cite{Kanazawa1994}.\sidenote[][-5\baselineskip]{Probably the simplest way of doing this is by formulating an object language abstraction operator $λ_{n}$, and defining dynamic GQs as relating functions from individuals to dynamic propositions, e.g.
+
+  \ex
+  Most farmers who own a$^{2}$ donkey beat it$_{2}$.\\
+  $\begin{aligned}
+    &\mathbf{most} (λ_{1} (εx_{2} ∧ D x_{2} ∧ F x_{1} ∧ O x_{1} x_{2}))\\
+    & (λ_{3} (B x_{3} x_{2}))
+  \end{aligned}$
+  \xe
+
+}
+
+\section{Pseudo-dynamics}
+
+\subsection{The e-type approach}
+
+Probably the most prominent alternative to \ac{ds} is the \textit{e-type}/description-theoretic approach to pronominal anaphora, according to which pronouns elide descripive content.\sidenote{See \cite{Elbourne2013} for the most up-to-date reference on this line of research. Uniqueness concerns are dealt with by relativizing uniqueness to a \textit{situation}.}
+
+\ex
+A person entered the bar.\\
+{}[She $Δ$] ordered a mojito.\hfill$Δ = $\textcolor{gray}{person who entered the bar}
+\xe
+
+\ex
+Every farmer who owns a donkey\\
+cares for [it $Δ$].\hfill$Δ = $\textcolor{gray}{donkey that the farmer owns}
+\xe
+
+There are some well-known problems for the e-type approach, e.g.:
+
+\textbf{Bishop sentences}
+
+Bishop sentences present a puzzle for the e-type approach involving the indiscernability of individuals:
+
+\ex
+If a$^{1}$ bishop meets a$^{2}$ bishop, he$^{1}$ kisses him$_{2}$.\label{bishop}
+\xe
+
+On the e-type approach, this should involve a failure of uniqueness, even when relativizing to situations:
+
+\ex
+If a bishop meets a bishop,\\
+{}[he $Δ_{1}$] kissed [him $Δ_{2}$]\hfill$Δ_{1} = Δ_{2} =$\textcolor{gray}{the bishop that the bishop meets}
+\xe
+
+There are various complications that one could entertain, but \ac{ds} captures the data in (\ref{bishop}) straightforwardly -- it's just variable binding.
+
+There's also no official theory of discourse anaphora in the e-type approach --- when one tries to extend the e-type approach to discourse anaphora, one ends up with something suspiciously similar to \ac{ds}.\sidenote{See \citet{RothschildMandelkern2017} for discussion of this point.}
+
+I won't spend time on the e-type approach in this class, but rather, we'll move on to discuss a recent alternative approach which maintains many of the attractive features of \ac{ds}.
+
+\subsection{The witness generalization}
+
+\citeauthor{Mandelkern2020a}'s approach tries to preserve the index-based flexibility of \ac{ds} while restricting its expressive power and improving its empirical accuracy.\sidenote{I'm grateful to both Matt Mandelkern and Keny Chatain for discussion of this material; this section is based partially on a presentation I gave with Keny earlier this year.}
+
+\begin{tcolorbox}[title=The witness generalization]
+Anaphora to an indefinite is possible iff the \textit{local context} entails that a witness for the indefinite exists. (\citealt{RothschildMandelkern2017})
+\end{tcolorbox}
+
+Standard \ac{ds} only validates the ($\Rightarrow$) part of the witness generalization:
+
+\ex
+\textbf{Conjunction:}\hfill\cmark DS\\
+I have a$^{1}$ sister. She$_{1}$ lives in East Boldon.\\
+\textbf{LC}(She$_{1}$ lives in East Boldon) $\vDash$ \emph{I have a sister}
+\xe
+
+\ex
+\textbf{Conditional:}\hfill\cmark DS\\
+If Keny has a$^{1}$ brother, he$_{1}$ lives in Bordeaux. \\
+\textbf{LC}(he$_{1}$ lives in Bordeaux) $\vDash$ \emph{Keny has a$^{1}$ brother}
+\xe
+
+\ex
+\textbf{Disjunction:}\hfill\xmark DS\\
+Either Keny doesn't have a$^{1}$ brother, or he$_{1}$ lives in Bordeaux.
+\textbf{LC}(he$_{1}$ lives in Bordeaux) $\vDash$ \emph{Keny has a$^{1}$ brother}
+\xe
+%
+\ex
+\textbf{Double Negation:}\hfill\xmark DS\\
+I don't own no$^{1}$ shirt. It$_{1}$'s in the wardrobe.\\
+\textbf{LC}(it$_{1}$'s in the wardrobe) $\vDash$ \emph{I own a$^{1}$ shirt}
+\xe
+
+\ex
+\textbf{Non-asserted antecedent + conditional:}\hfill\xmark DS\\
+Does Keny have a$^{1}$ brother? If so, then he$_{1}$ must be French. \\
+\textbf{LC}(he$_{1}$ be French) $\vDash$ \emph{Keny has a$^{1}$ brother}
+\xe
+
+(Can you think of other cases?)
+
+The witness generalization suggests a deep connection between anaphoric licensing and presupposition projection --- assuming that a theory of local contexts is implicated in an account of presupposition projection.\sidenote{Both trivalent and dynamic theories offer such a notion.}
+
+\subsection{The explanatory challenge to \ac{ds}}
+
+The main difficulty is providing an account which does not give too many degrees of freedom to lexical content (\emph{contra} \ac{ds}).
+
+\pex
+\textbf{Unattested lexical items:}
+\a
+She entered and$'$ a person ordered a mojito.
+\hfill (reverse \emph{and})
+\a
+\#Every$'$ farmer who owns a donkey gives it back rubs.	\\
+\hfill (anaphorically inert \emph{every})
+\a
+\#A$'$ woman came and she sat down\\
+\hfill (anaphorically inert indefinites\footnote{
+This is debated. Particularly tricky are the cases of Pseudo Noun Incorporation, which marginally introduce DRs. Some see this as evidence that anaphoric potential is lexically specified.
+})
+\xe
+
+%
+\ac{ds} is maybe\footnotemark{} more expressive than needed for natural language\footnotetext{The usual disclaimers apply: communicational pressures shaping lexical inventories and lack of broad-scale cross-linguistic surveys.}
+
+\paragraph{Mandelkern's contribution:}
+Against that background, we can isolate three innovations of Mandelkern's proposal:
+\begin{enumerate}
+	\item
+A unification of conditions on presupposition satisfaction and anaphoric licensing..
+	\item
+Validating the witness generalization and (concomitantly) closing empirical gaps: double negation, disjunction, etc.
+	\item
+A static semantics (and therefore, more restrictive) semantics.
+\end{enumerate}
+
+\subsection{The proposal}
+
+\textbf{The basics}
+
+In a classical setting, sentences are true relative to an evaluation point --- formally, a world assignment pair.
+
+\pex
+\a $\eval[w,g]{Troy left} = \ml{left}_{w}(\ml{troy})$
+\a $\eval[w,g]{Someone left} = ∃x[\ml{left}_{w}(x)]$
+\xe
+
+To set things up, consider what it means to assert a sentence $ϕ$, in a Stalnakerian setting.
+
+We can think of a context $c$, following Stalnaker/Heim as consisting of a set of world-assignment pairs.\sidenote{Deparing from \citet{Mandelkern2020a}, we'll assume that assignments can potentially be partial.}
+
+Ignoring presupposition, updating a context by asserting a sentence $ϕ$ simply amounts to intersecting $c$ with the with the points at which $ϕ$ is true:
+
+\ex \textbf{Update (def.):} $c[ϕ] ≔ c ∩ \set{(w,g)|\eval[w,g]{ϕ} = 1}$
+\xe
+
+In a classical setting, it's easy to see that updating a context $c$ with a sentence with an indefinite won't have any effect on the assignments in the context; it will simply wipe out worlds in which nobody left.
+
+A classical semantics therefore fails to account for the fact that asserting a sentence with an indefinite introduces a \ac{dr}.
+
+At this point, we'd usually go ahead and shift to a \textit{dynamic} semantics, where sentences directly denote actions on the context. Instead, we'll take a different tack.
+
+\textbf{The witness presupposition}
+
+\citeauthor{Mandelkern2020a}'s core insight is that we can assign sentences with indefinites \textit{witness presuppositions}, i.e., disjunctive definedness conditions, which ensure that they only affect anaphoric potential if true. We do this using a trivalent semantics.
+
+N.b. the witness presupposition will need to be stipulated, but as we'll see, not much else will have to be.
+
+\ex
+$\eval[w,g]{someone$^1$ left} = \begin{cases}
+  1&\ml{left}_{w}(g_{1})\\
+  0&¬ (∃x[\ml{left}_{w}(x)])\\
+  \text{undefined}&\text{otherwise}
+  \end{cases}$\label{ex}
+\xe
+
+On \citeauthor{Mandelkern2020a}'s rendering, a sentence such as \enquote{someone$^{1}$ left} is \textit{defined and true} if $g_{1}$ left in $w$, and \textit{defined and false} if nobody left in $w$.
+
+There are two equivalent ways of elucidating the presupposition:
+
+\begin{itemize}
+
+  \item Either nobody left, or $g_{1}$ left.
+
+    \item If anyone left, $g_{1}$ left.
+
+\end{itemize}
+
+The assertive contribution is just the classical semantics for the indefinite, i.e., \textit{someone left}.
+
+On the disjunctive rendering of the presupposition, note that the right disjunct entails the truth of the assertion, and the left disjunct entails the falsity of the assertion, hence the presentation in (\ref{ex}).
+
+\textbf{The effect of asserting a sentence with an indefinite}
+
+In order to make sense of the effect of asserting a sentence with an indefinite, we're going to need to revise ourr notion of an information state --- this will be an interesting departure from the version of \ac{dpl} that I've presented.
+
+\begin{tcolorbox}[title=Mandelkernian information states]
+  Given a model, consisting of:
+  \begin{itemize}
+          \item A non-empty set of individuals $D$.
+          \item A non-empty set of variables $V$
+          \item A non-empty set of worlds $W$.
+  \end{itemize}
+  The set of possible assignments $G$ is the set of all mappings $g$, whose domain is $V$, and whose codomain is $D ∪ \set{\#}$, where $\#$ stands in for \textit{undefined}.
+  \tcblower
+  An \textit{information state} $c ⊆ W × G$, a set of world-assignment pairs, where:
+  \begin{itemize}
+          \item The product of $W$ and $G$ is the \textit{initial information state} (n.b., given a stock of variables, this will contain all possible assignments, both defined and undefined): $c_{⊤} ≔ W × G$
+          \item $∅$ is the \textit{absurd information state}. $c_{⊥} ≔ ∅$
+  \end{itemize}
+
+\end{tcolorbox}
+
+If we combine our global update rule for this semantics of the indefinite, it's easy to see that updating a context $c$ with \enquote{someone$^{1}$ left} will knock out any assignments that are undefined for $1$, and any world assignment pairs $(w,g)$ if $g_{1}$ didn't leave in $w$.
+
+To give a concrete example, where $\ml{dom} \coloneq \set{\ml{Xavier, Yuna, Zhaan}}$, the stock of indices is $\set{1}$, we can conceive of an initial context as follows:
+
+\begin{itemize}
+
+    \item $W ≔ \set{w_{xy},w_{x},w_{y},w_{∅}}$ (subscripts indicate who left, exhaustively).
+
+    \item $G ≔ \set{g_{∅},[1 → x],[1 → y],[1 → z]}$ ($g_{∅}$ is undefined for any index).
+
+    \item $c = W × G$
+
+\end{itemize}
+
+\ex
+$c[\text{someone$^{1}$ left}] \begin{aligned}[t]
+  &= c ∩ \set{(w,g)|\eval[w,g]{someone$^1$ left} = 1}\\
+  &= \set{(w_{xy},[1 → x]),(w_{x},[1 → x]),(w_{xy},[1 → y]),(w_{y},[1 → y])}
+  \end{aligned}$
+\xe
+
+One thing to note here is that, as Mandelkern acknowledges, what he describes as a \enquote{presupposition} isn't really what we would ordinarily describe as a presupposition, in a Stalnakerian setting.
+
+Ordinarily, we think of presuppositions as \textit{preconditions} on the context. This is formalized as Stalnaker's bridge:
+
+\ex Stalnaker's bridge principle\\
+Given $\phi_{\pi}$ a sentence that asserts $\phi$ and presupposes $\pi$,\\
+$c[ϕ_{π}]$ is defined iff $π$ is true \textit{throughout} $c$.
+\xe
+
+We have to abandon Stalnaker's bridge in order for Mandelkern's account to work, otherwise sentences with indefinites would frequently be undefined. Rather, we just toss out any assignments which are undefined relative to the index on the indefinite.
+
+What we would think of as \enquote{ordinary} presuppositions are reintroduced by relativizing truth to a context parameter, as we'll see when we talk about definites.
+
+\textbf{A more familiar presupposition}
+
+In Mandelkern's system, definites are genuinely presuppositional in the sentence of Heim-Stalnaker --- they place \textit{preconditions} on the context.
+
+In order to capture this, we need to add a \textit{context} parameter $c$ to the interpretation function: $\eval[w,g,c]{.}$.
+
+Sentences which don't involve definites or other presuppositional expressions won't be sensitive to the context parameter, and its presence will essentially be vacuous.
+
+The semantics of a sentence with a definite, however will impose a requirement that it be defined throughout the context.\sidenote[][-3\baselineskip]{We use $*$ here to range over possible semantic values.}
+
+\ex
+$\eval[w,g,c]{they$_1$ sat down} = \begin{cases}
+  1&\ml{sat-down}_{w}(g_{1}) ∧ ∀(*,g) ∈ c[g_{1} \text{is defined}]\\
+  0&\ml{sat-down}_{w}(g_{1}) ∧ ∀(*,g) ∈ c[g_{1} \text{is defined}]\\
+  \text{undefined}&\text{otherwise}
+  \end{cases}$
+\xe
+
+There's a sense in which Mandelkern's semantics for definites, which presumably carries over to presuppositional expressions more generally, \textit{semanticizes} the bridge principle.
+
+\textbf{Revising update}
+
+We now need to redefine update in the obvious way --- the context parameter of the sentence is identified with the context $c$ which is being updated:
+
+\ex
+Update (second attempt): $c[ϕ] ≔ c ∩ \set{(w,g)| \eval[w,g,c]{ϕ} = 1}$
+\xe
+
+It's crucial here that we \textit{don't} assume Stalnaker's bridge principle. If the sentence is undefined relative to $(w,g) \in c$, we simply toss them aside.
+
+It's easy to see however that if we try to update a context $c$, which includes assignments that are undefined at $1$, with the sentence \enquote{they$_{1}$ sat down}, the result will be the empty set.
+
+This is because $\eval{they$_{1}$ sat down}$ undefined throughout $c$, since the conditions it places on $c$ as a whole will never be satisfied.
+
+We're now in a position to see how Mandelkern's system achieves the basic results of, e.g., \citeauthor{Heim1982}'s dynamic semantics.
+
+\begin{itemize}
+
+    \item Updating a context $c$ with \enquote{someone$^{1}$ left}, filters out any $g$s where $g_{1}$ is undefined.
+
+    \item An update of $c$ with \enquote{they$_{1}$ sat down} is only licit if $g_{1}$ is defined throughout $c$.
+
+\end{itemize}
+
+\textbf{Sub-sentential compositionality}
+
+We haven't said anything about how sentences with indefinites/definites come to mean what they mean. Here we'll sketch a simple Montagovian fragment with the desired properties.
+
+Indefinites simply denote existential quantifiers with a disjunctive presupposition.
+
+\ex
+$\eval[w,g,c]{someone$^1$} ≔ λ k : ¬ (∃x[k(x)]) ∨ k(g_{1}) . ∃x[k(x)]$
+\xe
+
+Predicates and proper names simply receive their ordinary denotations:
+
+\pex
+\a $\eval[w,g,c]{Xavier} = \ml{xavier}$
+\a $\eval[w,g,c]{swims} = λ x . \ml{swims}_{w}(x)$
+\xe
+
+Definites denote individuals with familiarity presuppositions:
+
+\ex
+$\eval[w,g,c]{they$_1$} ≔ \begin{cases}
+  g_{1}&∀g' ∈ c, g'_{1}\text{ is defined}\\
+  \text{undefined}&\text{otherwise}
+  \end{cases}$
+\xe
+
+
+We can supplement this with a rule of \citeauthor{HeimKratzer1998}'s undefinedness-sensitive rule for function application, which essentially gives us a weak Kleene logic (i.e., undefinedness always projects):
+
+\ex Function application:\\
+$\eval*[w,g,c]{\begin{array}{c}
+                 \begin{forest}
+                   [{...}
+                     [{$α$}]
+                     [{$β$}]
+                   ]
+                  \end{forest}
+               \end{array}} ≔ \begin{cases}
+               \eval*[w,g,c]{α}(\eval*[w,g,c]{β})&\begin{aligned}[t]
+                 &\eval*[w,g,c]{α}:\type{⟨σ,τ⟩},\eval*[w,g,c]{β}:\type{σ},\\
+                 &\eval*[w,g,c]{α}, \eval*[w,g,c]{β} \text{are defined}\end{aligned}\\
+                \eval*[w,g,c]{β}(\eval*[w,g,c]{α})&\begin{aligned}[t]
+                 &\eval*[w,g,c]{α}:\type{σ},\eval*[w,g,c]{β}:\type{⟨σ,τ⟩},\\
+                 &\eval*[w,g,c]{α}, \eval*[w,g,c]{β} \text{are defined}\end{aligned}\\
+               \text{undefined}&\text{otherwise}
+               \end{cases}$
+\xe
+
+If we compose an indefinite with a predicate, we can see how we get the sentential meanings we've been assuming. Since undefinedness is guaranteed to project:
+
+\ex
+$\begin{aligned}[t]
+  &\eval[w,g,c]{someone$^1$ left}\\
+  &= \eval[w,g,c]{someone$^1$}(\eval[w,g,c]{left})\\
+  &= \text{if }¬ ∃x[\ml{left}_{w}(x)] ∨ \ml{left}_{w}(g_{1}) \text{then} ∃x[\ml{left}_{w}(x)]\text{ else undefined}
+  \end{aligned}$
+\xe
+
+The presupposition is that nobody left or $g_{1}$ left, and the assertion is that someone left. To reiterate, this gives rise to the following predictions:
+
+\begin{description}
+
+  \item[defined and true] if $g_{1}$ left or nobody left, and someone left.\\
+    (since only the first disjunct is compatible with, and in fact entails the assertion, this can be simplified to: \textbf{$\mathbf{g_{1}}$ left})
+
+  \item[defined and false] if $g_{1}$ left or nobody left, and nobody left.\\
+    (since only the second disjunct is compatible with, and in fact equivalent to the assertion, this can be simplified to: \textbf{nobody left})
+
+  \item[undefined] otherwise.
+
+\end{description}
+
+\textbf{Sentential compositionality and local contexts}
+
+One of the virtues of Mandelkern's approach is that it allows us to maintain a classical semantics for the logical connectives:
+
+\pex
+\a $\eval[w,g,c]{not} ≔ λ t . ¬ t$\hfill$\type{\langle t,t\rangle}$
+\a $\eval[w,g,c]{and} ≔ λ u . λ t . t ∧ u$\hfill$\type{\langle t, \langle tt \rangle \rangle}$
+\a $\eval[w,g,c]{or} ≔ λ u . λ t . t ∨ u$\hfill$\type{\langle t, \langle tt \rangle \rangle}$
+\xe
+
+If we couple this with our rule of function application, this simply gives rise to a weak Kleene logic, which of course won't have the desired results.
+
+In order to account for presupposition projection, this system can be supplemented with an independently motivated algorithm for determining local contexts (e.g., \citealt{Schlenker2009,Schlenker2010}).\sidenote[][-5\baselineskip]{As we've seen, Mandelkern's fragment, together with a globally defined \textit{update} rule gives rise to a state system, in the sense of \cite{RothschildYalcin2017}, we could alternatively treat sentences as denoting their corresponding update, and define the logical connectives as in update semantics (\citeyear{Heim1982,Veltman1996}), where conjunction is interpreted as successive update, etc. Mandelkern's semantics therefore can in principle be embedded within a dynamic semantics, and is neutral wrt how the projection behavior of connectives is to be derived.}
+
+In order to avoid introducing the details of Schlenker's theory, we'll simply define syncategorematic rules for determining local contexts in complex sentences.
+
+Our rule for conjunction ensures that the second conjunct's context parameter is the context of utterance $c$ updated with the first conjunct.
+
+\ex Conjunction\\
+$\eval*[w,g,c]{
+  \begin{array}{c}\begin{forest}
+    [{....}
+      [{$ϕ$}]
+      [{...}
+        [{and}]
+        [{$ψ$}]
+      ]
+    ]
+  \end{forest}
+    \end{array}} ≔ \eval[w,g,c]{and}(\eval[w,g,c[ϕ]]{ψ})(\eval[w,g,c]{ϕ})$
+\xe
+
+Our rule for disjunction ensures that the second disjunct's context parameter is the context of utterance $c$ updated with the \textit{negation} of the first disjunct.
+
+
+\ex Disjunction\\
+$\eval*[w,g,c]{\begin{array}{c}
+                \begin{forest}
+                  [{...}
+                    [{$\phi$}]
+                    [{...}
+                      [{or}]
+                      [{$\psi$}]
+                    ]
+                  ]
+                  \end{forest}
+                \end{array}} ≔ \eval[w,g,c]{or}(\eval[w,g,c[\text{not }ϕ]]{$ψ$})(\eval[w,g,c]{$ϕ$})$
+\xe
+
+This brings us round to a discussion of negation:
+
+\subsection{Keeping negation classical}
+
+Matt's fragment allows us to maintain a classical treatment of negation, while maintaining the accessibility results of classical dynamic semantics \textit{and} validating double negation.
+
+\textbf{Negation roofs the introduction of a discourse referent}
+
+Recall that a sentence \enquote{someone$^{1}$ left} presupposes that (a) either nobody left or $g_{1}$ left, and if defined, asserts (2) someone left. It follows that \enquote{someone$^{1}$ left} is defined and false simply if nobody left.
+
+Since negation is classical \enquote{not $ϕ$} is true iff $ϕ$ is defined and false.
+
+\ex
+$\eval[w,g,c]{nobody$^1$ left} = \begin{cases}
+  1&¬ (∃x[\ml{left}_{w} x])\\
+  0&\ml{left}_{w}(g_{1})\\
+  \text{undefined}&\text{otherwise}
+  \end{cases}$
+\xe
+
+Updating a context with \enquote{nobody$^{1}$ left} therefore fails to filter out assignments at which $1$ is undefined, and we correctly predict that an indefinite under the scope of negation is \textit{inaccessible}.
+
+\textbf{Double negation elimination is valid}
+
+Since negation is classical, and presuppositions project through negation, \enquote{It's not the case that nobody$^{1}$ left} has the same definedness conditions as \enquote{Someone$^{1}$ left}:
+
+\ex
+$\eval[w,g,c]{it's not true that nobody$^1$ left} = \begin{cases}
+  1&\ml{left}_{w}(g_{1})\\
+  0&¬ (∃x[\ml{left}_{w} x])\\
+  \text{undefined}&\text{otherwise}
+  \end{cases}$
+\xe
+
+Given the previous rule for interpreting disjunctive sentences, an account of bathroom sentences naturally follows
+
+There are number of complications regarding an extension of \citeauthor{Mandelkern2020a}'s theory to donkey sentences, but they won't concern us here. See the paper for details.
+
+There are however two troubling features of \citeauthor{Mandelkern2020a}'s theory which may motivate us to consider alternatives:
+
+\begin{itemize}
+
+        \item A ``weird'' (i.e., effortlessly accommodated) presupposition.
+        \item A semanticized bridge principle.
+
+\end{itemize}
+
+\cite{Elliott2020b,Elliott2020e} independently developed a system with roughly the same properties as Mandelkern's, for independent reasons: \textit{dynamic alternative semantics}.
+
+\subsection{Comparison with \cite{Elliott2020b,Elliott2020e}}
+
+Mandelkern's fragment has an extremely nice feature: it achieves the basic results of dynamic semantics while maintaining the validity of double negation elimination.
+
+One might wonder what aspects of Mandelkern's system are \textit{essential} for achieving this result? For example, how important is it that Mandelkern's system is \textit{eliminative}?\sidenote{A fragment is \textit{eliminative} iff, for all sentences $ϕ$, $c[ϕ] ⊆ c$. It's easy to see that this holds.}
+
+In Elliott's theory (a) existential quantifiers introduce discourse referents, (b) negation is classical; double-negation elimination is valid, and (b) negation renders indefinites inaccessible.
+
+Elliott's \textit{dynamic alternative semantics} is sufficiently distinct that it's perhaps interesting to compare the two. As we'll see:
+
+\begin{itemize}
+
+    \item Elliott's fragment is \textit{non-eliminative}, but distributive, like, e.g., \citeauthor{GroenendijkStokhof1991}'s (\citeyear{GroenendijkStokhof1991}) \ac{dpl}.
+
+    \item It doesn't rest on the logic of presupposition, but rather on a distinction between verifiers and falsifiers in the output.
+
+\end{itemize}
+
+Sentences are interpreted relative to an \textit{evaluation point} (a world assignment pair), and output a set of assignment-truth value pairs.
+
+\ex
+$\eval[w,g]{Xavier left} = \set{(\ml{left}_{w}(\ml{xavier}),g)}$\hfill$\type{\set{t · g}}$
+\xe
+
+We can think of the assignments in the output as having a \enquote{polarity} -- in fact, we'll refer to outputted assignments as either being \textit{truth-tagged} or \textit{false-tagged}.
+
+The key innovation here is the following semantics for indefinites:\footnote{The semantics suggested in \cite{Elliott2020b} is a little more sophisticated this, and actually returns the grand intersection of all modified assignments in the false case. This won't be important for our purposes.}
+
+\ex
+$\eval[w,g]{someone$^1$ left} ≔ \begin{cases}
+  \set{(1,g^{[1 → x]})| \ml{left}_{w}(x), x ∈ \ml{dom}}&∃x[\ml{left}_{w}(x)]\\
+  \set{(0,g)}&\text{otherwise}
+  \end{cases}$
+\xe
+
+Elliott assumes that assignments are partial, and furthermore that we can think of the \textit{initial state} as the product of the set of worlds in the common ground with the initial assignment $g_{∅}$ (i.e., the unique assignment with an empty domain).
+
+\textit{Update} in Elliott's system is defined as follows: for each assignment $g$ in $c$, we keep (i) all the worlds $w$ in $c$ which, when fed into the sentence with $g$ give back a true tagged assignment, and (ii) pair $w$ with that assignment.
+
+\ex Update (def.): $c[ϕ] ≔ \bigcup\limits_{(w,g) ∈ c}\set{(w,g')|(1,g') ∈ \eval*[w,g]{ϕ}}$
+\xe
+
+To give a concrete example, assume:
+
+\begin{itemize}
+
+    \item $\ml{dom} ≔ \set{Xavier, Yuna, Zhaan}$
+
+    \item $W \coloneq \set{w_{xy},w_{x},w_{y},w_{∅}}$, where subscripts indicate who left, understood exhaustively.
+
+    \item $c = W \times g_{\emptyset} ≡ \set{(w_{xy},g_{∅}),(w_{x},g_{∅}),(w_{y},g_{∅}),(w_{∅},g_{∅})}$
+
+\end{itemize}
+
+\ex
+$\begin{aligned}[t]
+  &c[\text{someone$^{1}$ left}]\\
+  &= \bigcup\limits_{(w,g) ∈ c}\set{(w,g')|(1,g') ∈ \eval[w,g]{someone$^1$ left}}\\
+  &= \Set{(w_{xy},[1 → x]),(w_{x},[1 → x]),(w_{xy},[1 → y]),(w_{y},[1 → y])}
+  \end{aligned}$
+\xe
+
+Observe that, only worlds in which there is a verifier are retained, and in each world in which there is a verifier, a discourse referent is introduced. This is basically equivalent to \ac{dpl}.
+
+It's already easy to see that Elliott's system isn't eliminative, since eliminativity doesn't hold for an update with an indefinite (just like \ac{dpl}).
+
+Sentences with definites have a totally orthodox interpretation:
+
+\ex
+$\eval[w,g]{they$_1$ are outside} = \set{(\ml{outside}_{w}(g_{1}),g)}$
+\xe
+
+Since assignments are partial, the sentence with the indefinite will be undefined if the evaluation assignment $g$ is undefined for $1$.
+
+We can make Stalnaker's bridge explicit in our update rule --- updating a context $c$ with $\phi$ is only defined if $\phi$ is defined throughout $c$.
+
+\ex Update (revised): $c[ϕ] ≔ \begin{cases}
+  \bigcup\limits_{(w,g) ∈ c}\set{(w,g')|(1,g') ∈ \eval*[w,g]{ϕ}}&∀(w,g) ∈ c, \eval*[w,g]{ϕ}\text{ is defined}\\
+  \text{undefined}&\text{otherwise}
+  \end{cases}$
+\xe
+
+It follows that an update with an indefinite will ensure that a successive update with a definite is defined.
+
+\textbf{Negation}
+
+As in Mandelkern's fragment, negation is totally classical; in essence, all it does is flip the polarity of the outputted assignments.\sidenote{This may not look totally classical, so you'll have to trust me when I say that it is. Essentially, all we're doing here is mapping classical negation through the functorial structure of a \texttt{State.Set} monad (i.e., applying it pointwise).}
+
+\ex
+$\eval[w,g]{not} ≔ λ m . \bigcup\limits_{(t,g) ∈ m} \set{(¬ t, g)}$
+\xe
+
+If, in our previous context, we instead update with the negative sentence, no discourse referent is introduced; the worlds in which discourse referents are introduced are all false-tagged, since the polarities of the outputs got flipped:
+
+\ex
+$c[\text{nobody$^{1}$ left}] = \set{(w_{∅},g_{∅})}$
+\xe
+
+It follows that double negation elimination will be classical. Flipping the polarities of the outputted assignments twice will cancel out.
+
+\textbf{The connectives}
+
+We give syncategorematic rules for the connectives below; note that the second conjunct is interpreted relative to the true-tagged output of the first conjunct; the second disjunct is interpreted relative to the false-tagged outputs of the first disjunct.
+
+\ex
+$\eval[w,g]{$ϕ$ and $ψ$} ≔
+  \bigcup\limits_{(1,g') ∈ \eval*[w,g]{\phi}}\eval*[w,g']{\psi}$
+\xe
+
+\ex~
+$\eval[w,g]{$ϕ$ or $ψ$} ≔
+  \eval*[w,g]{ϕ} \cup \bigcup\limits_{(0,g') ∈ \eval*[w,g]{\phi}}\eval*[w,g']{\psi}$
+\xe
+
+\textbf{Illustration: bathroom sentences}
+
+Let's see how this solves the bathroom sentence problem:
+
+\begin{itemize}
+
+    \item $\ml{dom} ≔ \set{b}$
+
+    \item $W = \set{w_{b},w_{∅}}$
+
+    \item $c = W \times g_{\emptyset}$
+
+\end{itemize}
+
+\ex
+$\begin{aligned}[t]
+  &\eval[w,g]{there's no$^1$ bathroom or it$_1$'s upstairs}\\
+  &= \eval[w,g]{there's no$^1$ bathroom} \cup \bigcup\limits_{(0,g') ∈ \eval[w,g]{there's no bathroom}} \eval[w,g']{it$_1$'s upstairs}
+  \end{aligned}$
+\xe
+
+We're computing the result of doing the following:
+
+\ex
+$c[\text{there's no$^{1}$ bathroom or it$_{1}$'s upstairs}]$
+\xe
+
+\textbf{Step 1: interpret the sentence relative to $(w_{b},g_{∅})$}
+
+If we feed this into the first disjunct, we get a false-tagged output. This will be ignored in the result of the update.
+
+\ex
+$\eval[w_{b},g_{∅}]{there's no$^1$ bathroom} = \set{(0,[1 → b])}$
+\xe
+
+Now if we feed the false-tagged output into the second disjunct, we get a true-tagged output, since anaphora succeeded. This means that this $(w,g)$ will be retained by the update.
+
+\ex
+$\eval[w_{b},[1 → b]]{it$_1$'s upstairs} = \set{(1,[1 → b])}$
+\xe
+
+\ex
+$\set{(w_{b},g_{∅})}[\text{there is no$^{1}$ bathroom or it$_{1}$'s upstairs}]= \set{(w_{b},[1 → b])}$
+\xe
+
+\textbf{Step 2: interpret the sentence relative to $(w_{∅},g_{∅})$}
+
+If we feed this into the first disjunct we get a true-tagged output. This means that this $(w,g)$ will be retained by the update.
+
+\ex
+$\eval[w_{∅},g_{∅}]{there's no$^1$ bathroom}= \set{(1,g_{∅})}$
+\xe
+
+There are no false-tagged outputs, so the second disjunct is irrelevant here.
+
+\ex
+$\set{(w_{∅},g_{∅})}[\text{there is no$^{1}$ bathroom or it$_{1}$'s upstairs}]= \set{(w_{∅},g_{∅})}$
+\xe
+
+
+\textbf{Step 3: take the union}
+
+We predict that anaphora will be successful, and furthermore disjunction is (correctly) predicted to be externally static.
+
+\ex
+$c[\text{there's no$^{1}$ bathroom or it$_{1}$'s upstairs}] = \set{(w_{b},[1 → b]),(w_{∅},g_{∅})}$
+\xe
+
+\subsection{Outlook}
+
+There's a clear intuition that Mandelkern and Elliott's approaches share some important features:
+
+\begin{itemize}
+    \item On both theories, indefinites only introduce discourse referents if there is a verifier, and not otherwise.
+
+    \item On Mandelkern's theory, the double-life of indefinites is handled via the Strawson logic; on Elliott's theory, what's crucial is distinguishing between true and false information in the output.\sidenote{In that sense, Elliott's approach is more closely related to previous approaches to double negation in dynamic semantics, such as \cite{KrahmerMuskens1995}. Although elided here, this informational richness directly follows from the kind of monadic dynamics suggested by \citet{Charlow2019}.}
+\end{itemize}
+
+\textbf{Open questions:} how do we characterize exactly what these approaches have in common? There is clearly a shared insight here.
+
+As it stands, one could argue that Mandelkerns account is more explanatory than Elliott's as its grounded in an independently motivated theory of local contexts. Currently, i'm working on recasting the central ideas of dynamic alternative semantics using the middle Kleene semantics for connectives.
+
+\printbibliography
+
+\end{document}
